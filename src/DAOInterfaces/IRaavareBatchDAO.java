@@ -7,9 +7,9 @@ import DTO.RaavareBatchDTO;
 
 public interface IRaavareBatchDAO 
 {
-	RaavareBatchDTO getRaavareBatch(int rbId) throws DALException;
-	List<RaavareBatchDTO> getRaavareBatchList() throws DALException;
-	List<RaavareBatchDTO> getRaavareBatchList(int raavareId) throws DALException;
-	void createRaavareBatch(RaavareBatchDTO raavarebatch) throws DALException;
-	void updateRaavareBatch(RaavareBatchDTO raavarebatch) throws DALException;
+	RaavareBatchDTO getRaavareBatch(int rbId) throws DALException, Exception;
+	List<RaavareBatchDTO> getRaavareBatchList() throws DALException, Exception;
+	List<RaavareBatchDTO> getRaavareBatchList(int raavareId) throws DALException, Exception;
+	void createRaavareBatch(RaavareBatchDTO raavarebatch) throws DALException, Exception;
+	void updateRaavareBatch(RaavareBatchDTO raavarebatch) throws DALException, Exception;
 }

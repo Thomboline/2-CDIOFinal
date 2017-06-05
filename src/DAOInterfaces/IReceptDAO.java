@@ -7,8 +7,8 @@ import DTO.ReceptDTO;
 
 public interface IReceptDAO 
 {
-	ReceptDTO getRecept(int receptId) throws DALException;
-	List<ReceptDTO> getReceptList() throws DALException;
-	void createRecept(ReceptDTO recept) throws DALException;
-	void updateRecept(ReceptDTO recept) throws DALException;
+	ReceptDTO getRecept(int receptId) throws DALException, Exception;
+	List<ReceptDTO> getReceptList() throws DALException, Exception;
+	void createRecept(ReceptDTO recept) throws DALException, Exception;
+	void updateRecept(ReceptDTO recept) throws DALException, Exception;
 }
