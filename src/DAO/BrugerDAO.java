@@ -1,5 +1,7 @@
 package DAO;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import DAOInterfaces.DALException;
@@ -12,8 +14,13 @@ public class BrugerDAO implements IBrugerDAO
 	@Override
 	public BrugerDTO getBruger(int oprId) throws DALException 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		ResultSet rs = Connector.doQuery("SELECT * FROM operatoer WHERE opr_id = " + oprId);
+	    try 
+	    {
+	    	if (!rs.first()) throw new DALException("Operatoeren " + oprId + " findes ikke");
+	    	return new BrugerDTO ();
+	    }
+	    catch (SQLException e) {throw new DALException(e);}
 	}
 
 	@Override
