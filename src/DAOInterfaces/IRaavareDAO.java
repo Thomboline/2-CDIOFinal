@@ -1,5 +1,9 @@
 package DAOInterfaces;
 
+import java.util.List;
+
+import DTO.RaavareDTO;
+
 public interface IRaavareDAO 
 {
 	RaavareDTO getRaavare(int raavareId) throws DALException;

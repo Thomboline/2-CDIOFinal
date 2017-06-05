@@ -1,5 +1,9 @@
 package DAOInterfaces;
 
+import java.util.List;
+
+import DTO.RaavareBatchDTO;
+
 public interface IRaavareBatchDAO 
 {
 	RaavareBatchDTO getRaavareBatch(int rbId) throws DALException;

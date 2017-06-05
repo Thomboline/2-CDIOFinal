@@ -1,5 +1,9 @@
 package DAOInterfaces;
 
+import java.util.List;
+
+import DTO.BrugerDTO;
+
 public interface IBrugerDAO 
 {
 		BrugerDTO getBruger(int oprId) throws DALException;

@@ -1,5 +1,9 @@
 package DAOInterfaces;
 
+import java.util.List;
+
+import DTO.ReceptDTO;
+
 public interface IReceptDAO 
 {
 	ReceptDTO getRecept(int receptId) throws DALException;

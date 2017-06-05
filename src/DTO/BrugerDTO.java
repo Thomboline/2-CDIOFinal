@@ -16,5 +16,5 @@ public class BrugerDTO
 	String password;
 	/** Liste over roller */
 	List<String> roller;
-..
+
 }
