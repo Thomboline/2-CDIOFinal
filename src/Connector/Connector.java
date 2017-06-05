@@ -14,7 +14,7 @@ public class Connector {
     private final String DATABASE = "sql11178303";
     private final String USERNAME = "sql11178303"; 
     private final String PASSWORD = "CDIOfinal2017";
-    private Connection connection;
+    private static Connection connection;
     
     public Connector() {
         try {
@@ -31,13 +31,13 @@ public class Connector {
     	return connection;
     }
     
-    public ResultSet doQuery(String query) throws SQLException{
+    public static ResultSet doQuery(String query) throws SQLException{
         Statement stmt = connection.createStatement();
         ResultSet res = stmt.executeQuery(query);
         return res;
     }
     
-    public void doUpdate(String query) throws SQLException{
+    public static void doUpdate(String query) throws SQLException{
         Statement stmt = connection.createStatement();
         stmt.executeUpdate(query);
     }

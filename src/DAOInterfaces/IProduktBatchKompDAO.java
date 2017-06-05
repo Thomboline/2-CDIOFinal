@@ -2,6 +2,7 @@ package DAOInterfaces;
 
 import java.util.List;
 
+import Connector.DALException;
 import DTO.ProduktBatchKompDTO;
 
 public interface IProduktBatchKompDAO 
