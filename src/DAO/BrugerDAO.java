@@ -16,13 +16,23 @@ public class BrugerDAO implements IBrugerDAO
 	@Override
 	public BrugerDTO getBruger(int oprId) throws DALException 
 	{
-		ResultSet rs = Connector.doQuery("SELECT * FROM operatoer WHERE opr_id = " + oprId);
-	    try 
-	    {
-	    	if (!rs.first()) throw new DALException("Operatoeren " + oprId + " findes ikke");
-	    	return new BrugerDTO ();
-	    }
-	    catch (SQLException e) {throw new DALException(e);}
+		ResultSet rs = Connector.doQuery("SELECT oprId, name, ini, cpr, password FROM bruger WHERE oprId = " + oprId);
+		try 
+		{
+			if (!rs.first()) throw new Exception("Bruger with oprId="+oprId+" does not exist.");
+			return new BrugerDTO
+					(
+					rs.getInt("oprId"),
+					rs.getString("oprNavn"),
+					rs.getString("ini"),
+					rs.getString("cpr"),
+					rs.getString("password")
+					);
+		} 
+		catch (SQLException e) 
+		{
+			throw new Exception(e);
+		}
 	}
 
 	@Override
@@ -47,9 +57,15 @@ public class BrugerDAO implements IBrugerDAO
 	{
 		Connector.doUpdate
 		(
-				"INSERT INTO operatoer(opr_id, opr_navn, ini, cpr, password) VALUES " +
-				"(" + opr.getOprId() + ", '" + opr.getOprNavn() + "', '" + opr.getIni() + "', '" + 
-				opr.getCpr() + "', '" + opr.getPassword() + "')"
+				String.format
+				("CALL createBruger(%d,'%s','%s','%s','%s');",
+
+						opr.getId(),
+						opr.getName(),
+						opr.getIni(),
+						opr.getCpr(),
+						opr.getPassword()
+				)
 		);
 	}
 
