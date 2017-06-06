@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title</title>
+    <link href="HomePage.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="Administrator">
+        <div class="dropdown">
+            <button class="dropdownbtn">User Administration</button>
+            <div class="dropdown-content">
+                <a href="">List User</a>
+                <a href="">Create User</a>
+                <a href="#">Edit User</a>
+                <a href="#">Delete User</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="Farmaceut">
+        <div class="dropdown">
+            <button class="dropdownbtn">Raavare Administration</button>
+            <div class="dropdown-content">
+                <a href="#">List Raavare</a>
+                <button type="button" onclick="loadCR.display='block'">Create Raavare</button>
+                <a href="#">Edit Raavare</a>
+                <a href="#">Delete Raavare</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropdownbtn">RaavareBatch Administration</button>
+            <div class="dropdown-content">
+                <a href="#">List RaavareBatch</a>
+                <a href="#">Create RaavareBatch</a>
+                <a href="#">Edit RaavareBatch</a>
+                <a href="#">Delete RaavareBatch</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropdownbtn">ProduktBatch Administration</button>
+            <div class="dropdown-content">
+                <a href="#">List ProduktBatch</a>
+                <a href="#">Create ProduktBatch</a>
+                <a href="#">Edit ProduktBatch</a>
+                <a href="#">Delete ProduktBatch</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropdownbtn">Recept Administration</button>
+            <div class="dropdown-content">
+                <a href="#">List Recept</a>
+                <a href="#">Create Recept</a>
+                <a href="#">Edit Recept</a>
+                <a href="#">Delete Recept</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="Vaerkfoerer">
+        <div class="dropdown">
+            <button class="dropdownbtn">RaavareBatch Administration</button>
+            <div class="dropdown-content">
+                <a href="#">List RaavareBatch</a>
+                <a href="#">Create RaavareBatch</a>
+                <a href="#">Edit RaavareBatch</a>
+                <a href="#">Delete RaavareBatch</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropdownbtn">ProduktBatch Administration</button>
+            <div class="dropdown-content">
+                <a href="#">List ProduktBatch</a>
+                <a href="#">Create ProduktBatch</a>
+                <a href="#">Edit ProduktBatch</a>
+                <a href="#">Delete ProduktBatch</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="Laborant">
+        <div class="dropdown">
+            <button class="dropdownbtn">RaavareBatch Administration</button>
+            <div class="dropdown-content">
+                <a href="#">List RaavareBatch</a>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropdownbtn">ProduktBatch Administration</button>
+            <div class="dropdown-content">
+                <a href="#">List ProduktBatch</a>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<div></div>
+
+<script>
+    $(document).ready(function(){
+        function loadCR() {
+            $("#wrapper").load("CreateRaavare.html");
+        }
+    });
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src = "Main.js"></script>
+
+</body>
+</html>
