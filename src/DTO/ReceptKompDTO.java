@@ -17,8 +17,6 @@ public class ReceptKompDTO
 		this.tolerance = tolerance;
 	}
 	
-	
-	
 	public int getReceiptId() 
 	{
 		return receptId;
@@ -29,12 +27,12 @@ public class ReceptKompDTO
 		this.receptId = receptId;
 	}
 
-	public int getMaterialId() 
+	public int getRaavareId() 
 	{
 		return raavareId;
 	}
 
-	public void setMaterialId(int raavareId) 
+	public void setRaavareId(int raavareId) 
 	{
 		this.raavareId = raavareId;
 	}

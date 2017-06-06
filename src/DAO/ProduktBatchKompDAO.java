@@ -107,8 +107,8 @@ public class ProduktBatchKompDAO implements IProduktBatchKompDAO
 				String.format
 				("CALL createProduktBatchKomponent(%d, %d, %f, %f, %d);",
 
-						produktbatchkomponent.getProductBatchId(),
-						produktbatchkomponent.getMaterialBatchId(),
+						produktbatchkomponent.getProduktBatchId(),
+						produktbatchkomponent.getRaavareBatchId(),
 						produktbatchkomponent.getTara(),
 						produktbatchkomponent.getNetto(),
 						produktbatchkomponent.getOperatorId()
@@ -125,8 +125,8 @@ public class ProduktBatchKompDAO implements IProduktBatchKompDAO
 				String.format
 				("CALL updateProduktBatchKomponent(%d, %d, %f, %f, %d);",
 
-						produktbatchkomponent.getProductBatchId(),
-						produktbatchkomponent.getMaterialBatchId(),
+						produktbatchkomponent.getProduktBatchId(),
+						produktbatchkomponent.getRaavareBatchId(),
 						produktbatchkomponent.getTara(),
 						produktbatchkomponent.getNetto(),
 						produktbatchkomponent.getOperatorId()

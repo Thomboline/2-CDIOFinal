@@ -18,23 +18,23 @@ public class ProduktBatchKompDTO
 		this.oprId = oprId;
 	}
 
-	public int getProductBatchId() 
+	public int getProduktBatchId() 
 	{
 		return pbId;
 	}
 
-	public void setProductBatchId(int productBatchId) 
+	public void setProduktBatchId(int pbId) 
 	{
 
 		this.pbId = pbId;
 	}
 
-	public int getMaterialBatchId() 
+	public int getRaavareBatchId() 
 	{
 		return rbId;
 	}
 
-	public void setMaterialBatchId(int rbId) 
+	public void setRaavareBatchId(int rbId) 
 	{
 		this.rbId = rbId;
 	}

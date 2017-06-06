@@ -58,7 +58,7 @@ public class BrugerDAO implements IBrugerDAO
 				("CALL createBruger(%d,'%s','%s','%s','%s');",
 
 						opr.getId(),
-						opr.getName(),
+						opr.getOperatorNavn(),
 						opr.getIni(),
 						opr.getCpr(),
 						opr.getPassword()
@@ -71,7 +71,7 @@ public class BrugerDAO implements IBrugerDAO
 	{
 		Connector.doUpdate
 		(
-				"UPDATE operatoer SET  opr_navn = '" + opr.getName() + "', ini =  '" + opr.getIni() + 
+				"UPDATE operatoer SET  opr_navn = '" + opr.getOperatorNavn() + "', ini =  '" + opr.getIni() + 
 				"', cpr = '" + opr.getCpr() + "', password = '" + opr.getPassword() + "' WHERE opr_id = " +
 				opr.getId()
 		);

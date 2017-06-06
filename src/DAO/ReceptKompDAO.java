@@ -109,7 +109,7 @@ public class ReceptKompDAO implements IReceptKompDAO
 				("CALL createReceptkomponent(%d, %d, %f, %f);",
 
 						receptkomponent.getReceiptId(),
-						receptkomponent.getMaterialId(),
+						receptkomponent.getRaavareId(),
 						receptkomponent.getNomNetto(),
 						receptkomponent.getTolerance()
 				)
@@ -125,7 +125,7 @@ public class ReceptKompDAO implements IReceptKompDAO
 				("CALL updateReceptkomponent(%d, %d, %f, %f);",
 
 						receptkomponent.getReceiptId(),
-						receptkomponent.getMaterialId(),
+						receptkomponent.getRaavareId(),
 						receptkomponent.getNomNetto(),
 						receptkomponent.getTolerance()
 				)

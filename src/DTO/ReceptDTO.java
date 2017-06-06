@@ -11,22 +11,22 @@ public class ReceptDTO
 		this.receptNavn = receptNavn;
 	}
 
-	public int getId() 
+	public int getReceptId() 
 	{
 		return receptId;
 	}
 
-	public void setId(int receptId) 
+	public void setReceptId(int receptId) 
 	{
 		this.receptId = receptId;
 	}
 
-	public String getName() 
+	public String getReceptNavn() 
 	{
 		return receptNavn;
 	}
 
-	public void setName(String receptNavn) 
+	public void setReceptNavn(String receptNavn) 
 	{
 		this.receptNavn = receptNavn;
 	}

@@ -13,32 +13,32 @@ public class RaavareDTO
 		this.leverandoer = leverandoer;
 	}
 
-	public int getId() 
+	public int getRaavareId() 
 	{
 		return raavareId;
 	}
 
-	public void setId(int raavareId) 
+	public void setRaavareId(int raavareId) 
 	{
 		this.raavareId = raavareId;
 	}
 
-	public String getName() 
+	public String getRaavareNavn() 
 	{
 		return raavareNavn;
 	}
 
-	public void setName(String raavareNavn) 
+	public void setRaavareNavn(String raavareNavn) 
 	{
 		this.raavareNavn = raavareNavn;
 	}
 	
-	public String getSupplier() 
+	public String getLeverandoer() 
 	{
 		return leverandoer;
 	}
 
-	public void setSupplier(String leverandoer) 
+	public void setLeverandoer(String leverandoer) 
 	{
 		this.leverandoer = leverandoer;
 	}

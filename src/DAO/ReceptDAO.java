@@ -67,7 +67,7 @@ public class ReceptDAO implements IReceptDAO
 	{
 		Connector.doUpdate
 		(
-				String.format("CALL createRecept(&d, '%s');", recept.getId(), recept.getName())
+				String.format("CALL createRecept(&d, '%s');", recept.getReceptId(), recept.getReceptNavn())
 		);
 	}
 
@@ -76,7 +76,7 @@ public class ReceptDAO implements IReceptDAO
 	{
 		Connector.doUpdate
 		(
-				String.format("CALL updateRecept(&d, '%s');", recept.getId(), recept.getName())
+				String.format("CALL updateRecept(&d, '%s');", recept.getReceptId(), recept.getReceptNavn())
 		);
 	}
 }

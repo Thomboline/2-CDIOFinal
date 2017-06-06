@@ -14,12 +14,12 @@ public class ProduktBatchDTO
 		this.receptId = receptId;
 	}
 
-	public int getId() 
+	public int getProduktBatchId() 
 	{
 		return pbId;
 	}
 	
-	public void setId(int pbId) 
+	public void setProduktBatchId(int pbId) 
 	{
 		this.pbId = pbId;
 	}
@@ -34,12 +34,12 @@ public class ProduktBatchDTO
 		this.status = status;
 	}
 
-	public int getReceiptId() 
+	public int getReceptId() 
 	{
 		return receptId;
 	}
 
-	public void setReceiptId(int receptId) 
+	public void setReceptId(int receptId) 
 	{
 		this.receptId = receptId;
 	}

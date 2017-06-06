@@ -73,9 +73,9 @@ public class RaavareDAO implements IRaavareDAO
 				String.format
 				("CALL createRaavare(%d,'%s','%s');",
 
-						raavare.getId(),
-						raavare.getName(),
-						raavare.getSupplier()
+						raavare.getRaavareId(),
+						raavare.getRaavareNavn(),
+						raavare.getLeverandoer()
 				)
 		);
 	}
@@ -89,9 +89,9 @@ public class RaavareDAO implements IRaavareDAO
 				String.format
 				("CALL  updateRaavare(%d,'%s','%s');",
 
-						raavare.getId(),
-						raavare.getName(),
-						raavare.getSupplier()
+						raavare.getRaavareId(),
+						raavare.getRaavareNavn(),
+						raavare.getLeverandoer()
 				)
 		);
 	}

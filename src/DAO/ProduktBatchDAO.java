@@ -68,9 +68,9 @@ public class ProduktBatchDAO implements IProduktBatchDAO
 				String.format
 				("CALL createProduktBatch(%d, %d, %d);",
 
-						produktbatch.getId(),
+						produktbatch.getProduktBatchId(),
 						produktbatch.getStatus(),
-						produktbatch.getReceiptId()
+						produktbatch.getReceptId()
 				)
 		);
 	}
@@ -84,9 +84,9 @@ public class ProduktBatchDAO implements IProduktBatchDAO
 				String.format
 				("CALL updateProduktBatch(%d, %d, %d);",
 
-						produktbatch.getId(),
+						produktbatch.getProduktBatchId(),
 						produktbatch.getStatus(),
-						produktbatch.getReceiptId()
+						produktbatch.getReceptId()
 				)
 		);
 	}

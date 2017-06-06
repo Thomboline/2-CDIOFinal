@@ -24,7 +24,7 @@ public class BrugerDTO
 	public BrugerDTO(BrugerDTO opr) 
 	{
 		this.oprId = opr.getId();
-		this.oprNavn = opr.getName();
+		this.oprNavn = opr.getOperatorNavn();
 		this.ini = opr.getIni();
 		this.cpr = opr.getCpr();
 		this.password = opr.getPassword();
@@ -41,12 +41,12 @@ public class BrugerDTO
 		this.oprId = oprId;
 	}
 
-	public String getName()
+	public String getOperatorNavn()
 	{
 		return oprNavn;
 	}
 
-	public void setName(String oprNavn) 
+	public void setOperatorNavn(String oprNavn) 
 	{
 		this.oprNavn = oprNavn;
 	}
