@@ -102,7 +102,7 @@ public class RaavareBatchDAO implements IRaavareBatchDAO
 		Connector.doUpdate(
 
 				String.format
-				("CALL createMaterialBatch(%d,'%d','%d');",
+				("CALL createraavareBatch(%d,'%d','%d');",
 
 						raavarebatch.getId(),
 						raavarebatch.getraavareId(),
@@ -117,7 +117,7 @@ public class RaavareBatchDAO implements IRaavareBatchDAO
 		Connector.doUpdate(
 
 				String.format
-				("CALL updateMaterialBatch(%d,'%d','%d');",
+				("CALL updateraavareBatch(%d,'%d','%d');",
 
 						raavarebatch.getId(),
 						raavarebatch.getraavareId(),

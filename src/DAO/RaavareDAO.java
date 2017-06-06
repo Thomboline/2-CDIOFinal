@@ -71,7 +71,7 @@ public class RaavareDAO implements IRaavareDAO
 		(
 
 				String.format
-				("CALL createMaterial(%d,'%s','%s');",
+				("CALL createraavare(%d,'%s','%s');",
 
 						raavare.getId(),
 						raavare.getName(),
@@ -87,7 +87,7 @@ public class RaavareDAO implements IRaavareDAO
 		(
 
 				String.format
-				("CALL  updateMaterial(%d,'%s','%s');",
+				("CALL  updateraavare(%d,'%s','%s');",
 
 						raavare.getId(),
 						raavare.getName(),
