@@ -16,8 +16,10 @@ public class Connector {
     private final String PASSWORD = "CDIOfinal2017";
     private static Connection connection;
     
-    public Connector() {
-        try {
+    public Connector() 
+    {
+        try 
+        {
 			Class.forName("com.mysql.jdbc.Driver");
 			String url = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE;
 			connection = DriverManager.getConnection(url, USERNAME, PASSWORD);
@@ -31,13 +33,15 @@ public class Connector {
     	return connection;
     }
     
-    public static ResultSet doQuery(String query) throws SQLException{
+    public static ResultSet doQuery(String query) throws SQLException
+    {
         Statement stmt = connection.createStatement();
         ResultSet res = stmt.executeQuery(query);
         return res;
     }
     
-    public static void doUpdate(String query) throws SQLException{
+    public static void doUpdate(String query) throws SQLException
+    {
         Statement stmt = connection.createStatement();
         stmt.executeUpdate(query);
     }

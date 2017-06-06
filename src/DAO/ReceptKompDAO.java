@@ -1,7 +1,11 @@
 package DAO;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
+import Connector.Connector;
 import Connector.DALException;
 import DAOInterfaces.IReceptKompDAO;
 import DTO.ReceptKompDTO;
@@ -10,32 +14,122 @@ public class ReceptKompDAO implements IReceptKompDAO
 {
 
 	@Override
-	public ReceptKompDTO getReceptKomp(int receptId, int raavareId) throws DALException, Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public ReceptKompDTO getReceptKomp(int receptId, int raavareId) throws DALException, Exception 
+	{
+		ResultSet rs = Connector.doQuery("SELECT receptId, raavareId, netto, tolerance FROM ReceptKomponent WHERE receptId = " + receptId + " AND raavareId = "+ raavareId);
+
+		try 
+		{
+			if (!rs.first())
+
+				throw new DALException("Receipt component with receipt id="+receptId+" and raavare id="+raavareId+" does not exist.");
+
+			return new ReceptKompDTO
+			(
+					rs.getInt("receptId"),
+					rs.getInt("raavareId"),
+					rs.getDouble("netto"),
+					rs.getDouble("tolerance")
+			);
+			
+		} catch (SQLException e) 
+		{
+			throw new DALException(e);
+		}
 	}
 
 	@Override
-	public List<ReceptKompDTO> getReceptKompList(int receptId) throws DALException, Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ReceptKompDTO> getReceptKompList(int receptId) throws DALException, Exception 
+	{
+		List<ReceptKompDTO> list = new ArrayList<>();
+
+		ResultSet rs = Connector.doQuery("SELECT receptId, raavareId, netto, tolerance FROM ReceptKomponent WHERE receptId="+receptId);
+
+		try 
+		{
+			while (rs.next()) 
+			{
+				list.add
+				(
+						new ReceptKompDTO
+						(
+								rs.getInt("receptId"),
+								rs.getInt("raavareId"),
+								rs.getDouble("netto"),
+								rs.getDouble("tolerance")
+						)
+				);
+			}
+
+		} catch (SQLException e) 
+		{
+			throw new DALException(e);
+		}
+
+		return list;
 	}
 
 	@Override
-	public List<ReceptKompDTO> getReceptKompList() throws DALException, Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ReceptKompDTO> getReceptKompList() throws DALException, Exception 
+	{
+		List<ReceptKompDTO> list = new ArrayList<>();
+
+		ResultSet rs = Connector.doQuery("SELECT receptId, raavareId, netto, tolerance FROM ReceptKomponent");
+
+		try 
+		{
+			while (rs.next()) 
+			{
+				list.add(
+
+						new ReceptKompDTO
+						(
+								rs.getInt("receptId"),
+								rs.getInt("raavareId"),
+								rs.getDouble("netto"),
+								rs.getDouble("tolerance")
+						)
+				);
+			}
+
+		} catch (SQLException e) 
+		{
+			throw new DALException(e);
+		}
+
+		return list;
 	}
 
 	@Override
-	public void createReceptKomp(ReceptKompDTO receptkomponent) throws DALException, Exception {
-		// TODO Auto-generated method stub
-		
+	public void createReceptKomp(ReceptKompDTO receptkomponent) throws DALException, Exception 
+	{
+		Connector.doUpdate
+		(
+				String.format
+				("CALL createReceiptComponent(%d, %d, %f, %f);",
+
+						receptkomponent.getReceiptId(),
+						receptkomponent.getMaterialId(),
+						receptkomponent.getNomNetto(),
+						receptkomponent.getTolerance()
+				)
+		);	
 	}
 
 	@Override
-	public void updateReceptKomp(ReceptKompDTO receptkomponent) throws DALException, Exception {
-		// TODO Auto-generated method stub
+	public void updateReceptKomp(ReceptKompDTO receptkomponent) throws DALException, Exception 
+	{
+		Connector.doUpdate
+		(
+				String.format
+				("CALL updateReceiptComponent(%d, %d, %f, %f);",
+
+						receptkomponent.getReceiptId(),
+						receptkomponent.getMaterialId(),
+						receptkomponent.getNomNetto(),
+						receptkomponent.getTolerance()
+				)
+		);	
 		
 	}
 

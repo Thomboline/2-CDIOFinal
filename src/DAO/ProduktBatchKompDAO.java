@@ -72,7 +72,7 @@ public class ProduktBatchKompDAO implements IProduktBatchKompDAO
 	{
 		List<ProduktBatchKompDTO> list = new ArrayList<>();
 
-		ResultSet rs = Connector.doQuery("SELECT productBatchId, materialBatchId, tara, netto, operatorId FROM productBatchComponent");
+		ResultSet rs = Connector.doQuery("SELECT pbId, rbId, tara, netto, oprId FROM ProduktbatchKomponent");
 
 		try 
 		{
@@ -80,44 +80,58 @@ public class ProduktBatchKompDAO implements IProduktBatchKompDAO
 			while (rs.next()) 
 			{
 
-				list.add(
-
-						new ProductBatchComponent(
-
-								rs.getInt("productBatchId"),
-
-								rs.getInt("materialBatchId"),
-
+				list.add(new ProduktBatchKompDTO
+						(
+								rs.getInt("pbId"),
+								rs.getInt("rbId"),
 								rs.getDouble("tara"),
-
 								rs.getDouble("netto"),
-
-								rs.getInt("operatorId")
-
+								rs.getInt("oprId")
 						)
-
 				);
-
 			}
 
-		} catch (SQLException e) {
-
+		} catch (SQLException e) 
+		{
 			throw new DALException(e);
-
 		}
 
 		return list;
 	}
 
 	@Override
-	public void createProduktBatchKomp(ProduktBatchKompDTO produktbatchkomponent) throws DALException, Exception {
-		// TODO Auto-generated method stub
+	public void createProduktBatchKomp(ProduktBatchKompDTO produktbatchkomponent) throws DALException, Exception 
+	{
+		Connector.doUpdate
+		(
+				String.format
+				("CALL createProductBatchComponent(%d, %d, %f, %f, %d);",
+
+						produktbatchkomponent.getProductBatchId(),
+						produktbatchkomponent.getMaterialBatchId(),
+						produktbatchkomponent.getTara(),
+						produktbatchkomponent.getNetto(),
+						produktbatchkomponent.getOperatorId()
+				)
+		);
 		
 	}
 
 	@Override
-	public void updateProduktBatchKomp(ProduktBatchKompDTO produktbatchkomponent) throws DALException, Exception {
-		// TODO Auto-generated method stub
+	public void updateProduktBatchKomp(ProduktBatchKompDTO produktbatchkomponent) throws DALException, Exception 
+	{
+		Connector.doUpdate
+		(
+				String.format
+				("CALL updateProductBatchComponent(%d, %d, %f, %f, %d);",
+
+						produktbatchkomponent.getProductBatchId(),
+						produktbatchkomponent.getMaterialBatchId(),
+						produktbatchkomponent.getTara(),
+						produktbatchkomponent.getNetto(),
+						produktbatchkomponent.getOperatorId()
+				)
+		);
 		
 	}
 

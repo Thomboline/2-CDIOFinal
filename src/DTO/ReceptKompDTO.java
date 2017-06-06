@@ -8,6 +8,17 @@ public class ReceptKompDTO
 	double nomNetto;			/** nominel nettomængde i området 0,05 - 20,0 kg */
 	double tolerance;			/** tolerance i området 0,1 - 10,0 % */
 	
+	
+	public ReceptKompDTO(int receptId, int raavareId, double nomNetto, double tolerance) 
+	{
+		this.receptId = receptId;
+		this.raavareId = raavareId;
+		this.nomNetto = nomNetto;
+		this.tolerance = tolerance;
+	}
+	
+	
+	
 	public int getReceiptId() 
 	{
 		return receptId;
