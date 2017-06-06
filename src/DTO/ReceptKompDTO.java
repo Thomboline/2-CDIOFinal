@@ -17,12 +17,12 @@ public class ReceptKompDTO
 		this.tolerance = tolerance;
 	}
 	
-	public int getReceiptId() 
+	public int getReceptId() 
 	{
 		return receptId;
 	}
 
-	public void setReceiptId(int receptId) 
+	public void setReceptId(int receptId) 
 	{
 		this.receptId = receptId;
 	}
