@@ -66,7 +66,7 @@ public class ProduktBatchDAO implements IProduktBatchDAO
 		Connector.doUpdate
 		(
 				String.format
-				("CALL createProductBatch(%d, %d, %d);",
+				("CALL createProduktBatch(%d, %d, %d);",
 
 						produktbatch.getId(),
 						produktbatch.getStatus(),
@@ -82,7 +82,7 @@ public class ProduktBatchDAO implements IProduktBatchDAO
 		(
 
 				String.format
-				("CALL updateProductBatch(%d, %d, %d);",
+				("CALL updateProduktBatch(%d, %d, %d);",
 
 						produktbatch.getId(),
 						produktbatch.getStatus(),

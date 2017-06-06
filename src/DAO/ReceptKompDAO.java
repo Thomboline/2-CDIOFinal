@@ -106,7 +106,7 @@ public class ReceptKompDAO implements IReceptKompDAO
 		Connector.doUpdate
 		(
 				String.format
-				("CALL createReceiptComponent(%d, %d, %f, %f);",
+				("CALL createReceptkomponent(%d, %d, %f, %f);",
 
 						receptkomponent.getReceiptId(),
 						receptkomponent.getMaterialId(),
@@ -122,7 +122,7 @@ public class ReceptKompDAO implements IReceptKompDAO
 		Connector.doUpdate
 		(
 				String.format
-				("CALL updateReceiptComponent(%d, %d, %f, %f);",
+				("CALL updateReceptkomponent(%d, %d, %f, %f);",
 
 						receptkomponent.getReceiptId(),
 						receptkomponent.getMaterialId(),

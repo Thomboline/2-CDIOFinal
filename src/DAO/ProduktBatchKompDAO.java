@@ -105,7 +105,7 @@ public class ProduktBatchKompDAO implements IProduktBatchKompDAO
 		Connector.doUpdate
 		(
 				String.format
-				("CALL createProductBatchComponent(%d, %d, %f, %f, %d);",
+				("CALL createProduktBatchKomponent(%d, %d, %f, %f, %d);",
 
 						produktbatchkomponent.getProductBatchId(),
 						produktbatchkomponent.getMaterialBatchId(),
@@ -123,7 +123,7 @@ public class ProduktBatchKompDAO implements IProduktBatchKompDAO
 		Connector.doUpdate
 		(
 				String.format
-				("CALL updateProductBatchComponent(%d, %d, %f, %f, %d);",
+				("CALL updateProduktBatchKomponent(%d, %d, %f, %f, %d);",
 
 						produktbatchkomponent.getProductBatchId(),
 						produktbatchkomponent.getMaterialBatchId(),
