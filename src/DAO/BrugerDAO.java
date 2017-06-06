@@ -9,13 +9,14 @@ import Connector.Connector;
 import DAOInterfaces.IBrugerDAO;
 import DTO.BrugerDTO;
 
+
 public class BrugerDAO implements IBrugerDAO
 {
-
+	
 	@Override
 	public BrugerDTO getBruger(int oprId) throws Exception 
 	{
-		ResultSet rs = Connector.doQuery("SELECT oprId, name, ini, cpr, password FROM bruger WHERE oprId = " + oprId);
+		ResultSet rs = Connector.doQuery("SELECT * FROM bruger WHERE oprId = " + oprId);
 		
 		try 
 		{

@@ -15,7 +15,7 @@ public class ReceptDAO implements IReceptDAO
 	@Override
 	public ReceptDTO getRecept(int receptId) throws Exception 
 	{
-		ResultSet rs = Connector.doQuery("SELECT receptId, name FROM receipt WHERE receptId = " + receptId);
+		ResultSet rs = Connector.doQuery("SELECT * FROM receipt WHERE receptId = " + receptId);
 
 		try 
 		{

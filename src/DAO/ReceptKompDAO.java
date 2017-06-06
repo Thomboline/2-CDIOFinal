@@ -16,7 +16,7 @@ public class ReceptKompDAO implements IReceptKompDAO
 	@Override
 	public ReceptKompDTO getReceptKomp(int receptId, int raavareId) throws DALException, Exception 
 	{
-		ResultSet rs = Connector.doQuery("SELECT receptId, raavareId, netto, tolerance FROM ReceptKomponent WHERE receptId = " + receptId + " AND raavareId = "+ raavareId);
+		ResultSet rs = Connector.doQuery("SELECT * FROM ReceptKomponent WHERE receptId = " + receptId + " AND raavareId = "+ raavareId);
 
 		try 
 		{

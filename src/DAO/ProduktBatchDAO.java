@@ -14,7 +14,7 @@ public class ProduktBatchDAO implements IProduktBatchDAO
 	@Override
 	public ProduktBatchDTO getProduktBatch(int pbId) throws Exception
 	{
-		ResultSet rs = Connector.doQuery("SELECT id, status, receiptId FROM productBatch WHERE id = " + pbId);
+		ResultSet rs = Connector.doQuery("SELECT * FROM productBatch WHERE id = " + pbId);
 
 		try {
 			if (!rs.first()) throw new Exception("Product batch with id="+pbId+" does not exist.");

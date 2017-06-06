@@ -16,7 +16,7 @@ public class RaavareDAO implements IRaavareDAO
 	@Override
 	public RaavareDTO getRaavare(int raavareId) throws Exception 
 	{
-		ResultSet rs = Connector.doQuery("SELECT raavareId, raavareNavn, leverandoer FROM raavare WHERE raavareId = " + raavareId);
+		ResultSet rs = Connector.doQuery("SELECT * FROM raavare WHERE raavareId = " + raavareId);
 		try 
 		{
 			if (!rs.first()) throw new DALException("Raavare with raavareId="+raavareId+" does not exist.");

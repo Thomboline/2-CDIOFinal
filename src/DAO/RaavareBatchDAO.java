@@ -16,7 +16,7 @@ public class RaavareBatchDAO implements IRaavareBatchDAO
 	@Override
 	public RaavareBatchDTO getRaavareBatch(int rbId) throws DALException, Exception 
 	{
-		ResultSet rs = Connector.doQuery("SELECT rbId, raavareId, maengde FROM RaavareBatch WHERE rbId =" + rbId);
+		ResultSet rs = Connector.doQuery("SELECT * FROM RaavareBatch WHERE rbId =" + rbId);
 
 		try 
 		{

@@ -16,7 +16,7 @@ public class ProduktBatchKompDAO implements IProduktBatchKompDAO
 	@Override
 	public ProduktBatchKompDTO getProduktBatchKomp(int pbId, int rbId) throws Exception 
 	{
-		ResultSet rs = Connector.doQuery("SELECT pbId, rbId, tara, netto, operatorId FROM productBatchComponent WHERE pbId = " + pbId + " AND rbId = " + rbId);
+		ResultSet rs = Connector.doQuery("SELECT * FROM productBatchComponent WHERE pbId = " + pbId + " AND rbId = " + rbId);
 
 			try {
 
