@@ -1,8 +1,6 @@
 package Weight.gui;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import Weight.IWeightInterfaceController;
 import Weight.IWeightInterfaceObserver;
 import Weight.KeyPress;

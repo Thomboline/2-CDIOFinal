@@ -18,7 +18,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import weight.IWeightInterfaceController.InputType;
+import Weight.IWeightInterfaceController.InputType;
 //
 public class FxApp extends Application {
 	private Text txtload, txtbottom;
