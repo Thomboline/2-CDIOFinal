@@ -1,6 +1,6 @@
 package Weight.gui;
 
-import Weight.IWeightInterfaceController.InputType;
+import weight.IWeightInterfaceController.InputType;
 //
 public class FxAppInputBtnHandler {
 	private int lastBtnPressed = -1;

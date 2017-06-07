@@ -1,9 +1,10 @@
 package Weight.gui;
 import java.util.ArrayList;
 import java.util.Arrays;
-import Weight.IWeightInterfaceController;
-import Weight.IWeightInterfaceObserver;
-import Weight.KeyPress;
+
+import weight.IWeightInterfaceController;
+import weight.IWeightInterfaceObserver;
+import weight.KeyPress;
 //
 public class WeightInterfaceControllerGUI implements IWeightInterfaceController {
 	private static WeightInterfaceControllerGUI instance;
