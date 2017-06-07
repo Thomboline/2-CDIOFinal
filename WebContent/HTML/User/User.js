@@ -26,8 +26,21 @@ function CreateUser() {
 		type: 'POST',
 		url: 'http://localhost:8080/CDIOFinal',
 		dataType: "json",
-		data: 
+		data: "hej"
 	});
+}
+
+function EditUser() {
+	$.ajax({
+		type: 'PUT',
+		url: 'http://localhost:8080/CDIOFinal',
+		dataType: "json",
+		data: "Hej"
+	});
+}
+
+function DeleteUser() {
+	
 }
 
 function renderList(data) {
