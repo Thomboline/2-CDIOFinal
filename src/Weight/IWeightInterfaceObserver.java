@@ -1,4 +1,4 @@
-package weight;
+package Weight;
 
 public interface IWeightInterfaceObserver {
 	void notifyKeyPress(KeyPress keypress);

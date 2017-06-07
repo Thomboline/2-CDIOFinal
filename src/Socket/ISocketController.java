@@ -1,4 +1,4 @@
-package socket;
+package Socket;
 
 public interface ISocketController extends Runnable{
 	public final static int Port = 8000;
