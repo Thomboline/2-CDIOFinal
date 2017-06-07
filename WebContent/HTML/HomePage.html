@@ -11,7 +11,7 @@
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src = "../js/Login.js"></script>
+
 
 <div class="container">
 
@@ -19,8 +19,8 @@
         <div class="dropdown">
             <button class="dropdownbtn">User Administration</button>
             <div class="dropdown-content">
-                <a href="">List User</a>
-                <a href="">Create User</a>
+                <a href="#">List User</a>
+                <a href="#">Create User</a>
                 <a href="#">Edit User</a>
                 <a href="#">Delete User</a>
             </div>
@@ -32,7 +32,7 @@
             <button class="dropdownbtn">Raavare Administration</button>
             <div class="dropdown-content">
                 <a href="#">List Raavare</a>
-                <a href="#" onclick='$("#wrapper").show()'>Create Raavare</a>
+                <a href="#" id="CR">Create Raavare</a>
                 <a href="#">Edit Raavare</a>
                 <a href="#">Delete Raavare</a>
             </div>
@@ -110,8 +110,16 @@
 </div>
 
 
-<script>
+<div id="wrapper"></div>
 
+
+
+<script>
+    $(document).ready( function() {
+        $("#CR").on("click", function() {
+            $("#wrapper").load("CreateRaavare.html");
+        });
+    });
 </script>
 
 

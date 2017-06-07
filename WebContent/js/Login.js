@@ -6,28 +6,14 @@ $(document).ready(function () {
         event.preventDefault();
         $(function() {
 
-            /* Validate
-            $("#login").validate({
-                rules:
-                    {
-                        username: {
-                            required: true
-                        },
-                        password: {
-                            required: "Please enter your password"
-                        },
-                        submitHandler: submitForm
-                    })
-            /* Validate */
-
             /* Login */
             $.ajax({
                 type: "POST",
-                url: 'http://localhost:????/login',
+                url: 'http://localhost:8080/CDIOFinal/',
                 dataType: 'json',
                 data: JSON.stringify({
-                    "userid": Username,
-                    "password": Password
+                    "username": username,
+                    "password": password
                 }),
                 error: function(errorThrown) {
                     console.log(errorThrown);
