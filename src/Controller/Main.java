@@ -15,7 +15,7 @@ public class Main {
 	public static void main(String[] args) {
 		ISocketController socketHandler = new SocketController();
 		IWeightInterfaceController weightController = new WeightInterfaceControllerGUI();
-		IMainController mainCtrl = new WeightController(socketHandler, weightController);
+		IWeightController mainCtrl = new WeightController(socketHandler, weightController);
 		mainCtrl.start();
 	}
 }
