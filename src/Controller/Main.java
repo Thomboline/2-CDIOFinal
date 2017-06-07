@@ -1,9 +1,9 @@
-package controller;
+package Controller;
 
-import socket.SocketController;
-import weight.IWeightInterfaceController;
-import weight.gui.WeightInterfaceControllerGUI;
-import socket.ISocketController;
+import Socket.SocketController;
+import Weight.IWeightInterfaceController;
+import Weight.gui.WeightInterfaceControllerGUI;
+import Socket.ISocketController;
 /**
  * Simple class to fire up application and inject implementations
  * @author Christian

@@ -1,4 +1,4 @@
-package socket;
+package Socket;
 
 import java.util.List;
 import java.io.BufferedReader;
@@ -15,6 +15,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+
+import Socket.SocketInMessage.SocketMessageType;
 
 
 

@@ -1,4 +1,4 @@
-package socket;
+package Socket;
 
 public class SocketOutMessage {
 
