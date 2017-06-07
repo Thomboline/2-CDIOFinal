@@ -58,3 +58,4 @@ function renderList(data) {
         $('#UserList').append('<li><a href="#" data-identity="' + user.id + '">'+user.name+'</a></li>');
     });
 }
+
