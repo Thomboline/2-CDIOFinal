@@ -14,6 +14,9 @@ function SearchById(input) {
 		type: 'GET',
 		url: 'http://localhost:8080/CDIOFinal/HTML/Raavare/Search' + input,
 		dataType: "json",
-		data: ""
+		data: "hej",
+		success: function (event) {
+			
+		}
 	});
 }
