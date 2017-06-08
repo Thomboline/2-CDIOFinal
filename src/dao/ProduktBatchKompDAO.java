@@ -27,9 +27,9 @@ public class ProduktBatchKompDAO implements IProduktBatchKompDAO
 				(
 						rs.getInt("pbId"),
 						rs.getInt("rbId"),
+						rs.getInt("brugerId"),
 						rs.getDouble("tara"),
 						rs.getDouble("netto"),
-						rs.getInt("brugerId"),
 						rs.getInt("terminal")
 				);
 
@@ -55,9 +55,9 @@ public class ProduktBatchKompDAO implements IProduktBatchKompDAO
 							(
 							rs.getInt("pbId"),
 							rs.getInt("rbId"),
+							rs.getInt("brugerId"),
 							rs.getDouble("tara"),
 							rs.getDouble("netto"),
-							rs.getInt("brugerId"),
 							rs.getInt("terminal")
 							)
 				);
@@ -87,9 +87,9 @@ public class ProduktBatchKompDAO implements IProduktBatchKompDAO
 						(
 								rs.getInt("pbId"),
 								rs.getInt("rbId"),
+								rs.getInt("brugerId"),
 								rs.getDouble("tara"),
 								rs.getDouble("netto"),
-								rs.getInt("brugerId"),
 								rs.getInt("terminal")
 						)
 				);
@@ -128,13 +128,15 @@ public class ProduktBatchKompDAO implements IProduktBatchKompDAO
 		Connector.doUpdate
 		(
 				String.format
-				("CALL updateProduktBatchKomponent('%d', '%d', '%f', '%f', '%d');",
+				("CALL updateProduktBatchKomponent('%d', '%d', '%d', '%f', '%f', '%d');",
 
 						produktbatchkomponent.getProduktBatchId(),
 						produktbatchkomponent.getRaavareBatchId(),
+						produktbatchkomponent.getBrugerId(),
 						produktbatchkomponent.getTara(),
 						produktbatchkomponent.getNetto(),
-						produktbatchkomponent.getBrugerId()
+						produktbatchkomponent.getTerminal()
+						
 				)
 		);
 		

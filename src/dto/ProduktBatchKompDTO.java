@@ -4,19 +4,19 @@ public class ProduktBatchKompDTO
 {
 	
 	int terminal;
-	int pbId;					/**produkt batch id i området 1-99999999. Vælges af brugerne */
-	int rbId;					/** raavare batch id i området 1-99999999. Vælges af brugerne */
+	int pbId;					/**produkt batch id i omrï¿½det 1-99999999. Vï¿½lges af brugerne */
+	int rbId;					/** raavare batch id i omrï¿½det 1-99999999. Vï¿½lges af brugerne */
 	double tara;				/** tara i kg */
-	double netto;				/** afvejet nettomængde i kg */
+	double netto;				/** afvejet nettomï¿½ngde i kg */
 	int brugerId;					/** Laborant-identifikationsnummer */
 	
-	public ProduktBatchKompDTO(int pbId, int rbId, double tara, double netto, int brugerId, int terminal) 
+	public ProduktBatchKompDTO(int pbId, int rbId, int brugerId, double tara, double netto, int terminal) 
 	{
 		this.pbId = pbId;
 		this.rbId = rbId;
+		this.brugerId = brugerId;
 		this.tara = tara;
 		this.netto = netto;
-		this.brugerId = brugerId;
 		this.terminal = terminal;
 	}
 
