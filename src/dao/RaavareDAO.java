@@ -12,7 +12,8 @@ import dto.RaavareDTO;
 
 public class RaavareDAO implements IRaavareDAO
 {
-
+	Connector c = new Connector();
+	
 	@Override
 	public RaavareDTO getRaavare(int raavareId) throws Exception 
 	{
@@ -24,8 +25,8 @@ public class RaavareDAO implements IRaavareDAO
 			return new RaavareDTO
 			(
 					rs.getInt("raavareId"),
-					rs.getString("name"),
-					rs.getString("supplier")
+					rs.getString("RaavareNavn"),
+					rs.getString("Leverandoer")
 			);
 
 		} catch (SQLException e) 
@@ -39,7 +40,7 @@ public class RaavareDAO implements IRaavareDAO
 	{
 		List<RaavareDTO> list = new ArrayList<>();
 
-		ResultSet rs = Connector.doQuery("SELECT raavareId, raavareNavn, leverandoer FROM raavare");
+		ResultSet rs = Connector.doQuery("SELECT * FROM raavare");
 
 		try 
 		{

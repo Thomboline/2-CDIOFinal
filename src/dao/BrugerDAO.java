@@ -61,14 +61,15 @@ public class BrugerDAO implements IBrugerDAO
 		Connector.doUpdate
 		(
 				String.format
-				("CALL createBruger(%d,'%s','%s','%s','%s','%s');",
+				("CALL createBruger('%d','%s','%s','%s','%s','%s','%d');",
 
 						bruger.getId(),
 						bruger.getBrugerNavn(),
 						bruger.getIni(),
 						bruger.getPassword(),
 						bruger.getCpr(),
-						bruger.getRolle()
+						bruger.getRolle(),
+						bruger.getStatus()
 				)
 		);
 		

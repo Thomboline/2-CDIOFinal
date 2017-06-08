@@ -28,8 +28,8 @@ public class ProduktBatchKompDAO implements IProduktBatchKompDAO
 						rs.getInt("pbId"),
 						rs.getInt("rbId"),
 						rs.getInt("brugerId"),
-						rs.getString("tara"),
-						rs.getString("netto"),
+						rs.getDouble("tara"),
+						rs.getDouble("netto"),
 						rs.getInt("terminal")
 				);
 
@@ -56,8 +56,8 @@ public class ProduktBatchKompDAO implements IProduktBatchKompDAO
 							rs.getInt("pbId"),
 							rs.getInt("rbId"),
 							rs.getInt("brugerId"),
-							rs.getString("tara"),
-							rs.getString("netto"),
+							rs.getDouble("tara"),
+							rs.getDouble("netto"),
 							rs.getInt("terminal")
 							)
 				);
@@ -88,8 +88,8 @@ public class ProduktBatchKompDAO implements IProduktBatchKompDAO
 								rs.getInt("pbId"),
 								rs.getInt("rbId"),
 								rs.getInt("brugerId"),
-								rs.getString("tara"),
-								rs.getString("netto"),
+								rs.getDouble("tara"),
+								rs.getDouble("netto"),
 								rs.getInt("terminal")
 						)
 				);

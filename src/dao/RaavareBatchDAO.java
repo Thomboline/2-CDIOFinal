@@ -12,11 +12,12 @@ import dto.RaavareBatchDTO;
 
 public class RaavareBatchDAO implements IRaavareBatchDAO
 {
-
+	Connector c = new Connector();
+	
 	@Override
 	public RaavareBatchDTO getRaavareBatch(int rbId) throws DALException, Exception 
 	{
-		ResultSet rs = Connector.doQuery("SELECT * FROM RaavareBatch WHERE rbId =" + rbId);
+		ResultSet rs = Connector.doQuery("SELECT * FROM raavarebatch WHERE rbId =" + rbId);
 
 		try 
 		{
@@ -40,8 +41,8 @@ public class RaavareBatchDAO implements IRaavareBatchDAO
 	{
 		List<RaavareBatchDTO> list = new ArrayList<>();
 
-		ResultSet rs = Connector.doQuery("SELECT rbId, raavareId, maengde FROM RaavareBatch");
-
+		ResultSet rs = Connector.doQuery("SELECT * FROM raavarebatch");
+	
 		try 
 		{
 			while (rs.next()) 
@@ -66,11 +67,11 @@ public class RaavareBatchDAO implements IRaavareBatchDAO
 	}
 
 	@Override
-	public List<RaavareBatchDTO> getRaavareBatchList(int raavareId) throws DALException, Exception 
+	public List<RaavareBatchDTO> getRaavareBatchList(int rbId) throws DALException, Exception 
 	{
 		List<RaavareBatchDTO> list = new ArrayList<>();
 
-		ResultSet rs = Connector.doQuery("CALL RaavareBatch By Raavare("+raavareId+");");
+		ResultSet rs = Connector.doQuery("select * from raavarebatch where rbId = " + rbId);
 
 		try 
 		{
@@ -102,7 +103,7 @@ public class RaavareBatchDAO implements IRaavareBatchDAO
 		Connector.doUpdate(
 
 				String.format
-				("CALL createRaavareBatch(%d,'%d','%d');",
+				("CALL createRaavareBatch('%d','%d','%s');",
 
 						raavarebatch.getRaavareBatchId(),
 						raavarebatch.getRaavareId(),
@@ -117,7 +118,7 @@ public class RaavareBatchDAO implements IRaavareBatchDAO
 		Connector.doUpdate(
 
 				String.format
-				("CALL updateRaavareBatch(%d,'%d','%d');",
+				("CALL updateRaavareBatch(%d,'%d','%s');",
 
 						raavarebatch.getRaavareBatchId(),
 						raavarebatch.getRaavareId(),

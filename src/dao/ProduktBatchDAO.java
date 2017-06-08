@@ -11,7 +11,8 @@ import dto.ProduktBatchDTO;
 
 public class ProduktBatchDAO implements IProduktBatchDAO
 {
-
+	Connector c = new Connector();
+	
 	@Override
 	public ProduktBatchDTO getProduktBatch(int pbId) throws Exception
 	{
@@ -36,7 +37,7 @@ public class ProduktBatchDAO implements IProduktBatchDAO
 	{
 		List<ProduktBatchDTO> list = new ArrayList<>();
 
-		ResultSet rs = Connector.doQuery("SELECT pbId, status, receptId FROM productBatch");
+		ResultSet rs = Connector.doQuery("SELECT * FROM productbatch");
 
 		try 
 		{
@@ -67,11 +68,11 @@ public class ProduktBatchDAO implements IProduktBatchDAO
 		Connector.doUpdate
 		(
 				String.format
-				("CALL createProduktBatch(%d, %d, %d);",
+				("CALL createProduktBatch('%d', '%d', '%d');",
 
 						produktbatch.getProduktBatchId(),
-						produktbatch.getStatus(),
-						produktbatch.getReceptId()
+						produktbatch.getReceptId(),
+						produktbatch.getStatus()
 				)
 		);
 	}
@@ -81,13 +82,12 @@ public class ProduktBatchDAO implements IProduktBatchDAO
 	{
 		Connector.doUpdate
 		(
-
 				String.format
-				("CALL updateProduktBatch(%d, %d, %d);",
+				("CALL updateProduktBatch('%d', '%d', '%d');",
 
 						produktbatch.getProduktBatchId(),
-						produktbatch.getStatus(),
-						produktbatch.getReceptId()
+						produktbatch.getReceptId(),
+						produktbatch.getStatus()
 				)
 		);
 	}

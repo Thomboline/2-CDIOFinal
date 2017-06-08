@@ -12,15 +12,16 @@ import dto.ReceptDTO;
 
 public class ReceptDAO implements IReceptDAO
 {
-
+	Connector c = new Connector();
+	
 	@Override
 	public ReceptDTO getRecept(int receptId) throws Exception 
 	{
-		ResultSet rs = Connector.doQuery("SELECT * FROM receipt WHERE receptId = " + receptId);
+		ResultSet rs = Connector.doQuery("SELECT * FROM recept WHERE receptId = " + receptId);
 
 		try 
 		{
-			if (!rs.first()) throw new DALException("Receipt with receptId="+receptId+" does not exist.");
+			if (!rs.first()) throw new DALException("Recept with receptId="+receptId+" does not exist.");
 
 			return new ReceptDTO
 			(
@@ -39,7 +40,7 @@ public class ReceptDAO implements IReceptDAO
 	{
 		List<ReceptDTO> list = new ArrayList<>();
 
-		ResultSet rs = Connector.doQuery("SELECT id, name FROM receipt");
+		ResultSet rs = Connector.doQuery("SELECT * FROM recept");
 
 		try 
 		{
@@ -68,7 +69,7 @@ public class ReceptDAO implements IReceptDAO
 	{
 		Connector.doUpdate
 		(
-				String.format("CALL createRecept(&d, '%s');", recept.getReceptId(), recept.getReceptNavn())
+				String.format("CALL createRecept('%d', '%s');", recept.getReceptId(), recept.getReceptNavn())
 		);
 	}
 
@@ -77,7 +78,7 @@ public class ReceptDAO implements IReceptDAO
 	{
 		Connector.doUpdate
 		(
-				String.format("CALL updateRecept(&d, '%s');", recept.getReceptId(), recept.getReceptNavn())
+				String.format("CALL updateRecept('%d', '%s');", recept.getReceptId(), recept.getReceptNavn())
 		);
 	}
 }

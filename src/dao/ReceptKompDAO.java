@@ -12,23 +12,24 @@ import dto.ReceptKompDTO;
 
 public class ReceptKompDAO implements IReceptKompDAO
 {
-
+	Connector c = new Connector();
+	
 	@Override
 	public ReceptKompDTO getReceptKomp(int receptId, int raavareId) throws DALException, Exception 
 	{
-		ResultSet rs = Connector.doQuery("SELECT * FROM ReceptKomponent WHERE receptId = " + receptId + " AND raavareId = "+ raavareId);
+		ResultSet rs = Connector.doQuery("SELECT * FROM receptkomponent WHERE receptId = " + receptId + " AND raavareId = "+ raavareId);
 
 		try 
 		{
 			if (!rs.first())
 
-				throw new DALException("Receipt component with receipt id="+receptId+" and raavare id="+raavareId+" does not exist.");
+				throw new DALException("Recept Komponent with recept id="+receptId+" and raavare id="+raavareId+" does not exist.");
 
 			return new ReceptKompDTO
 			(
 					rs.getInt("receptId"),
 					rs.getInt("raavareId"),
-					rs.getDouble("netto"),
+					rs.getDouble("nomNetto"),
 					rs.getDouble("tolerance")
 			);
 			
@@ -43,7 +44,7 @@ public class ReceptKompDAO implements IReceptKompDAO
 	{
 		List<ReceptKompDTO> list = new ArrayList<>();
 
-		ResultSet rs = Connector.doQuery("SELECT receptId, raavareId, netto, tolerance FROM ReceptKomponent WHERE receptId="+receptId);
+		ResultSet rs = Connector.doQuery("SELECT * FROM receptkomponent WHERE receptId="+receptId);
 
 		try 
 		{
@@ -55,7 +56,7 @@ public class ReceptKompDAO implements IReceptKompDAO
 						(
 								rs.getInt("receptId"),
 								rs.getInt("raavareId"),
-								rs.getDouble("netto"),
+								rs.getDouble("nomNetto"),
 								rs.getDouble("tolerance")
 						)
 				);
@@ -74,7 +75,7 @@ public class ReceptKompDAO implements IReceptKompDAO
 	{
 		List<ReceptKompDTO> list = new ArrayList<>();
 
-		ResultSet rs = Connector.doQuery("SELECT receptId, raavareId, netto, tolerance FROM ReceptKomponent");
+		ResultSet rs = Connector.doQuery("SELECT * FROM receptkomponent");
 
 		try 
 		{
@@ -86,7 +87,7 @@ public class ReceptKompDAO implements IReceptKompDAO
 						(
 								rs.getInt("receptId"),
 								rs.getInt("raavareId"),
-								rs.getDouble("netto"),
+								rs.getDouble("nomNetto"),
 								rs.getDouble("tolerance")
 						)
 				);
@@ -106,7 +107,7 @@ public class ReceptKompDAO implements IReceptKompDAO
 		Connector.doUpdate
 		(
 				String.format
-				("CALL createReceptkomponent(%d, %d, %f, %f);",
+				("CALL createReceptkomponent('%d', '%d', '%s', '%s');",
 
 						receptkomponent.getReceptId(),
 						receptkomponent.getRaavareId(),
@@ -122,7 +123,7 @@ public class ReceptKompDAO implements IReceptKompDAO
 		Connector.doUpdate
 		(
 				String.format
-				("CALL updateReceptkomponent(%d, %d, %f, %f);",
+				("CALL updateReceptkomponent('%d', '%d', '%s', '%s');",
 
 						receptkomponent.getReceptId(),
 						receptkomponent.getRaavareId(),

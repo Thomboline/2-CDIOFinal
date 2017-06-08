@@ -6,11 +6,11 @@ public class ProduktBatchKompDTO
 	int terminal;
 	int pbId;					/**produkt batch id i omr�det 1-99999999. V�lges af brugerne */
 	int rbId;					/** raavare batch id i omr�det 1-99999999. V�lges af brugerne */
-	String tara;				/** tara i kg */
-	String netto;				/** afvejet nettom�ngde i kg */
+	double tara;				/** tara i kg */
+	double netto;				/** afvejet nettom�ngde i kg */
 	int brugerId;					/** Laborant-identifikationsnummer */
 	
-	public ProduktBatchKompDTO(int pbId, int rbId, int brugerId, String tara, String netto, int terminal) 
+	public ProduktBatchKompDTO(int pbId, int rbId, int brugerId, double tara, double netto, int terminal) 
 	{
 		this.pbId = pbId;
 		this.rbId = rbId;
@@ -41,22 +41,22 @@ public class ProduktBatchKompDTO
 		this.rbId = rbId;
 	}
 
-	public String getTara() 
+	public double getTara() 
 	{
 		return tara;
 	}
 
-	public void setTara(String tara) 
+	public void setTara(double tara) 
 	{
 		this.tara = tara;
 	}
 
-	public String getNetto() 
+	public double getNetto() 
 	{
 		return netto;
 	}
 
-	public void setNetto(String netto) 
+	public void setNetto(double netto) 
 	{
 		this.netto = netto;
 	}
