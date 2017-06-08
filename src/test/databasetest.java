@@ -31,9 +31,12 @@ public class databasetest
 		
 		
 		//Test af CreatePBK//
-		ProduktBatchKompDTO PBDTO = new ProduktBatchKompDTO(1, 2, 500.0, 435.0, 3, 1);
+		ProduktBatchKompDTO PBDTO = new ProduktBatchKompDTO(1, 2, 2.00, 2.00, 3, 1);
 		ProduktBatchKompDAO PBKDAO = new ProduktBatchKompDAO();
 		
+		
+		
+		//System.out.println(PBDTO.getNetto());
 		PBKDAO.createProduktBatchKomp(PBDTO);
 		
 		//Test af CreatePBK//
