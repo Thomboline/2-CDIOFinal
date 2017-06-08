@@ -1,7 +1,5 @@
 $(document).ready( function() {
 
-    $(".Farmaceut").load("Administration.html #RaavareAdmin, #RaavareBatchAdmin, #ProduktBatchAdmin, #ReceptAdmin");
-
 	$("#LU").on("click", function() {
 		$("#wrapper").load("User/ListUser.html");
 	});
@@ -83,21 +81,3 @@ $(document).ready( function() {
 	});
 
 });
-
-function MenuBar() {
-	if(user.hasRole('Administrator')) {
-		$("div.Admin").show();
-	}
-	
-	if(user.hasRole('Farmaceut')) {
-		$("div.Farmaceut").show();
-	}
-	
-	if(user.hasRole('Vaerkfoerer')) {
-		$("div.Vaerkfoereren").show();
-	}
-	
-	if(user.hasRole('Laborant')) {
-		$("div.Laborant").show();
-	}
-}
