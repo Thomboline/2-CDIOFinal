@@ -12,7 +12,8 @@ import dto.ProduktBatchKompDTO;
 
 public class ProduktBatchKompDAO implements IProduktBatchKompDAO
 {
-
+	Connector c = new Connector();
+	
 	@Override
 	public ProduktBatchKompDTO getProduktBatchKomp(int pbId, int rbId) throws Exception 
 	{
@@ -28,7 +29,8 @@ public class ProduktBatchKompDAO implements IProduktBatchKompDAO
 						rs.getInt("rbId"),
 						rs.getDouble("tara"),
 						rs.getDouble("netto"),
-						rs.getInt("oprId")
+						rs.getInt("brugerId"),
+						rs.getInt("terminal")
 				);
 
 			} catch (SQLException e) 
@@ -42,7 +44,7 @@ public class ProduktBatchKompDAO implements IProduktBatchKompDAO
 	{
 		List<ProduktBatchKompDTO> list = new ArrayList<>();
 
-		ResultSet rs = Connector.doQuery("SELECT pbId, rbId, tara, netto, oprId FROM productBatchComponent WHERE productBatchId = " + pbId);
+		ResultSet rs = Connector.doQuery("SELECT pbId, rbId, tara, netto, brugerId FROM productBatchComponent WHERE productBatchId = " + pbId);
 
 		try 
 		{
@@ -55,7 +57,8 @@ public class ProduktBatchKompDAO implements IProduktBatchKompDAO
 							rs.getInt("rbId"),
 							rs.getDouble("tara"),
 							rs.getDouble("netto"),
-							rs.getInt("oprId")
+							rs.getInt("brugerId"),
+							rs.getInt("terminal")
 							)
 				);
 			}
@@ -72,7 +75,7 @@ public class ProduktBatchKompDAO implements IProduktBatchKompDAO
 	{
 		List<ProduktBatchKompDTO> list = new ArrayList<>();
 
-		ResultSet rs = Connector.doQuery("SELECT pbId, rbId, tara, netto, oprId FROM ProduktbatchKomponent");
+		ResultSet rs = Connector.doQuery("SELECT * FROM ProduktbatchKomponent");
 
 		try 
 		{
@@ -86,7 +89,8 @@ public class ProduktBatchKompDAO implements IProduktBatchKompDAO
 								rs.getInt("rbId"),
 								rs.getDouble("tara"),
 								rs.getDouble("netto"),
-								rs.getInt("oprId")
+								rs.getInt("brugerId"),
+								rs.getInt("terminal")
 						)
 				);
 			}
@@ -105,13 +109,14 @@ public class ProduktBatchKompDAO implements IProduktBatchKompDAO
 		Connector.doUpdate
 		(
 				String.format
-				("CALL createProduktBatchKomponent(%d, %d, %f, %f, %d);",
+				("CALL createProduktBatchKomponent(%d, %d, %d, %f, %f, %d);",
 
 						produktbatchkomponent.getProduktBatchId(),
 						produktbatchkomponent.getRaavareBatchId(),
+						produktbatchkomponent.getBrugerId(),
 						produktbatchkomponent.getTara(),
 						produktbatchkomponent.getNetto(),
-						produktbatchkomponent.getOperatorId()
+						produktbatchkomponent.getTerminal()
 				)
 		);
 		
@@ -129,7 +134,7 @@ public class ProduktBatchKompDAO implements IProduktBatchKompDAO
 						produktbatchkomponent.getRaavareBatchId(),
 						produktbatchkomponent.getTara(),
 						produktbatchkomponent.getNetto(),
-						produktbatchkomponent.getOperatorId()
+						produktbatchkomponent.getBrugerId()
 				)
 		);
 		

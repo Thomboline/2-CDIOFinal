@@ -1,4 +1,4 @@
-package Weight.gui;
+package weight.gui;
 
 import weight.IWeightInterfaceController.InputType;
 //

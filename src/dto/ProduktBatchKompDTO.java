@@ -3,19 +3,21 @@ package dto;
 public class ProduktBatchKompDTO 
 {
 	
+	int terminal;
 	int pbId;					/**produkt batch id i området 1-99999999. Vælges af brugerne */
 	int rbId;					/** raavare batch id i området 1-99999999. Vælges af brugerne */
 	double tara;				/** tara i kg */
 	double netto;				/** afvejet nettomængde i kg */
-	int oprId;					/** Laborant-identifikationsnummer */
+	int brugerId;					/** Laborant-identifikationsnummer */
 	
-	public ProduktBatchKompDTO(int pbId, int rbId, double tara, double netto, int oprId) 
+	public ProduktBatchKompDTO(int pbId, int rbId, double tara, double netto, int brugerId, int terminal) 
 	{
 		this.pbId = pbId;
 		this.rbId = rbId;
 		this.tara = tara;
 		this.netto = netto;
-		this.oprId = oprId;
+		this.brugerId = brugerId;
+		this.terminal = terminal;
 	}
 
 	public int getProduktBatchId() 
@@ -59,20 +61,30 @@ public class ProduktBatchKompDTO
 		this.netto = netto;
 	}
 
-	public int getOperatorId() 
+	public int getBrugerId() 
 	{
-		return oprId;
+		return brugerId;
 	}
 
-	public void setOperatorId(int oprId) 
+	public void setBrugerId(int brugerId) 
 	{
-		this.oprId = oprId;
+		this.brugerId = brugerId;
 	}
 
+	public void setTerminal(int terminal)
+	{
+		this.terminal = terminal;
+	}
+	
+	public int getTerminal()
+	{
+		return terminal;
+	}
+	
 	public String toString() 
 	{
 
-		return pbId + "\t" + rbId + "\t" + tara + "\t" + netto + "\t" + oprId;
+		return pbId + "\t" + rbId + "\t" + tara + "\t" + netto + "\t" + brugerId + "\t" + terminal;
 	}
 	
 	

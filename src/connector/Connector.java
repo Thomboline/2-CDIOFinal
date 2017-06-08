@@ -13,7 +13,7 @@ public class Connector {
     private final int    PORT     = 3306;
     private final String DATABASE = "sql11178303";
     private final String USERNAME = "sql11178303"; 
-    private final String PASSWORD = "CDIOfinal2017";
+    private final String PASSWORD = "BqqZTJ7cu7";
     private static Connection connection;
     
     public Connector() 

@@ -1,6 +1,6 @@
 package controller;
 
-import Weight.gui.WeightInterfaceControllerGUI;
+import weight.gui.WeightInterfaceControllerGUI;
 import socket.ISocketController;
 import socket.SocketController;
 import weight.IWeightInterfaceController;
@@ -9,10 +9,12 @@ import weight.IWeightInterfaceController;
  * @author Christian
  *
  */
-public class Main {
+public class Main 
+{
 	private static boolean gui= true;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
 		ISocketController socketHandler = new SocketController();
 		IWeightInterfaceController WeightController = new WeightInterfaceControllerGUI();
 		IWeightController mainCtrl = new WeightController(socketHandler, WeightController);

@@ -1,4 +1,4 @@
-package Weight.gui;
+package weight.gui;
 import java.util.ArrayList;
 import java.util.Arrays;
 

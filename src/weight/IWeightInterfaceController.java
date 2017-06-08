@@ -1,4 +1,4 @@
-package Weight;
+package weight;
 
 public interface IWeightInterfaceController extends Runnable {
 	void registerObserver(IWeightInterfaceObserver uiObserver);

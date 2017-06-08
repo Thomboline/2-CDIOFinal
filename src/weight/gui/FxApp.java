@@ -1,4 +1,4 @@
-package Weight.gui;
+package weight.gui;
 import java.util.Timer;
 import java.util.TimerTask;
 

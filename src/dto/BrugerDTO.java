@@ -1,54 +1,57 @@
 package dto;
 
-import java.util.List;
-
 public class BrugerDTO
 {
 	
-	int oprId;						/** Bruger id i området 1-99999999. Vælges af brugerne */
-	String oprNavn;					/** Bruger navn (opr_navn) min. 2 max. 20 karakterer */
+	int status;
+	int brugerId;					/** Bruger id i området 1-99999999. Vælges af brugerne */
+	String brugerNavn;				/** Bruger navn (bruger_navn) min. 2 max. 20 karakterer */
 	String ini;						/** Bruger initialer min. 2 max. 4 karakterer */
 	String cpr;						/** Bruger cpr-nr 10 karakterer */
 	String password;				/** Bruger password min. 5 max. 8 karakterer */
-	List<String> roller;			/** Liste over roller */
+	//List<String> roller;			/** Liste over roller */
+	String rolle;
 	
-	public BrugerDTO(int oprId, String oprNavn, String ini, String cpr, String password) 
+	public BrugerDTO(int brugerId, String brugerNavn, String ini, String password, String cpr, String rolle, int status) 
 	{
-		this.oprId = oprId;
-		this.oprNavn = oprNavn;
+		this.brugerId = brugerId;
+		this.brugerNavn = brugerNavn;
 		this.ini = ini;
-		this.cpr = cpr;
 		this.password = password;
+		this.cpr = cpr;
+		this.rolle = rolle;
+		this.status = status;
 	}
 
-	public BrugerDTO(BrugerDTO opr) 
+	public BrugerDTO(BrugerDTO bruger) 
 	{
-		this.oprId = opr.getId();
-		this.oprNavn = opr.getOperatorNavn();
-		this.ini = opr.getIni();
-		this.cpr = opr.getCpr();
-		this.password = opr.getPassword();
+		this.brugerId = bruger.getId();
+		this.brugerNavn = bruger.getBrugerNavn();
+		this.ini = bruger.getIni();
+		this.cpr = bruger.getCpr();
+		this.password = bruger.getPassword();
+		this.rolle = bruger.getRolle();
 	}
 
 	public int getId() 
 	{
-		return oprId;
+		return brugerId;
 	}
 
-	public void setId(int oprId) 
+	public void setId(int brugerId) 
 	{
 
-		this.oprId = oprId;
+		this.brugerId = brugerId;
 	}
 
-	public String getOperatorNavn()
+	public String getBrugerNavn()
 	{
-		return oprNavn;
+		return brugerNavn;
 	}
 
-	public void setOperatorNavn(String oprNavn) 
+	public void setBrugerNavn(String brugerNavn) 
 	{
-		this.oprNavn = oprNavn;
+		this.brugerNavn = brugerNavn;
 	}
 
 	public String getIni() 
@@ -80,12 +83,23 @@ public class BrugerDTO
 	{
 		this.password = password;
 	}
-
+	
+	public String getRolle()
+	{
+		return rolle;
+	}
+	
+	public void setRolle(String rolle)
+	{
+		 this.rolle = rolle;
+	}
+	
+	/*
 	public List<String> getRoles() 
 	{
 		return roller;
 	}
-
+	
 	public void setRoles(List<String> roller) 
 	{
 		this.roller = roller;
@@ -95,10 +109,15 @@ public class BrugerDTO
 	{
 		this.roller.add(role);
 	}
-
+	 */
 	public String toString() 
 	{
-		return oprId + "\t" + oprNavn + "\t" + ini + "\t" + cpr + "\t" + password;
+		return brugerId + "\t" + brugerNavn + "\t" + ini + "\t" + cpr + "\t" + rolle + "\t" + password + "\t" + status;
+	}
+	
+	public int getStatus()
+	{
+		return status;
 	}
 
 }

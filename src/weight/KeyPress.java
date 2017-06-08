@@ -1,4 +1,4 @@
-package Weight;
+package weight;
 
 /**
  * DTO for user input
