@@ -7,7 +7,16 @@ $(document).ready(function() {
 	
 	$('#CreateUser').submit(function(event) {
 		event.preventDefault();
-		CreateUser();
+		var user = {};
+		user.Username = ("[id*=username]").val();
+		user.Password = ("[id*=password]").val();
+		CreateUser(user);
+		return false;
+	});
+	
+	$('#EditUser').submit(function(event) {
+		event.preventDefault();
+		EditUser();
 		return false;
 	});
 });
@@ -15,7 +24,7 @@ $(document).ready(function() {
 function ListUsers() {
 	$.ajax({
 		type: 'GET',
-		url: 'http://localhost:8080/CDIOFinal',
+		url: 'http://localhost:8080/CDIOFinal/HTML/User',
 		dataType: 'json',
 		success: renderList
 	});
@@ -24,9 +33,16 @@ function ListUsers() {
 function CreateUser() {
 	$.ajax({
 		type: 'POST',
-		url: 'http://localhost:8080/CDIOFinal',
+		url: 'http://localhost:8080/CDIOFinal/HTML/User',
 		dataType: "json",
-		data: "hej"
+		data: 'user: ' + JSON.stringify(user) + '}',
+		contentType: "application/json; charset=utf-8",
+		success: function (response) {
+			alert("User created");
+		},
+		error: function (errorThrown){
+			alert("Unsuccesful");
+		}
 	});
 }
 
@@ -35,13 +51,10 @@ function EditUser() {
 		type: 'PUT',
 		url: 'http://localhost:8080/CDIOFinal',
 		dataType: "json",
-		data: "Hej"
+		data: ""
 	});
 }
 
-function DeleteUser() {
-	
-}
 
 function renderList(data) {
 	var list = data == null ? [] : (data instanceof Array ? data : [data]);
