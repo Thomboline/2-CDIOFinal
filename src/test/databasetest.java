@@ -1,5 +1,7 @@
 package test;
 
+import java.text.DecimalFormat;
+
 import connector.DALException;
 import dao.BrugerDAO;
 import dao.ProduktBatchKompDAO;
@@ -29,9 +31,10 @@ public class databasetest
 		System.out.println(BDAO.getBrugerList());
 		*/
 		
-		
+
 		//Test af CreatePBK//
-		ProduktBatchKompDTO PBDTO = new ProduktBatchKompDTO(1, 2, 2.00, 2.00, 3, 1);
+		
+		ProduktBatchKompDTO PBDTO = new ProduktBatchKompDTO(1, 2, 3, "4.5", "4.5", 1);
 		ProduktBatchKompDAO PBKDAO = new ProduktBatchKompDAO();
 		
 		
