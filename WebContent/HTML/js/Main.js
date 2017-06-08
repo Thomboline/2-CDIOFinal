@@ -80,4 +80,13 @@ $(document).ready( function() {
 		$("#wrapper").load("Recept/DeleteRecept.html");
 	});
 
+	$(function () {
+        $(".Farmaceut").load("Administration.html #RaavareAdmin, #RaavareBatchAdmin, #ProduktBatchAdmin, #ReceptAdmin");
+    })
+
+    $("#ProfilIndstillinger").on("click", function () {
+        $("#wrapper").load("User/ProfileSettings.html")
+    });
+
+
 });
