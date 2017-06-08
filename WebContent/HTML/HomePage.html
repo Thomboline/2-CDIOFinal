@@ -15,55 +15,9 @@
 
 <div class="container">
 
-    <div class="Administrator">
-        <div class="dropdown">
-            <button class="dropdownbtn">User Administration</button>
-            <div class="dropdown-content">
-                <a href="#" id="LU">List User</a>
-                <a href="#" id="CU">Create User</a>
-                <a href="#" id="EU">Edit User</a>
-                <a href="#" id="DU">Delete User</a>
-            </div>
-        </div>
-    </div>
+    <div class="Administrator"></div>
 
-    <div class="Farmaceut">
-        <div class="dropdown">
-            <button class="dropdownbtn">Raavare Administration</button>
-            <div class="dropdown-content">
-                <a href="#" id="LR">List Raavare</a>
-                <a href="#" id="CR">Create Raavare</a>
-                <a href="#" id="ER">Edit Raavare</a>
-            </div>
-        </div>
-
-        <div class="dropdown">
-            <button class="dropdownbtn">RaavareBatch Administration</button>
-            <div class="dropdown-content">
-                <a href="#" id="LRB">List RaavareBatch</a>
-                <a href="#" id="CRB">Create RaavareBatch</a>
-                <a href="#" id="ERB">Edit RaavareBatch</a>
-            </div>
-        </div>
-
-        <div class="dropdown">
-            <button class="dropdownbtn">ProduktBatch Administration</button>
-            <div class="dropdown-content">
-                <a href="#" id="LPB">List ProduktBatch</a>
-                <a href="#" id="CPB">Create ProduktBatch</a>
-                <a href="#" id="EPB">Edit ProduktBatch</a>
-            </div>
-        </div>
-
-        <div class="dropdown">
-            <button class="dropdownbtn">Recept Administration</button>
-            <div class="dropdown-content">
-                <a href="#" id="LRE">List Recept</a>
-                <a href="#" id="CRE">Create Recept</a>
-                <a href="#" id="ERE">Edit Recept</a>
-            </div>
-        </div>
-    </div>
+    <div class="Farmaceut"></div>
 
     <div class="Vaerkfoerer">
         <div class="dropdown">
@@ -114,6 +68,17 @@
         });
     });
 </script>
+
+<script>
+    $(document).ready(function () {
+        var role = $.cookie('Farmaceut');
+        if(role == "Farmaceut")
+        $("")
+    });
+
+</script>
+
+
 
 
 <script src = "js/Main.js"></script>
