@@ -1,4 +1,7 @@
 $(document).ready( function() {
+
+    $(".Farmaceut").load("Administration.html #RaavareAdmin, #RaavareBatchAdmin, #ProduktBatchAdmin, #ReceptAdmin");
+
 	$("#LU").on("click", function() {
 		$("#wrapper").load("User/ListUser.html");
 	});
@@ -78,6 +81,7 @@ $(document).ready( function() {
 	$("#DRE").on("click", function() {
 		$("#wrapper").load("Recept/DeleteRecept.html");
 	});
+
 });
 
 function MenuBar() {
