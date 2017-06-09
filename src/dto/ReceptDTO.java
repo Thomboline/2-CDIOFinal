@@ -1,6 +1,8 @@
 package dto;
 
-public class ReceptDTO
+import dtointerfaces.IReceptDTO;
+
+public class ReceptDTO implements IReceptDTO
 {
 	int receptId;				/** recept id i området 1-99999999 */
 	String receptNavn;			/** Receptnavn min. 2 max. 20 karakterer */

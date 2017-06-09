@@ -1,6 +1,8 @@
 package dto;
 
-public class BrugerDTO
+import dtointerfaces.IBrugerDTO;
+
+public class BrugerDTO implements IBrugerDTO
 {
 	
 	int status;

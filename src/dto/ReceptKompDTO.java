@@ -1,6 +1,8 @@
 package dto;
 
-public class ReceptKompDTO
+import dtointerfaces.IReceptKompDTO;
+
+public class ReceptKompDTO implements IReceptKompDTO
 {
 	
 	int receptId;				/** recept id i området 1-99999999 */

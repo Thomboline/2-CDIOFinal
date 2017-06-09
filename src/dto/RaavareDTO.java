@@ -1,6 +1,8 @@
 package dto;
 
-public class RaavareDTO
+import dtointerfaces.IRaavareDTO;
+
+public class RaavareDTO implements IRaavareDTO
 {
 	int raavareId;						/** raavare id i området 1-99999999 vælges af brugerne */
 	String raavareNavn;					/** min. 2 max. 20 karakterer */
