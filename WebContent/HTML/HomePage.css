@@ -60,6 +60,6 @@ body {
     display: block;
 }
 
-#UserAdmin, #RaavareAdmin, #RaavareBatchAdmin, #ProduktBatchAdmin, #ReceptAdmin {
-    display: inline;
+div.Laborant, div.Vaerkfoerer, div.Administrator {
+    display: none;
 }
