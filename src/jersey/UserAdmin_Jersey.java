@@ -41,7 +41,8 @@ public class UserAdmin_Jersey {
 		
 		List<IUserDTO> list = new ArrayList<>();
 		
-		list.add(new BrugerDTO());
+		list.add(new BrugerDTO(1, "hej", "med", "dig", "det", "virker", 1));
+		
 		return list;
 		
 		//return dao.getUserList();
