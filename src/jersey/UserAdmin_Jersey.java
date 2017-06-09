@@ -5,7 +5,7 @@
  * @author Thomas-PC
  *
  */
-package jersey; 
+package jersey;
 
 import java.util.ArrayList;
 import java.util.List;
