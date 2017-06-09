@@ -1,5 +1,4 @@
 package test;
-
 import connector.DALException;
 import dao.BrugerDAO;
 import dao.ProduktBatchDAO;
@@ -26,104 +25,196 @@ import dto.ReceptKompDTO;
 public class databasetest 
 {
 	
-	public static void main(String[] args) throws DALException, Exception 
-	{
-		/*
-		IBrugerDAO BDAO = new BrugerDAO();
-		BrugerDTO BDTO = new BrugerDTO(2, "Svend Kurtsen","SVK","280656-1323","sddgfdDFGfd", "Admin", 1);
-		
-		BDAO.createBruger(BDTO); //Laver en bruger - Det virker! //
-		
-		IBrugerDAO BDAO = new BrugerDAO();
-		BrugerDTO BDTO = new BrugerDTO(1, "Børge Kurtsen","BK","343545-1323","sdfdsQQQ", "Laborant", 1);
-		
-		BDAO.updateBruger(BDTO); //Opdatere en bruger - Det virker!!//
-		
-		IBrugerDAO BDAO = new BrugerDAO();
-		
-		System.out.println(BDAO.getBrugerList());
-		*/
-
+	IBrugerDAO BDAO = new BrugerDAO();
+	IRaavareDAO RDAO = new RaavareDAO();
+	IRaavareBatchDAO RBDAO = new RaavareBatchDAO();
+	IReceptDAO RD = new ReceptDAO();
+	IReceptKompDAO RKDAO = new ReceptKompDAO();
+	IProduktBatchDAO PBDAO = new ProduktBatchDAO();
+	IProduktBatchKompDAO PBKDAO = new ProduktBatchKompDAO();
 	
-		/*Test af Raavare klassen */
-		//RaavareDTO RDTO = new RaavareDTO(2, "Grisetarm", "Holger");
-		//IRaavareDAO RDAO = new RaavareDAO();
-		//RDAO.createRaavare(RDTO);
-		//RDAO.updateRaavare(RDTO);
-		//System.out.println(RDAO.getRaavareList());
+	public void main(String[] args) throws DALException, Exception 
+	{
 		
-		
-		
-		/*Test af RaavareBatch*/
-		/*
-		IRaavareBatchDAO RBDAO = new RaavareBatchDAO();
-		RaavareBatchDTO RBDTO = new RaavareBatchDTO(1, 2, 5.5);
-		
-		//RBDAO.createRaavareBatch(RBDTO);
-		//RBDAO.updateRaavareBatch(RBDTO);
-		
-		//System.out.println(RBDAO.getRaavareBatchList());
-		
-		*/
-		
-		 
-		/* Test af ReceptDAO*/
-		/*
-		IReceptDAO RD = new ReceptDAO();
-		ReceptDTO RDT = new ReceptDTO(1, "Crab");
-		
-		//RD.createRecept(RDT);
-		//RD.updateRecept(RDT);
+		BrugerDAOTest(1);
+		RaavareDAOTest(1);
+		RaavareBatchDAOTest(1);
+		ReceptDAOTest(1);
+		ReceptKompDAOTest(1);
+		ProduktBatchDAOTest(1);
+		ProduktBatchKompDAOTest(1);
+	}
+	
 
-		System.out.println(RD.getReceptList());
-		*/
+	public void BrugerDAOTest(int testtype) throws DALException, Exception
+	{
 		
-		
-		
-		
-		/*
-		IReceptKompDAO RKDAO = new ReceptKompDAO();
-		ReceptKompDTO RKDTO = new ReceptKompDTO(1, 2, 7.5, 7.5);
-		
-		//RKDAO.createReceptKomp(RKDTO);
-		//RKDAO.updateReceptKomp(RKDTO);
-		
-		System.out.println(RKDAO.getReceptKompList(1));
-		*/
-		
-		
-		IProduktBatchDAO PBDAO = new ProduktBatchDAO();
-		ProduktBatchDTO PBDTO = new ProduktBatchDTO(1, 1, 2);
-		
-		//PBDAO.createProduktBatch(PBDTO);
-		PBDAO.updateProduktBatch(PBDTO);
-		
-		//System.out.println(PBDAO.getProduktBatch(1));
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		/*
-		//Test af CreatePBK//
-		ProduktBatchKompDTO PBDTO = new ProduktBatchKompDTO(1, 2, 50, 43, 1, 1);
-		IProduktBatchKompDAO PBKDAO = new ProduktBatchKompDAO();
-		
-		PBKDAO.createProduktBatchKomp(PBDTO);
-		//PBKDAO.updateProduktBatchKomp(PBDTO);
-		
-		
-		*/
-		
+		if(testtype == 1)
+		{
+			BrugerDTO BDTO = new BrugerDTO(2, "Svend Kurtsen","SVK","280656-1323","sddgfdDFGfd", "Admin", 1);
+			BDAO.createBruger(BDTO);
+		}
+		else if(testtype == 2)
+		{
+			BrugerDTO BDTO = new BrugerDTO(2, "Svend Kurtsen","SVK","280656-1323","sddgfdDFGfd", "Admin", 1);
+			BDAO.updateBruger(BDTO);
+		}
+		else if(testtype == 3)
+		{
+			System.out.println(BDAO.getBrugerList());
+		}
+		else if(testtype == 4)
+		{
+			System.out.println(BDAO.getBruger(1));
+		}
 		
 		
 	}
+	public void ProduktBatchDAOTest(int testtype) throws DALException, Exception
+	{
+		if(testtype == 1)
+		{
+			ProduktBatchDTO PBDTO = new ProduktBatchDTO(1, 1, 2);
+			PBDAO.createProduktBatch(PBDTO);
+		}
+		else if(testtype == 2)
+		{
+			ProduktBatchDTO PBDTO = new ProduktBatchDTO(1, 1, 2);
+			PBDAO.updateProduktBatch(PBDTO); 
+		}
+		
+		else if(testtype == 3)
+		{
+			System.out.println(PBDAO.getProduktBatchList());
+		}
+		else if(testtype == 4)
+		{
+			System.out.println(PBDAO.getProduktBatch(1));
+		}
 
-	
+	}
+	public void ProduktBatchKompDAOTest(int testtype) throws DALException, Exception
+	{
+		if(testtype == 1)
+		{
+			ProduktBatchKompDTO PBDTO = new ProduktBatchKompDTO(1, 1, 2, 45.5, 15.5, 2);
+			PBKDAO.createProduktBatchKomp(PBDTO);
+		}
+		else if(testtype == 2)
+		{
+			ProduktBatchKompDTO PBDTO = new ProduktBatchKompDTO(1, 1, 2, 45.5, 15.5, 2);
+			PBKDAO.updateProduktBatchKomp(PBDTO);
+		}
+		else if(testtype == 3)
+		{
+			System.out.println(PBKDAO.getProduktBatchKompList());
+		}
+		else if(testtype == 4)
+		{
+			System.out.println(PBKDAO.getProduktBatchKompList(1));
+		}
+		else if(testtype == 5)
+		{
+			System.out.println(PBKDAO.getProduktBatchKomp(1, 2));
+		}
 
-	
+	}
+	public void ReceptDAOTest(int testtype) throws DALException, Exception
+	{
+		if(testtype == 1)
+		{
+			ReceptDTO RDT = new ReceptDTO(1, "Crab");
+			RD.createRecept(RDT);
+		}
+		else if(testtype == 2)
+		{
+			ReceptDTO RDT = new ReceptDTO(1, "tis");
+			RD.updateRecept(RDT);
+			
+		}
+		else if(testtype == 3)
+		{
+			System.out.println(RD.getRecept(1));
+		}
+		else if(testtype == 4)
+		{
+			System.out.println(RD.getReceptList());
+		}
+		
+	}
+	public void ReceptKompDAOTest(int testtype) throws DALException, Exception
+	{
+		if(testtype == 1)
+		{
+			ReceptKompDTO RKDTO = new ReceptKompDTO(1, 2, 7.5, 7.5);
+			RKDAO.createReceptKomp(RKDTO);
+		
+		}
+		else if(testtype == 2)
+		{
+			ReceptKompDTO RKDTO = new ReceptKompDTO(1, 2, 7.5, 7.5);
+			RKDAO.updateReceptKomp(RKDTO);
+			
+		}
+		else if(testtype == 3)
+		{
+			System.out.println(RKDAO.getReceptKompList());
+		}
+		else if(testtype == 4)
+		{
+			System.out.println(RKDAO.getReceptKompList(1));
+		}
+		else if(testtype == 5)
+		{
+			System.out.println(RKDAO.getReceptKomp(1, 2));
+		}
+
+	}
+	public void RaavareBatchDAOTest(int testtype) throws DALException, Exception
+	{
+		if(testtype == 1)
+		{
+			RaavareBatchDTO RBDTO = new RaavareBatchDTO(1, 2, 5.5);
+			RBDAO.createRaavareBatch(RBDTO);
+		}
+		else if(testtype == 2)
+		{
+			RaavareBatchDTO RBDTO = new RaavareBatchDTO(1, 2, 5.5);
+			RBDAO.updateRaavareBatch(RBDTO);
+		}
+		else if(testtype == 3)
+		{
+			System.out.println(RBDAO.getRaavareBatch(1));
+		}
+		else if(testtype == 4)
+		{
+			System.out.println(RBDAO.getRaavareBatchList(1));
+		}
+		else if(testtype == 5)
+		{
+			System.out.println(RBDAO.getRaavareBatchList());
+		}
+		
+	}
+	public void RaavareDAOTest(int testtype) throws DALException, Exception
+	{
+		if(testtype == 1)
+		{
+			RaavareDTO RDTO = new RaavareDTO(2, "Grisetarm", "Holger");
+			RDAO.createRaavare(RDTO);
+		}
+		else if(testtype == 2)
+		{
+			RaavareDTO RDTO = new RaavareDTO(2, "Grisetarm", "Holger");
+			RDAO.updateRaavare(RDTO);
+		}
+		else if(testtype == 3)
+		{
+			System.out.println(RDAO.getRaavareList());
+		}
+		else if(testtype == 4)
+		{
+			System.out.println(RDAO.getRaavare(1));
+		}		
+	}
 }

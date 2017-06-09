@@ -17,11 +17,11 @@ public class ProduktBatchKompDAO implements IProduktBatchKompDAO
 	@Override
 	public ProduktBatchKompDTO getProduktBatchKomp(int pbId, int rbId) throws Exception 
 	{
-		ResultSet rs = Connector.doQuery("SELECT * FROM productBatchComponent WHERE pbId = " + pbId + " AND rbId = " + rbId);
+		ResultSet rs = Connector.doQuery("SELECT * FROM produktbatchkomponent WHERE pbId = " + pbId + " AND rbId = " + rbId);
 
 			try {
 
-				if (!rs.first()) throw new Exception("Product batch component with pbId="+pbId+" and rbId="+rbId+" does not exist.");
+				if (!rs.first()) throw new Exception("Produkt batch komponent med pbId="+pbId+" og rbId="+rbId+" eksistere ikke.");
 
 				return new ProduktBatchKompDTO
 				(
@@ -44,7 +44,7 @@ public class ProduktBatchKompDAO implements IProduktBatchKompDAO
 	{
 		List<ProduktBatchKompDTO> list = new ArrayList<>();
 
-		ResultSet rs = Connector.doQuery("SELECT pbId, rbId, tara, netto, brugerId FROM productBatchComponent WHERE productBatchId = " + pbId);
+		ResultSet rs = Connector.doQuery("SELECT * FROM produktbatchkomponent WHERE pbId = " + pbId);
 
 		try 
 		{
@@ -75,7 +75,7 @@ public class ProduktBatchKompDAO implements IProduktBatchKompDAO
 	{
 		List<ProduktBatchKompDTO> list = new ArrayList<>();
 
-		ResultSet rs = Connector.doQuery("SELECT * FROM ProduktbatchKomponent");
+		ResultSet rs = Connector.doQuery("SELECT * FROM produktbatchkomponent");
 
 		try 
 		{
@@ -128,7 +128,7 @@ public class ProduktBatchKompDAO implements IProduktBatchKompDAO
 		Connector.doUpdate
 		(
 				String.format
-				("CALL updateProduktBatchKomponent('%d', '%d', '%d', '%f', '%f', '%d');",
+				("CALL updateProduktBatchKomponent('%d', '%d', '%d', '%s', '%s', '%d');",
 
 						produktbatchkomponent.getProduktBatchId(),
 						produktbatchkomponent.getRaavareBatchId(),
