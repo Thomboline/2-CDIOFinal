@@ -1,3 +1,8 @@
+
+div.Laborant, div.Vaerkfoerer, div.Administrator {
+    display: none;
+}
+
 body {
     background-color: cadetblue;
     background-size: cover;

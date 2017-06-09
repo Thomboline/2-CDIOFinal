@@ -1,21 +1,5 @@
 $(document).ready( function() {
     $(".Farmaceut").load("Administration.html #RaavareAdmin, #RaavareBatchAdmin, #ProduktBatchAdmin, #ReceptAdmin", function () {
-        $("#LU").on("click", function() {
-            $("#wrapper").load("User/ListUser.html");
-        });
-
-        $("#CU").on("click", function() {
-            $("#wrapper").load("User/CreateUser.html");
-        });
-
-        $("#EU").on("click", function() {
-            $("#wrapper").load("User/EditUser.html");
-        });
-
-        $("#DU").on("click", function() {
-            $("#wrapper").load("User/DeleteUser.html");
-        });
-
         $("#LR").on("click", function() {
             $("#wrapper").load("Raavare/ListRaavare.html");
         });
@@ -81,7 +65,66 @@ $(document).ready( function() {
         });
     });
 
+    $(".Vaerkforer").load("Administration.html #RaavareBatchAdmin, #ProduktBatchAdmin", function () {
+        $("#LRB").on("click", function() {
+            $("#wrapper").load("RaavareBatch/ListRaavareBatch.html");
+        });
 
+        $("#CRB").on("click", function() {
+            $("#wrapper").load("RaavareBatch/CreateRaavareBatch.html");
+        });
+
+        $("#ERB").on("click", function() {
+            $("#wrapper").load("RaavareBatch/EditRaavareBatch.html");
+        });
+
+        $("#DRB").on("click", function() {
+            $("#wrapper").load("RaavareBatch/DeleteRaavareBatch.html");
+        });
+
+        $("#LPB").on("click", function() {
+            $("#wrapper").load("ProduktBatch/LisrProduktBatch.html");
+        });
+
+        $("#CPB").on("click", function() {
+            $("#wrapper").load("ProduktBatch/CreateProduktBatch.html");
+        });
+
+        $("#EPB").on("click", function() {
+            $("#wrapper").load("ProduktBatch/EditProduktBatch.html");
+        });
+
+        $("#DPB").on("click", function() {
+            $("#wrapper").load("ProduktBatch/DeleteProduktBatch.html");
+        });
+    });
+
+    $(".Laborant").load("Administration.html #RaavareBatchAdmin, #ProduktBatchAdmin", function () {
+        $("#LRB").on("click", function() {
+            $("#wrapper").load("RaavareBatch/ListRaavareBatch.html");
+        });
+        $("#LPB").on("click", function() {
+            $("#wrapper").load("ProduktBatch/LisrProduktBatch.html");
+        });
+    });
+
+    $(".Administrator").load("Administration.html #UserAdmin", function () {
+        $("#LU").on("click", function() {
+            $("#wrapper").load("User/ListUser.html");
+        });
+
+        $("#CU").on("click", function() {
+            $("#wrapper").load("User/CreateUser.html");
+        });
+
+        $("#EU").on("click", function() {
+            $("#wrapper").load("User/EditUser.html");
+        });
+
+        $("#DU").on("click", function() {
+            $("#wrapper").load("User/DeleteUser.html");
+        });
+    });
 
 
     $("#ProfilIndstillinger").on("click", function () {
