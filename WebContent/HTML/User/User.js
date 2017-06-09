@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function() { 
 	$('#ListUsers').submit(function(event) {
 		event.preventDefault();
 		console.log("1");
