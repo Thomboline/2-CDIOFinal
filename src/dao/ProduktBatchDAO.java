@@ -23,7 +23,7 @@ public class ProduktBatchDAO implements IProduktBatchDAO
 
 			return new ProduktBatchDTO(
 					rs.getInt("pbId"),
-					rs.getInt("status"),
+					rs.getInt("pb_status"),
 					rs.getInt("receptId")
 			);
 		} catch (SQLException e) 
@@ -48,7 +48,7 @@ public class ProduktBatchDAO implements IProduktBatchDAO
 						new ProduktBatchDTO
 						(
 								rs.getInt("pbId"),
-								rs.getInt("status"),
+								rs.getInt("pb_status"),
 								rs.getInt("receptId")
 						)
 				);
