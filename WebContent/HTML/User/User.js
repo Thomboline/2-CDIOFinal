@@ -85,7 +85,7 @@ function EditUser() {
 			alert("Unsuccessful");
 		}
 	});
-}
+} 
 
 function PasswordUser() {
 	$.ajax({

@@ -25,7 +25,7 @@ import connector.DALException;
 import dto.BrugerDTO;
 import dto.IUserDTO;
 
-@Path("/User")
+@Path("/User") 
 public class UserAdmin_Jersey {
 	
 	@GET
