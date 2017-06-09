@@ -7,6 +7,7 @@
  */
 package jersey;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -19,6 +20,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import connector.DALException;
+import dto.BrugerDTO;
+import dto.IUserDTO;
 
 @Path("service")
 public class UserAdmin_Jersey {
@@ -33,17 +38,25 @@ public class UserAdmin_Jersey {
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public List<IUserDTO> ListUsers() throws DALException {
 		System.out.println("findAll");
-		return dao.getUserList();
+		
+		List<IUserDTO> list = new ArrayList<>();
+		
+		list.add(new BrugerDTO());
+		return list;
+		
+		//return dao.getUserList();
 	}
 	
 	@PUT @Path("{id}")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public IUserDTO update(IUserDTO user) throws DALException 
-	{
+	public IUserDTO update(IUserDTO user) throws DALException {
 		System.out.println("Updating user: " + user.getUserName());
-		dao.updateUser(user, 1);
+		
 		return user;
+
+//		dao.updateUser(user, 1);
+//		return user;
 	}
 	
 	@PUT @Path("{id}")
@@ -52,7 +65,7 @@ public class UserAdmin_Jersey {
 	public IUserDTO delete(IUserDTO user) throws DALException 
 	{
 		System.out.println("Updating user: " + user.getUserName());
-		dao.updateUser(user, 0);
+		dao.DeleteUser(user, 1);
 		return user;
 	}
 }

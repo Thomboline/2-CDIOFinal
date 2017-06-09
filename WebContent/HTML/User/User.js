@@ -8,15 +8,38 @@ $(document).ready(function() {
 	$('#CreateUser').submit(function(event) {
 		event.preventDefault();
 		var user = {};
-		user.Username = ("[id*=username]").val();
-		user.Password = ("[id*=password]").val();
+		user.UserID = ("[id*=BrugerId]").val();
+		user.Navn = ("[id*=Navn]").val();
+		user.Ini = ("[id*=Initialer]")
+		user.Cpr = ("[id*=cpr]").val();
 		CreateUser(user);
 		return false;
 	});
 	
 	$('#EditUser').submit(function(event) {
 		event.preventDefault();
+		var user = {};
+		user.UserID = ("[id*=BrugerId]").val();
+		user.Navn = ("[id*=Navn]").val();
+		user.Ini = ("[id*=Initialer]")
+		user.Cpr = ("[id*=cpr]").val();
 		EditUser();
+		return false;
+	});
+	
+	$('#PasswordUser').submit(function(event) {
+		event.preventDefault();
+		var user = {};
+		user.UserID = ("[id*=userid]").val();
+		PasswordUser(user);
+		return false;
+	});
+	
+	$('#DeleteUser').submit(function(event) {
+		event.preventDefault();
+		var user = {};
+		user.UserID = ("[id*=userid]").val();
+		DeleteUser(user);
 		return false;
 	});
 });
@@ -51,7 +74,29 @@ function EditUser() {
 		type: 'PUT',
 		url: 'http://localhost:8080/CDIOFinal',
 		dataType: "json",
-		data: ""
+		data: 'user: ' + JSON.stringify(user) + '}',
+		contentType: "application/json; charset=utf-8",
+		success: function (response) {
+			alert("User edited");
+		},
+		error: function (errorThrown) {
+			alert("Unsuccessful");
+		}
+	});
+}
+
+function PasswordUser() {
+	$.ajax({
+		
+	});
+}
+
+function DeleteUser() {
+	$.ajax({
+		type: 'PUT',
+		url: 'http://localhost:8080/CDIOFinal',
+		dataType: "json",
+		data: 'user: ' + JSON.stringify(user) + '}',		
 	});
 }
 
