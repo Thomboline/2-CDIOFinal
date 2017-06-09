@@ -49,7 +49,7 @@ $(document).ready(function() {
 function ListUsers() {
 	$.ajax({
 		type: 'GET',
-		url: 'http://localhost:8080/CDIOFinal/HTML/User',
+		url: 'http://localhost:8080/CDIOFinal/HTML/HomePage.html',
 		dataType: 'json',
 		success: renderList()
 	});
@@ -58,7 +58,7 @@ function ListUsers() {
 function CreateUser() {
 	$.ajax({
 		type: 'POST',
-		url: 'http://localhost:8080/CDIOFinal/HTML/User',
+		url: 'http://localhost:8080/CDIOFinal/HTML/HomePage.html',
 		dataType: "json",
 		data: 'user: ' + JSON.stringify(user) + '}',
 		contentType: "application/json; charset=utf-8",
@@ -74,7 +74,7 @@ function CreateUser() {
 function EditUser() {
 	$.ajax({
 		type: 'PUT',
-		url: 'http://localhost:8080/CDIOFinal',
+		url: 'http://localhost:8080/CDIOFinal/HTML/HomePage.html',
 		dataType: "json",
 		data: 'user: ' + JSON.stringify(user) + '}',
 		contentType: "application/json; charset=utf-8",
@@ -96,7 +96,7 @@ function PasswordUser() {
 function DeleteUser() {
 	$.ajax({
 		type: 'PUT',
-		url: 'http://localhost:8080/CDIOFinal',
+		url: 'http://localhost:8080/CDIOFinal/HTML/HomePage.html',
 		dataType: "json",
 		data: 'user: ' + JSON.stringify(user) + '}',		
 	});
