@@ -126,7 +126,6 @@ $(document).ready( function() {
         });
     });
 
-
     $("#ProfilIndstillinger").on("click", function () {
         $("#wrapper").load("User/ProfileSettings.html")
     });
