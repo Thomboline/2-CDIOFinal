@@ -7,7 +7,7 @@ public class ProduktBatchDTO
 	int receptId;			/** recept id i området 1-99999999. Vælges af brugerne */
 	
 	
-	public ProduktBatchDTO(int pbId, int status, int receptId) 
+	public ProduktBatchDTO(int pbId, int receptId, int status ) 
 	{
 		this.pbId = pbId;
 		this.status = status;
