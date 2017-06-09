@@ -24,18 +24,8 @@ import dto.ReceptKompDTO;
 
 public class databasetest 
 {
-	
-	static IBrugerDAO BDAO = new BrugerDAO();
-	static IRaavareDAO RDAO = new RaavareDAO();
-	static IRaavareBatchDAO RBDAO = new RaavareBatchDAO();
-	static IReceptDAO RD = new ReceptDAO();
-	static IReceptKompDAO RKDAO = new ReceptKompDAO();
-	static IProduktBatchDAO PBDAO = new ProduktBatchDAO();
-	static IProduktBatchKompDAO PBKDAO = new ProduktBatchKompDAO();
-	
 	public static void main(String[] args) throws DALException, Exception 
 	{
-		
 		BrugerDAOTest(1);
 		RaavareDAOTest(1);
 		RaavareBatchDAOTest(1);
@@ -45,9 +35,9 @@ public class databasetest
 		ProduktBatchKompDAOTest(1);
 	}
 	
-
 	public static void BrugerDAOTest(int testtype) throws DALException, Exception
 	{
+		 IBrugerDAO BDAO = new BrugerDAO();
 		
 		if(testtype == 1)
 		{
@@ -67,11 +57,12 @@ public class databasetest
 		{
 			System.out.println(BDAO.getBruger(1));
 		}
-		
-		
+
 	}
 	public static void ProduktBatchDAOTest(int testtype) throws DALException, Exception
 	{
+		IProduktBatchDAO PBDAO = new ProduktBatchDAO();
+		
 		if(testtype == 1)
 		{
 			ProduktBatchDTO PBDTO = new ProduktBatchDTO(1, 1, 2);
@@ -82,7 +73,6 @@ public class databasetest
 			ProduktBatchDTO PBDTO = new ProduktBatchDTO(1, 1, 2);
 			PBDAO.updateProduktBatch(PBDTO); 
 		}
-		
 		else if(testtype == 3)
 		{
 			System.out.println(PBDAO.getProduktBatchList());
@@ -91,10 +81,11 @@ public class databasetest
 		{
 			System.out.println(PBDAO.getProduktBatch(1));
 		}
-
 	}
 	public static void ProduktBatchKompDAOTest(int testtype) throws DALException, Exception
 	{
+		IProduktBatchKompDAO PBKDAO = new ProduktBatchKompDAO();
+		
 		if(testtype == 1)
 		{
 			ProduktBatchKompDTO PBDTO = new ProduktBatchKompDTO(1, 1, 2, 45.5, 15.5, 2);
@@ -121,6 +112,8 @@ public class databasetest
 	}
 	public static void ReceptDAOTest(int testtype) throws DALException, Exception
 	{
+		IReceptDAO RD = new ReceptDAO();
+		
 		if(testtype == 1)
 		{
 			ReceptDTO RDT = new ReceptDTO(1, "Crab");
@@ -144,6 +137,8 @@ public class databasetest
 	}
 	public static void ReceptKompDAOTest(int testtype) throws DALException, Exception
 	{
+		IReceptKompDAO RKDAO = new ReceptKompDAO();
+		
 		if(testtype == 1)
 		{
 			ReceptKompDTO RKDTO = new ReceptKompDTO(1, 2, 7.5, 7.5);
@@ -172,6 +167,8 @@ public class databasetest
 	}
 	public static void RaavareBatchDAOTest(int testtype) throws DALException, Exception
 	{
+		IRaavareBatchDAO RBDAO = new RaavareBatchDAO();
+		
 		if(testtype == 1)
 		{
 			RaavareBatchDTO RBDTO = new RaavareBatchDTO(1, 2, 5.5);
@@ -198,6 +195,8 @@ public class databasetest
 	}
 	public static void RaavareDAOTest(int testtype) throws DALException, Exception
 	{
+		IRaavareDAO RDAO = new RaavareDAO();
+		
 		if(testtype == 1)
 		{
 			RaavareDTO RDTO = new RaavareDTO(2, "Grisetarm", "Holger");
