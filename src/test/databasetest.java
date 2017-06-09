@@ -26,13 +26,13 @@ public class databasetest
 {
 	public static void main(String[] args) throws DALException, Exception 
 	{
-		BrugerDAOTest(1);
-		RaavareDAOTest(1);
-		RaavareBatchDAOTest(1);
-		ReceptDAOTest(1);
-		ReceptKompDAOTest(1);
-		ProduktBatchDAOTest(1);
-		ProduktBatchKompDAOTest(1);
+		BrugerDAOTest(5);
+//		RaavareDAOTest(1);
+//		RaavareBatchDAOTest(1);
+//		ReceptDAOTest(1);
+//		ReceptKompDAOTest(1);
+//		ProduktBatchDAOTest(1);
+//		ProduktBatchKompDAOTest(1);
 	}
 	
 	public static void BrugerDAOTest(int testtype) throws DALException, Exception
@@ -41,12 +41,12 @@ public class databasetest
 		
 		if(testtype == 1)
 		{
-			BrugerDTO BDTO = new BrugerDTO(2, "Svend Kurtsen","SVK","123456-2222","pass11", "Admin", 1);
+			BrugerDTO BDTO = new BrugerDTO(2, "Svend Kurtsen","SVK","password123","280486-1232", "Admin", 1);
 			BDAO.createBruger(BDTO);
 		}
 		else if(testtype == 2)
 		{
-			BrugerDTO BDTO = new BrugerDTO(2, "Svend Kurtsen","SVK","123456-3333","pass22", "Admin", 1);
+			BrugerDTO BDTO = new BrugerDTO(2, "Svend Kurtsen","SVK","PAsswordtest","280486-1232", "Admin", 1);
 			BDAO.updateBruger(BDTO);
 		}
 		else if(testtype == 3)
@@ -57,6 +57,12 @@ public class databasetest
 		{
 			System.out.println(BDAO.getBruger(1));
 		}
+		else if(testtype == 5)
+		{
+			BrugerDTO BDTO = new BrugerDTO(2, null, null, null, null, null, 1);
+			BDAO.resetPassword(BDTO);
+		}
+
 
 	}
 	public static void ProduktBatchDAOTest(int testtype) throws DALException, Exception

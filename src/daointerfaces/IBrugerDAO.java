@@ -11,4 +11,5 @@ public interface IBrugerDAO
 		List<BrugerDTO> getBrugerList() throws DALException, Exception;
 		void createBruger(BrugerDTO opr) throws DALException, Exception;
 		void updateBruger(BrugerDTO opr) throws DALException, Exception;
+		void resetPassword(BrugerDTO bruger)throws DALException, Exception;
 }

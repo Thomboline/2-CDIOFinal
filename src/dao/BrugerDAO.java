@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import PasswordGenerator.PasswordGenerator;
 import connector.Connector;
 import connector.DALException;
 import daointerfaces.IBrugerDAO;
@@ -94,6 +95,19 @@ public class BrugerDAO implements IBrugerDAO
 				)
 		);
 	}
-	
+	@Override
+	public void resetPassword(BrugerDTO bruger) throws Exception 
+	{
+		PasswordGenerator PG = new PasswordGenerator();
+		
+		Connector.doUpdate
+		(
+				String.format
+				("CALL resetPassword('%d','%s');",
 
+						bruger.getId(),
+						PG.PasswordGen(PG.PasswordLength())
+				)
+		);
+	}
 }
