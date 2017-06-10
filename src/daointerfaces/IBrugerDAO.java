@@ -3,13 +3,15 @@ package daointerfaces;
 import java.util.List;
 
 import connector.DALException;
-import dto.BrugerDTO;
+import dtointerfaces.IBrugerDTO;
 
 public interface IBrugerDAO 
 {
-		BrugerDTO getBruger(int oprId) throws  DALException, Exception;
-		List<BrugerDTO> getBrugerList() throws DALException, Exception;
-		void createBruger(BrugerDTO opr) throws DALException, Exception;
-		void updateBruger(BrugerDTO opr) throws DALException, Exception;
-		void resetPassword(BrugerDTO bruger)throws DALException, Exception;
+		IBrugerDTO getBruger(int oprId) throws  DALException, Exception;
+		List<IBrugerDTO> getBrugerList() throws DALException, Exception;
+		void createBruger(IBrugerDTO opr) throws DALException, Exception;
+		void updateBruger(IBrugerDTO opr) throws DALException, Exception;
+		void resetPassword(IBrugerDTO bruger)throws DALException, Exception;
+
+
 }
