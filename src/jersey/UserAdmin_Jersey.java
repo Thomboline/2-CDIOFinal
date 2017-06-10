@@ -25,7 +25,7 @@ import connector.DALException;
 import dto.BrugerDTO;
 import dtointerfaces.IBrugerDTO;
 
-@Path("/User") 
+@Path("/UserService")
 public class UserAdmin_Jersey {
 	
 	@GET
@@ -35,6 +35,7 @@ public class UserAdmin_Jersey {
 	}
 	
 	@GET
+	@Path("/users")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public List<IBrugerDTO> ListUsers() throws DALException {
 		System.out.println("findAll");
@@ -48,7 +49,8 @@ public class UserAdmin_Jersey {
 		//return dao.getUserList();
 	}
 	
-	@PUT @Path("{id}")
+	@PUT
+	@Path("/users/{id}")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public IBrugerDTO update(IBrugerDTO user) throws DALException {
@@ -60,7 +62,8 @@ public class UserAdmin_Jersey {
 //		return user;
 	}
 	
-	@PUT @Path("{id}")
+	@POST
+	@Path("/users/{id}")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public IBrugerDTO delete(IBrugerDTO user) throws DALException 
