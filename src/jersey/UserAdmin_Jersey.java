@@ -38,10 +38,8 @@ public class UserAdmin_Jersey {
 	@Path("/users")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public List<IBrugerDTO> ListUsers() throws DALException {
-		System.out.println("findAll");
 		
 		List<IBrugerDTO> list = new ArrayList<>();
-		
 		list.add(new BrugerDTO(1, "hej", "med", "dig", "det", "virker", 1));
 		
 		return list;

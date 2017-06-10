@@ -1,9 +1,7 @@
 $(document).ready(function() {
 	$('#ListUsers').submit(function(event) {
 		event.preventDefault();
-		console.log("1");
 		ListUsers();
-		console.log("2");
 		return false;
 	});
 	
@@ -49,9 +47,14 @@ $(document).ready(function() {
 function ListUsers() {
 	$.ajax({
 		type: 'GET',
-		url: 'http://localhost:8080/CDIOFinal/HTML/HomePage.html',
+		url: '/UserService/users',
 		dataType: 'json',
-		success: renderList()
+		converters: {
+			'text json': true
+		},
+		success: {
+			$("#wrapper").html(renderList());
+		}
 	});
 }
 
