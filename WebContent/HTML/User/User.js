@@ -12,7 +12,7 @@ $(document).ready(function() {
 		var user = {};
 		user.UserID = ("[id*=BrugerId]").val();
 		user.Navn = ("[id*=Navn]").val();
-		user.Ini = ("[id*=Initialer]")
+		user.Ini = ("[id*=Initialer]").val();
 		user.Cpr = ("[id*=cpr]").val();
 		CreateUser(user);
 		return false;
@@ -23,7 +23,7 @@ $(document).ready(function() {
 		var user = {};
 		user.UserID = ("[id*=BrugerId]").val();
 		user.Navn = ("[id*=Navn]").val();
-		user.Ini = ("[id*=Initialer]")
+		user.Ini = ("[id*=Initialer]").val();
 		user.Cpr = ("[id*=cpr]").val();
 		EditUser();
 		return false;

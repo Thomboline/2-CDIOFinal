@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import connector.DALException;
 import dto.BrugerDTO;
-import dto.IUserDTO;
+import dtointerfaces.IBrugerDTO;
 
 @Path("/User") 
 public class UserAdmin_Jersey {
@@ -36,10 +36,10 @@ public class UserAdmin_Jersey {
 	
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public List<IUserDTO> ListUsers() throws DALException {
+	public List<IBrugerDTO> ListUsers() throws DALException {
 		System.out.println("findAll");
 		
-		List<IUserDTO> list = new ArrayList<>();
+		List<IBrugerDTO> list = new ArrayList<>();
 		
 		list.add(new BrugerDTO(1, "hej", "med", "dig", "det", "virker", 1));
 		
@@ -51,8 +51,8 @@ public class UserAdmin_Jersey {
 	@PUT @Path("{id}")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public IUserDTO update(IUserDTO user) throws DALException {
-		System.out.println("Updating user: " + user.getUserName());
+	public IBrugerDTO update(IBrugerDTO user) throws DALException {
+		System.out.println("Updating user: " + user.getBrugerNavn());
 		
 		return user;
 
@@ -63,9 +63,9 @@ public class UserAdmin_Jersey {
 	@PUT @Path("{id}")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public IUserDTO delete(IUserDTO user) throws DALException 
+	public IBrugerDTO delete(IBrugerDTO user) throws DALException 
 	{
-		System.out.println("Updating user: " + user.getUserName());
+		System.out.println("Updating user: " + user.getBrugerNavn());
 		dao.DeleteUser(user, 1);
 		return user;
 	}
