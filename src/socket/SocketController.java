@@ -260,81 +260,161 @@ class SocketThread extends Thread
 		  try 
 		  {
 	    	inStream = new BufferedReader(new InputStreamReader(activeSocket.getInputStream()));
-	    	while(!login()) {}
+	    	
+	    	//while(!login()) {}
 	    	
 	   	    SC.viewClient();
-	   	   
+	   	    
+	   	    //Test variabel
+	   	    int test = 3;
 	   	    while (true)
 	    	{
-	    		inLine = inStream.readLine();
-	    		System.out.println(inLine);
-	    		if (inLine==null) break;
-	    		switch (inLine.split(" ")[0])
-	    		{
-				case "RM20": // Display a message in the secondary display and wait for response
-					if(inLine.split(" ")[1].equals("8"))
-					{
-						try 
-						{
-							SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, inLine.split("8")[1]));
-						}
-						catch (ArrayIndexOutOfBoundsException e) 
-						{
-							SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "INDTAST NR"));
-						}
-					}
-					else if(inLine.split(" ")[1].equals("4"))
-					{
-						SC.notifyObservers(new SocketInMessage(SocketMessageType.RM204, inLine.split("8")[1]));
-						System.out.println("Du har skrevet RM204");
-					}
-					else 
-						System.out.println("Du har tastet forkert.");
-					break;
-				case "D": // Write in secondary display
-						SC.notifyObservers(new SocketInMessage(SocketMessageType.D, inLine.split(" ")[1])); 
-					break;
-				case "DW": //Clear primary display
-					SC.notifyObservers(new SocketInMessage(SocketMessageType.DW, "DW"));
-					break;
-				case "P111": //Show something in secondary display
-					SC.notifyObservers(new SocketInMessage(SocketMessageType.P111, inLine.split(" ")[1]));
-					break;
-				case "T": // Tare the weight
-					SC.notifyObservers(new SocketInMessage(SocketMessageType.T, "T"));
-					break;
-				case "S": // Request the current load
-					SC.notifyObservers(new SocketInMessage(SocketMessageType.S, "S"));
-					break;
-				case "K": // Choose keystate
-					if (inLine.split(" ").length>1){
-						SC.notifyObservers(new SocketInMessage(SocketMessageType.K, inLine.split(" ")[1]));
-					}
-					break;
-				case "B": // Set the load
-					try {
-					if(SC.isItANumber(inLine.split(" ")[1])){
-						SC.notifyObservers(new SocketInMessage(SocketMessageType.B, inLine.split(" ")[1])); 
-					}
-					}
-					catch(ArrayIndexOutOfBoundsException ex) {
-						System.out.println("You can't do that.");
-					}
-					
-					break;
-				case "Q": // Quit
-					SC.notifyObservers(new SocketInMessage(SocketMessageType.Q, "Q"));
-					this.interrupt();
-					break;
-				default: //Something went wrong?
-					try {
-						SC.notifyObservers(new SocketInMessage(SocketMessageType.DE, inLine.split(" ")[1]));
-						} catch (ArrayIndexOutOfBoundsException e) 
-						{
-							SC.notifyObservers(new SocketInMessage(SocketMessageType.DE, " "));
-						}
-					break;
-				}
+	   	    	System.out.println("Test nr: " + test);
+   		   	 	SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Terminalnummer: "));
+//	   	    	switch(test) {
+//	   	    		
+//	   	    	case 3:
+//	   		   	    System.out.println("Test nr: " + test);
+//	   		   	 	SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Terminalnummer: "));
+//	   	    		break;
+//	   	    		
+//	   	    	case 4:
+//	   	    		System.out.println("Test nr: " + test);
+//	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborantnummer "));
+//	   	    		break;
+//	   	    		
+//	   	    	case 5:
+//	   	    		System.out.println("Test nr: " + test);
+//	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: XXX "));
+//	   	    		break;
+//	   	    		
+//	   	    	case 6:
+//	   	    		System.out.println("Test nr: " + test);
+//	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: XXX "));
+//	   	    		break;
+//	   	    		
+//	   	    	case 7:
+//	   	    		System.out.println("Test nr: " + test);
+//	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: XXX "));
+//	   	    		break;
+//	   	    		
+//	   	    	case 8:
+//	   	    		System.out.println("Test nr: " + test);
+//	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: XXX "));
+//	   	    		break;
+//	   	    		
+//	   	    	case 9:
+//	   	    		System.out.println("Test nr: " + test);
+//	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: XXX "));
+//	   	    		break;
+//	   	    		
+//	   	    	case 10:
+//	   	    		System.out.println("Test nr: " + test);
+//	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: XXX "));
+//	   	    		break;
+//	   	    		
+//	   	    	case 11:
+//	   	    		System.out.println("Test nr: " + test);
+//	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: XXX "));
+//	   	    		break;
+//	   	    	
+//	   	    	case 12:
+//	   	    		System.out.println("Test nr: " + test);
+//	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: XXX "));
+//	   	    		break;
+//	   	    	
+//	   	    	case 13:
+//	   	    		System.out.println("Test nr: " + test);
+//	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: XXX "));
+//	   	    		break;
+//	   	    	
+//	   	    	case 14:
+//	   	    		System.out.println("Test nr: " + test);
+//	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: XXX "));
+//	   	    		break;
+//	   	    	
+//	   	    	case 15:
+//	   	    		System.out.println("Test nr: " + test);
+//	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: XXX "));
+//	   	    		break;
+//	   	    	
+//	   	    	case 16:
+//	   	    		System.out.println("Test nr: " + test);
+//	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: XXX "));
+//	   	    		break;
+//	   	    	}
+
+	   	 	test++;
+//	   	 		inLine = inStream.readLine();
+//	    
+//	    		System.out.println(inLine);
+//	    		if (inLine==null) break;
+//	    		switch (inLine.split(" ")[0])
+//	    		{
+//				case "RM20": // Display a message in the secondary display and wait for response
+//					if(inLine.split(" ")[1].equals("8"))
+//					{
+//						try 
+//						{
+//							SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, inLine.split("8")[1]));
+//						}
+//						catch (ArrayIndexOutOfBoundsException e) 
+//						{
+//							SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "INDTAST NR"));
+//						}
+//					}
+//					else if(inLine.split(" ")[1].equals("4"))
+//					{
+//						SC.notifyObservers(new SocketInMessage(SocketMessageType.RM204, inLine.split("8")[1]));
+//						System.out.println("Du har skrevet RM204");
+//					}
+//					else 
+//						System.out.println("Du har tastet forkert.");
+//					break;
+//				case "D": // Write in secondary display
+//						SC.notifyObservers(new SocketInMessage(SocketMessageType.D, inLine.split(" ")[1])); 
+//					break;
+//				case "DW": //Clear primary display
+//					SC.notifyObservers(new SocketInMessage(SocketMessageType.DW, "DW"));
+//					break;
+//				case "P111": //Show something in secondary display
+//					SC.notifyObservers(new SocketInMessage(SocketMessageType.P111, inLine.split(" ")[1]));
+//					break;
+//				case "T": // Tare the weight
+//					SC.notifyObservers(new SocketInMessage(SocketMessageType.T, "T"));
+//					break;
+//				case "S": // Request the current load
+//					SC.notifyObservers(new SocketInMessage(SocketMessageType.S, "S"));
+//					break;
+//				case "K": // Choose keystate
+//					if (inLine.split(" ").length>1){
+//						SC.notifyObservers(new SocketInMessage(SocketMessageType.K, inLine.split(" ")[1]));
+//					}
+//					break;
+//				case "B": // Set the load
+//					try {
+//					if(SC.isItANumber(inLine.split(" ")[1])){
+//						SC.notifyObservers(new SocketInMessage(SocketMessageType.B, inLine.split(" ")[1])); 
+//					}
+//					}
+//					catch(ArrayIndexOutOfBoundsException ex) {
+//						System.out.println("You can't do that.");
+//					}
+//					
+//					break;
+//				case "Q": // Quit
+//					SC.notifyObservers(new SocketInMessage(SocketMessageType.Q, "Q"));
+//					this.interrupt();
+//					break;
+//				default: //Something went wrong?
+//					try {
+//						SC.notifyObservers(new SocketInMessage(SocketMessageType.DE, inLine.split(" ")[1]));
+//						} catch (ArrayIndexOutOfBoundsException e) 
+//						{
+//							SC.notifyObservers(new SocketInMessage(SocketMessageType.DE, " "));
+//						}
+//					break;
+//				}
 			}
 	    } 
 	    catch (IOException e) 

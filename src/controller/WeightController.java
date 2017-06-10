@@ -1,6 +1,8 @@
 package controller;
 
+import java.awt.List;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 import socket.ISocketController;
 import socket.ISocketObserver;
@@ -30,7 +32,10 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 	private String batchnummer;
 	private String userName;
 	private int userId;
-	
+	private int wtIterator = 3;
+	//private ArrayList<Integer> tempInf = new ArrayList<Integer>();
+	private int[] tempInf = new int[3];
+	private int inf = 0;
 	DecimalFormat df = new DecimalFormat ("0.000");
 	
 	public WeightController(ISocketController socketHandler, IWeightInterfaceController weightInterfaceController) {
@@ -63,81 +68,24 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 		}
 	}
 	
+	
 	// Listening for socket input
 	@Override
 	public void notify(SocketInMessage message) {
-		if (isRM208) {
-
-		} else {
-			switch (message.getType()) {
-			case B:
-				double newWeight = Double.parseDouble(message.getMessage());
-				socketHandler.sendMessage(new SocketOutMessage("DB"));
-				notifyWeightChange(newWeight);
-				break;
-			case D:
-				weightController.showMessagePrimaryDisplay(message.getMessage());
-				socketHandler.sendMessage(new SocketOutMessage("D A"));
-				break;
-			case Q:
-				weightController.unRegisterObserver(this);
-				socketHandler.unRegisterObserver(this);
-				System.exit(0);
-				break;
-			case RM204:
-				// Not specified
-				break;
-			case RM208:
-				isRM208 = true;
-				weightController.showMessageTernaryDisplay(message.getMessage());
-				socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
-				try {
-					synchronized (socketHandler) {
-						socketHandler.wait();
-					}
-				} catch (InterruptedException ex) {
-					ex.printStackTrace();
-				}
-				break;
-			case S:
-				socketHandler.sendMessage(new SocketOutMessage("S S " + this.currentWeight + "\r\n"));
-				break;
-			case T:
-				this.containerWeight += currentWeight;
-				notifyWeightChange(0);
-				weightController.showMessageSecondaryDisplay("Weight of tara: " + containerWeight + "kg");
-				socketHandler.sendMessage(new SocketOutMessage("T S " + this.containerWeight + "kg \r\n"));
-				break;
-			case DW:
-				resetWeightChange();
-				weightController.showMessageSecondaryDisplay(null);
-				weightController.showMessageTernaryDisplay(null);
-				weightController.showMessagePrimaryDisplay(df.format(this.currentWeight) + "kg");
-				socketHandler.sendMessage(new SocketOutMessage("DW A\r\n"));
-				break;
-			case K:
-				handleKMessage(message);
-				socketHandler.sendMessage(new SocketOutMessage("K A\r\n"));
-				break;
-			case P111:
-				String upToNCharacters = message.getMessage().substring(0, Math.min(message.getMessage().length(), 30));
-				weightController.showMessageSecondaryDisplay(upToNCharacters);
-				socketHandler.sendMessage(new SocketOutMessage("P111 A \r\n"));
-				break;
-			case DE:
-			default:
-			socketHandler.sendMessage(new SocketOutMessage("ES \r\n"
-					+ "Wrong input, please use following commands:\n S\r\n"
-					+ "T\r\n"
-					+ "D\r\n"
-					+ "DW\r\n"
-					+ "P111\r\n"
-					+ "RM20 8\r\n"
-					+ "K\r\n"
-					+ "B\r\n"
-					+ "Q\r\n"));
+		
+		try {
+		if(weightState(message, this.wtIterator)) {
+			this.wtIterator++;
 		}
+		else {
+			notify(message);
 		}
+		
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
 	}
 
 	private void handleKMessage(SocketInMessage message) {
@@ -165,7 +113,7 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 	public void notifyKeyPress(KeyPress keyPress) {
 		System.out.println(keyPress.getCharacter());
 
-		String[] tara = new String[] { "", "", "Reset Stored-weight", "Show Stored-weight", "", "" };
+		String[] tara = new String[] { "", "", "Reset Stored-weight", "Show Stored-weight", "", "Cancel" };
 		String[] text = new String[] { "Backspace", "", "", "", "", "" };
 		String[] zero = new String[] { "", "", "", "", "Change Batch-id", "Logout" };
 		String[] empty = new String[] { "", "", "", "", "", "" };
@@ -286,12 +234,12 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 				}
 
 				socketHandler.sendMessage(new SocketOutMessage("RM A "));
-
-				//Prepares message
-				prepMessageCMD();
 				
-				//Sends a new String to CMD
-				sendMessageCMD(prepMessageCMD());
+				//Stores input in weight info container
+				prepInfo();
+
+				//Prepares message and sends a new String to CMD
+				sendMessageCMD();
 				
 				//Flush msCMD char array
 				flushMsCMD();
@@ -315,8 +263,257 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 		return weight;
 	}
 	
-	public String prepMessageCMD() {
 
+	//Aflåst miljø til afvejningsprocedure
+public boolean weightState(SocketInMessage message, int wtIterator) throws Exception {
+	
+	//Brug 'tempInf' til at gemme midlertidige variable
+	//[0] til terminal nummer
+	//[1] til laborant nummer
+	//[2] til råvarebatch nummer
+	
+	//Switch-casen starter på 3 så cases svarer til de egentlige trin i afvejningsproceduren
+	
+	switch (wtIterator) {
+	
+	//Vælg afvejningsterminal
+	case 3:
+		isRM208 = true;
+		System.out.println("Performing case " + wtIterator);
+		weightController.showMessageTernaryDisplay(message.getMessage());
+		socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
+		try {
+			synchronized (socketHandler) {
+				socketHandler.wait();
+			}
+		} catch (InterruptedException ex) {
+			ex.printStackTrace();
+		}
+		return true;
+	
+	//Laborant nummer	
+	case 4:
+		isRM208 = true;
+		System.out.println("Performing case " + wtIterator);
+		weightController.showMessageTernaryDisplay(message.getMessage());
+		socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
+		try {
+			synchronized (socketHandler) {
+				socketHandler.wait();
+			}
+		} catch (InterruptedException ex) {
+			ex.printStackTrace();
+		}
+		return true;
+		
+	//Svar med Laborantens initialer
+	case 5:
+		isRM208 = true;
+		System.out.println("Performing case " + wtIterator);
+		weightController.showMessageTernaryDisplay(message.getMessage());
+		socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
+		try {
+			synchronized (socketHandler) {
+				socketHandler.wait();
+			}
+		} catch (InterruptedException ex) {
+			ex.printStackTrace();
+		}
+		return true;
+	
+	//Indtast produktbatchnummer
+	case 6:
+		isRM208 = true;
+		System.out.println("Performing case " + wtIterator);
+		weightController.showMessageTernaryDisplay(message.getMessage());
+		socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
+		try {
+			synchronized (socketHandler) {
+				socketHandler.wait();
+			}
+		} catch (InterruptedException ex) {
+			ex.printStackTrace();
+		}
+		return true;
+	
+	//Svar med recept
+	case 7:
+		isRM208 = true;
+		System.out.println("Performing case " + wtIterator);
+		weightController.showMessageTernaryDisplay(message.getMessage());
+		socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
+		try {
+			synchronized (socketHandler) {
+				socketHandler.wait();
+			}
+		} catch (InterruptedException ex) {
+			ex.printStackTrace();
+		}
+		return true;
+	
+	//Kontroller at vægten er ubelastet
+	case 8:
+		isRM208 = true;
+		System.out.println("Performing case " + wtIterator);
+		weightController.showMessageTernaryDisplay(message.getMessage());
+		socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
+		try {
+			synchronized (socketHandler) {
+				socketHandler.wait();
+			}
+		} catch (InterruptedException ex) {
+			ex.printStackTrace();
+		}
+		return true;
+	
+	//Sætter produktbatches status til "Under produktion"
+	case 9:
+		isRM208 = true;
+		System.out.println("Performing case " + wtIterator);
+		weightController.showMessageTernaryDisplay(message.getMessage());
+		socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
+		try {
+			synchronized (socketHandler) {
+				socketHandler.wait();
+			}
+		} catch (InterruptedException ex) {
+			ex.printStackTrace();
+		}
+		return true;
+	
+	//Vægten tareres
+	case 10:
+		isRM208 = true;
+		System.out.println("Performing case " + wtIterator);
+		weightController.showMessageTernaryDisplay(message.getMessage());
+		socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
+		try {
+			synchronized (socketHandler) {
+				socketHandler.wait();
+			}
+		} catch (InterruptedException ex) {
+			ex.printStackTrace();
+		}
+		return true;
+	
+	//Vægten beder om første tara beholder
+	case 11:
+		isRM208 = true;
+		System.out.println("Performing case " + wtIterator);
+		weightController.showMessageTernaryDisplay(message.getMessage());
+		socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
+		try {
+			synchronized (socketHandler) {
+				socketHandler.wait();
+			}
+		} catch (InterruptedException ex) {
+			ex.printStackTrace();
+		}
+		return true;
+	
+	//Placer tara
+	case 12:
+		isRM208 = true;
+		System.out.println("Performing case " + wtIterator);
+		weightController.showMessageTernaryDisplay(message.getMessage());
+		socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
+		try {
+			synchronized (socketHandler) {
+				socketHandler.wait();
+			}
+		} catch (InterruptedException ex) {
+			ex.printStackTrace();
+		}
+		return true;
+	
+	//Tara vægt registreres
+	case 13:
+		isRM208 = true;
+		System.out.println("Performing case " + wtIterator);
+		weightController.showMessageTernaryDisplay(message.getMessage());
+		socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
+		try {
+			synchronized (socketHandler) {
+				socketHandler.wait();
+			}
+		} catch (InterruptedException ex) {
+			ex.printStackTrace();
+		}
+		return true;
+	
+	//Vægten tareres
+	case 14:
+		isRM208 = true;
+		System.out.println("Performing case " + wtIterator);
+		weightController.showMessageTernaryDisplay(message.getMessage());
+		socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
+		try {
+			synchronized (socketHandler) {
+				socketHandler.wait();
+			}
+		} catch (InterruptedException ex) {
+			ex.printStackTrace();
+		}
+		return true;
+	
+	//Indtast råvarebatchnummer
+	case 15:
+		isRM208 = true;
+		System.out.println("Performing case " + wtIterator);
+		weightController.showMessageTernaryDisplay(message.getMessage());
+		socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
+		try {
+			synchronized (socketHandler) {
+				socketHandler.wait();
+			}
+		} catch (InterruptedException ex) {
+			ex.printStackTrace();
+		}
+		return true;
+	
+	//Varen afvejes
+	case 16:
+		isRM208 = true;
+		System.out.println("Performing case " + wtIterator);
+		weightController.showMessageTernaryDisplay(message.getMessage());
+		socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
+		try {
+			synchronized (socketHandler) {
+				socketHandler.wait();
+			}
+		} catch (InterruptedException ex) {
+			ex.printStackTrace();
+		}
+		return true;
+	default:
+		System.out.println("Default case. Returning false.");
+		wtIterator--;
+		return false;
+	}
+}
+
+	public void prepInfo() {
+		String temp = "";
+		for(int i = 0; i < msCMD.length; i++) {
+			if(msCMD[i] == 0) {
+				break;
+			}
+			else {
+				temp += msCMD[i];
+			}
+		}
+		if(!temp.isEmpty()) {
+			System.out.println("msCMD string split: " + temp);
+			tempInf[inf] = Integer.parseInt(temp);
+			System.out.println("TempInf: " + tempInf[inf]);
+		}
+			else {
+				System.out.println("OK");
+			}
+	}
+	
+	public String prepMessageCMD() {
+		 
 		msCMD[counter + 1] = '\r';
 		msCMD[counter + 2] = '\n';
 
@@ -326,7 +523,7 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 		return message;
 	}
 	
-	public void sendMessageCMD(String string) {
+	public void sendMessageCMD() {
 		socketHandler.sendMessage(new SocketOutMessage(prepMessageCMD()));
 	}
 	 
@@ -371,3 +568,77 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 	}
 	
 }
+
+								//Hører til nederst i notify()
+//if (isRM208) {
+//
+//} else {
+//	switch (message.getType()) {
+//	case B:
+//		double newWeight = Double.parseDouble(message.getMessage());
+//		socketHandler.sendMessage(new SocketOutMessage("DB"));
+//		notifyWeightChange(newWeight);
+//		break;
+//	case D:
+//		weightController.showMessagePrimaryDisplay(message.getMessage());
+//		socketHandler.sendMessage(new SocketOutMessage("D A"));
+//		break;
+//	case Q:
+//		weightController.unRegisterObserver(this);
+//		socketHandler.unRegisterObserver(this);
+//		System.exit(0);
+//		break;
+//	case RM204:
+//		// Not specified
+//		break;
+//	case RM208:
+//		isRM208 = true;
+//		weightController.showMessageTernaryDisplay(message.getMessage());
+//		socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
+//		try {
+//			synchronized (socketHandler) {
+//				socketHandler.wait();
+//			}
+//		} catch (InterruptedException ex) {
+//			ex.printStackTrace();
+//		}
+//		break;
+//	case S:
+//		socketHandler.sendMessage(new SocketOutMessage("S S " + this.currentWeight + "\r\n"));
+//		break;
+//	case T:
+//		this.containerWeight += currentWeight;
+//		notifyWeightChange(0);
+//		weightController.showMessageSecondaryDisplay("Weight of tara: " + containerWeight + "kg");
+//		socketHandler.sendMessage(new SocketOutMessage("T S " + this.containerWeight + "kg \r\n"));
+//		break;
+//	case DW:
+//		resetWeightChange();
+//		weightController.showMessageSecondaryDisplay(null);
+//		weightController.showMessageTernaryDisplay(null);
+//		weightController.showMessagePrimaryDisplay(df.format(this.currentWeight) + "kg");
+//		socketHandler.sendMessage(new SocketOutMessage("DW A\r\n"));
+//		break;
+//	case K:
+//		handleKMessage(message);
+//		socketHandler.sendMessage(new SocketOutMessage("K A\r\n"));
+//		break;
+//	case P111:
+//		String upToNCharacters = message.getMessage().substring(0, Math.min(message.getMessage().length(), 30));
+//		weightController.showMessageSecondaryDisplay(upToNCharacters);
+//		socketHandler.sendMessage(new SocketOutMessage("P111 A \r\n"));
+//		break;
+//	case DE:
+//	default:
+//	socketHandler.sendMessage(new SocketOutMessage("ES \r\n"
+//			+ "Wrong input, please use following commands:\n S\r\n"
+//			+ "T\r\n"
+//			+ "D\r\n"
+//			+ "DW\r\n"
+//			+ "P111\r\n"
+//			+ "RM20 8\r\n"
+//			+ "K\r\n"
+//			+ "B\r\n"
+//			+ "Q\r\n"));
+//}
+//}
