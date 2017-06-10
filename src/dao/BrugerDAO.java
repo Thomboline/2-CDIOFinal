@@ -110,4 +110,17 @@ public class BrugerDAO implements IBrugerDAO
 				)
 		);
 	}
+	public void deleteBruger(BrugerDTO bruger) throws Exception 
+	{
+		
+		Connector.doUpdate
+		(
+				String.format
+				("CALL resetPassword('%d','%s');",
+
+						bruger.getId(),
+						bruger.getStatus()
+				)
+		);
+	}
 }

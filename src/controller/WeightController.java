@@ -46,7 +46,7 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 	@Override
 	public void init(ISocketController socketHandler, IWeightInterfaceController weightInterfaceController) {
 		this.socketHandler = socketHandler;
-		this.weightController=weightInterfaceController;
+		this.weightController = weightInterfaceController;
 	}
 
 	@Override
@@ -280,6 +280,7 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws Excep
 	case 3:
 		isRM208 = true;
 		System.out.println("Performing case " + wtIterator);
+		
 		weightController.showMessageTernaryDisplay(message.getMessage());
 		socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
 		try {
@@ -294,8 +295,8 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws Excep
 	//Laborant nummer	
 	case 4:
 		isRM208 = true;
-		System.out.println("Performing case " + wtIterator);
-		weightController.showMessageTernaryDisplay(message.getMessage());
+		System.out.println("Performing case " + "tis");
+		weightController.showMessageTernaryDisplay("test1");
 		socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
 		try {
 			synchronized (socketHandler) {
@@ -477,6 +478,7 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws Excep
 		System.out.println("Performing case " + wtIterator);
 		weightController.showMessageTernaryDisplay(message.getMessage());
 		socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
+		
 		try {
 			synchronized (socketHandler) {
 				socketHandler.wait();

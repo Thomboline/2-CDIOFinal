@@ -249,7 +249,8 @@ public class FxApp extends Application {
 	public void printText3(final String msg) {
 		Platform.runLater(new Runnable() {
 			@Override
-			public void run() {
+			public void run() 
+			{
 				txtinfo[2].setText(msg);
 				txtinfo[2].setVisible(true);
 				txtload.setVisible(false);
