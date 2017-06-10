@@ -1,7 +1,7 @@
 body {
     font-family: Arial, SansSerif;
 }
-
+ 
 .container {
     overflow: hidden;
     background-color: darkcyan;
@@ -60,6 +60,6 @@ body {
     display: block;
 }
 
-#UserAdmin, #RaavareAdmin, #RaavareBatchAdmin, #ProduktBatchAdmin, #ReceptAdmin {
-    display: inline;
+div.Laborant, div.Vaerkfoerer, div.Farmaceut {
+    display: none;
 }

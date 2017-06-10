@@ -1,22 +1,47 @@
 $(document).ready(function() {
 	$('#ListUsers').submit(function(event) {
 		event.preventDefault();
+		console.log("1");
 		ListUsers();
+		console.log("2");
 		return false;
 	});
 	
 	$('#CreateUser').submit(function(event) {
 		event.preventDefault();
 		var user = {};
-		user.Username = ("[id*=username]").val();
-		user.Password = ("[id*=password]").val();
+		user.UserID = ("[id*=BrugerId]").val();
+		user.Navn = ("[id*=Navn]").val();
+		user.Ini = ("[id*=Initialer]")
+		user.Cpr = ("[id*=cpr]").val();
 		CreateUser(user);
 		return false;
 	});
 	
 	$('#EditUser').submit(function(event) {
 		event.preventDefault();
+		var user = {};
+		user.UserID = ("[id*=BrugerId]").val();
+		user.Navn = ("[id*=Navn]").val();
+		user.Ini = ("[id*=Initialer]")
+		user.Cpr = ("[id*=cpr]").val();
 		EditUser();
+		return false;
+	});
+	
+	$('#PasswordUser').submit(function(event) {
+		event.preventDefault();
+		var user = {};
+		user.UserID = ("[id*=userid]").val();
+		PasswordUser(user);
+		return false;
+	});
+	
+	$('#DeleteUser').submit(function(event) {
+		event.preventDefault();
+		var user = {};
+		user.UserID = ("[id*=userid]").val();
+		DeleteUser(user);
 		return false;
 	});
 });
@@ -24,16 +49,16 @@ $(document).ready(function() {
 function ListUsers() {
 	$.ajax({
 		type: 'GET',
-		url: 'http://localhost:8080/CDIOFinal/HTML/User',
+		url: 'http://localhost:8080/CDIOFinal/HTML/HomePage.html',
 		dataType: 'json',
-		success: renderList
+		success: renderList()
 	});
 }
 
 function CreateUser() {
 	$.ajax({
 		type: 'POST',
-		url: 'http://localhost:8080/CDIOFinal/HTML/User',
+		url: 'http://localhost:8080/CDIOFinal/HTML/HomePage.html',
 		dataType: "json",
 		data: 'user: ' + JSON.stringify(user) + '}',
 		contentType: "application/json; charset=utf-8",
@@ -49,9 +74,31 @@ function CreateUser() {
 function EditUser() {
 	$.ajax({
 		type: 'PUT',
-		url: 'http://localhost:8080/CDIOFinal',
+		url: 'http://localhost:8080/CDIOFinal/HTML/HomePage.html',
 		dataType: "json",
-		data: ""
+		data: 'user: ' + JSON.stringify(user) + '}',
+		contentType: "application/json; charset=utf-8",
+		success: function (response) {
+			alert("User edited");
+		},
+		error: function (errorThrown) {
+			alert("Unsuccessful");
+		}
+	});
+} 
+
+function PasswordUser() {
+	$.ajax({
+		
+	});
+}
+
+function DeleteUser() {
+	$.ajax({
+		type: 'PUT',
+		url: 'http://localhost:8080/CDIOFinal/HTML/HomePage.html',
+		dataType: "json",
+		data: 'user: ' + JSON.stringify(user) + '}',		
 	});
 }
 
