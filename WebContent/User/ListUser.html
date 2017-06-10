@@ -12,10 +12,44 @@
 			<input type="submit" value="Søg">
 		</div>
 	</form>
+
+<div id="UserList">
 	
-	<div id="UserList">Hej</div>
-	
-<script src = "User.js"></script>
+<script>
+$(document).ready(function() {
+	$('#ListUsers').submit(function(event) {
+		event.preventDefault();
+		console.log("1");
+		ListUsers();
+		console.log("2");
+		return false;
+	});
+});
+
+function ListUsers() {
+	$.ajax({
+		type: 'GET',
+		url: 'rest/UserService/users',
+		dataType: 'json',
+		converters: {
+			'text json': true
+		},
+		success: function() {
+			$("#UserList").html(renderList());
+		}
+	});
+}
+
+function renderList(data) {
+	var list = data == null ? [] : (data instanceof Array ? data : [data]);
+
+	$.each(list, function(index, user) {
+		$('#UserList').append('<li><a href="#" data-identity="' + user.id + '">'+user.name+'</a></li>');
+	});
+}
+</script>
+
+</div>
 
 </body>
 </html>

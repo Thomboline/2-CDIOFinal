@@ -1,6 +1,7 @@
 $(document).ready(function() {
 	$('#ListUsers').submit(function(event) {
 		event.preventDefault();
+		console.log("1");
 		ListUsers();
 		return false;
 	});
@@ -52,7 +53,7 @@ function ListUsers() {
 		converters: {
 			'text json': true
 		},
-		success: {
+		success: function() {
 			$("#wrapper").html(renderList());
 		}
 	});

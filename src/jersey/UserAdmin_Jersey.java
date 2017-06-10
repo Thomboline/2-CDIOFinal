@@ -40,7 +40,7 @@ public class UserAdmin_Jersey {
 	public List<IBrugerDTO> ListUsers() throws DALException {
 		
 		List<IBrugerDTO> list = new ArrayList<>();
-		list.add(new BrugerDTO(1, "hej", "med", "dig", "det", "virker", 1));
+		list.add(new BrugerDTO(1, "hej", "med", "det", "dig", "virker", 1));
 		
 		return list;
 		
