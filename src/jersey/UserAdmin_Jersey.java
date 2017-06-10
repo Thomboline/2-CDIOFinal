@@ -66,7 +66,7 @@ public class UserAdmin_Jersey {
 	public IBrugerDTO delete(IBrugerDTO user) throws DALException 
 	{
 		System.out.println("Updating user: " + user.getBrugerNavn());
-		dao.DeleteUser(user, 1);
+//		dao.DeleteUser(user, 1);
 		return user;
 	}
 }
