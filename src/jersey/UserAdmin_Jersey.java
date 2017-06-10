@@ -58,7 +58,7 @@ public class UserAdmin_Jersey {
 	@Path("/createUser")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public IBrugerDTO create(IBrugerDTO user) throws DALException {
+	public IBrugerDTO create(IBrugerDTO user) throws Exception {
 		
 		create(user);
 		
