@@ -39,10 +39,11 @@ public class UserAdmin_Jersey {
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public List<IBrugerDTO> ListUsers() throws DALException {
 		
-		List<IBrugerDTO> list = new ArrayList<>();
-		list.add(new BrugerDTO(1, "hej", "med", "det", "dig", "virker", 1));
+		List<IBrugerDTO> user = new ArrayList<>();
+		user.add(new BrugerDTO(1, "hej", "med", "det", "dig", "virker", 1));
+		user.add(new BrugerDTO(1, "null", "null", "null", "n", "aaa", 2));
 		
-		return list;
+		return user;
 		
 		//return dao.getUserList();
 	}

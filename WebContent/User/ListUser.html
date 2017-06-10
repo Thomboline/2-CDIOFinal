@@ -12,9 +12,10 @@
 			<input type="submit" value="Søg">
 		</div>
 	</form>
+<div>
+	<ul id="UserList"></ul>
+</div>	
 
-<div id="UserList">
-	
 <script>
 $(document).ready(function() {
 	$('#ListUsers').submit(function(event) {
@@ -27,6 +28,7 @@ $(document).ready(function() {
 });
 
 function ListUsers() {
+	console.log("3");
 	$.ajax({
 		type: 'GET',
 		url: 'rest/UserService/users',
@@ -34,8 +36,8 @@ function ListUsers() {
 		converters: {
 			'text json': true
 		},
-		success: function() {
-			$("#UserList").html(renderList());
+		success: function(response) {
+			$("#UserList").html(renderList(response));
 		}
 	});
 }
@@ -43,13 +45,12 @@ function ListUsers() {
 function renderList(data) {
 	var list = data == null ? [] : (data instanceof Array ? data : [data]);
 
+	$('#UserList li').remove();
 	$.each(list, function(index, user) {
-		$('#UserList').append('<li><a href="#" data-identity="' + user.id + '">'+user.name+'</a></li>');
-	});
+		$('#UserList').append('<li><a data-identity="' + user.brugerId + '">'+ user +'</a></li>');
+	});	
 }
 </script>
-
-</div>
 
 </body>
 </html>
