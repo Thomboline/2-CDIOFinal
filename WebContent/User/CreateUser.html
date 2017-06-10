@@ -19,14 +19,41 @@
     <label>
         <input type="text" name="Initialer">
     </label><br>
+    Password:<br>
+    <label>
+    	<input type="text" name="Password">
+    </label>
     CPR nummer:<br>
     <label>
-        <input type="number" min="1">
+        <input type="number" name="Cpr" min="1">
     </label>
+    Rolle:
+    <label>
+    </label>
+    Status:
+    <Label>
+    	<input type="number" name="Status" max="1">
+    </Label>
     <input type="submit" value="Opret">
 </form>
 
 <script>
+$(document).ready(function(event) {
+	$('#CreateUser').submit(function(event) {
+		event.preventDefault();
+		var user = {};
+		user.UserID = ("[id*=BrugerId]").val();
+		user.Navn = ("[id*=Navn]").val();
+		user.Ini = ("[id*=Initialer]").val();
+		user.Password = ("[id*=Password]").val();
+		user.Cpr = ("[id*=cpr]").val();
+		user.Rolle = ("[id*=Rolle]").val();
+		user.Status = ("[id*=Status]").val();
+		CreateUser(user);
+		return false;
+	});
+});
+
 function CreateUser() {
 	$.ajax({
 		type: 'POST',
