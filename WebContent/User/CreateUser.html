@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form action="User.js">
+<form id="CreateUser">
     Bruger id:<br>
     <label>
         <input type="number" name="BrugerID" min="1">
@@ -25,6 +25,24 @@
     </label>
     <input type="submit" value="Opret">
 </form>
+
+<script>
+function CreateUser() {
+	$.ajax({
+		type: 'POST',
+		url: 'http://localhost:8080/CDIOFinal/HTML/HomePage.html',
+		dataType: "json",
+		data: 'user: ' + JSON.stringify(user) + '}',
+		contentType: "application/json; charset=utf-8",
+		success: function (response) {
+			alert("User created");
+		},
+		error: function (errorThrown){
+			alert("Unsuccesful");
+		}
+	});
+}
+</script>
 
 </body>
 </html>
