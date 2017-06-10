@@ -116,7 +116,7 @@ public class BrugerDAO implements IBrugerDAO
 		Connector.doUpdate
 		(
 				String.format
-				("CALL resetPassword('%d','%s');",
+				("CALL deleteBruger('%d','%s');",
 
 						bruger.getId(),
 						bruger.getStatus()
