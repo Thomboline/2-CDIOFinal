@@ -37,6 +37,8 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 	private int[] tempInf = new int[3];
 	private int inf = 0;
 	DecimalFormat df = new DecimalFormat ("0.000");
+	private String tempMessage = "";
+	private char messageID;
 	
 	public WeightController(ISocketController socketHandler, IWeightInterfaceController weightInterfaceController) {
 		this.init(socketHandler, weightInterfaceController);
@@ -46,7 +48,7 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 	@Override
 	public void init(ISocketController socketHandler, IWeightInterfaceController weightInterfaceController) {
 		this.socketHandler = socketHandler;
-		this.weightController = weightInterfaceController;
+		this.weightController=weightInterfaceController;
 	}
 
 	@Override
@@ -179,6 +181,7 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 			}
 
 			isWriting = true;
+//			keepMessageDisplay();
 			msCMD[counter] = keyPress.getCharacter();
 			String temp = new String(msCMD);
 			weightController.showMessageSecondaryDisplay(temp);
@@ -226,11 +229,11 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 					try {
 						synchronized (socketHandler) {
 							socketHandler.notify();
+							isRM208 = false;
 						}
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-					isRM208 = false;
 				}
 
 				socketHandler.sendMessage(new SocketOutMessage("RM A "));
@@ -263,7 +266,7 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 		return weight;
 	}
 	
-
+	
 	//Aflåst miljø til afvejningsprocedure
 public boolean weightState(SocketInMessage message, int wtIterator) throws Exception {
 	
@@ -278,9 +281,8 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws Excep
 	
 	//Vælg afvejningsterminal
 	case 3:
-		isRM208 = true;
 		System.out.println("Performing case " + wtIterator);
-		
+		isRM208 = true;
 		weightController.showMessageTernaryDisplay(message.getMessage());
 		socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
 		try {
@@ -295,8 +297,10 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws Excep
 	//Laborant nummer	
 	case 4:
 		isRM208 = true;
-		System.out.println("Performing case " + "tis");
-		weightController.showMessageTernaryDisplay("test1");
+		System.out.println("Performing case " + wtIterator);
+//		messageID = 'T';
+//		flushTerDisplay();
+		weightController.showMessageTernaryDisplay(message.getMessage());
 		socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
 		try {
 			synchronized (socketHandler) {
@@ -478,7 +482,6 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws Excep
 		System.out.println("Performing case " + wtIterator);
 		weightController.showMessageTernaryDisplay(message.getMessage());
 		socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
-		
 		try {
 			synchronized (socketHandler) {
 				socketHandler.wait();
@@ -493,11 +496,12 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws Excep
 		return false;
 	}
 }
+	
 
 	public void prepInfo() {
 		String temp = "";
 		for(int i = 0; i < msCMD.length; i++) {
-			if(msCMD[i] == 0) {
+			if(msCMD[i] ==  0) {
 				break;
 			}
 			else {
@@ -537,6 +541,22 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws Excep
 		for (int i = 0; i < msCMD.length; i++) {
 			msCMD[i] = '\0';
 		}
+	}
+//	
+//	public void keepMessageDisplay() {
+//		if(messageID == 'T') {
+//			weightController.showMessageTernaryDisplay(tempMessage);
+//		}
+//		else if(messageID == 'S') {
+//			weightController.showMessageSecondaryDisplay(tempMessage);
+//		}
+//		else if(messageID == 'P') {
+//			weightController.showMessagePrimaryDisplay(tempMessage);
+//		}
+//	}
+	
+	public void flushTerDisplay() {
+		weightController.showMessageTernaryDisplay("");
 	}
 	
 	public void resetButtonTexts(String[] tara, String[] zero, String[] empty) {
