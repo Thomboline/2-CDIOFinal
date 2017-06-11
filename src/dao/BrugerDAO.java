@@ -50,7 +50,7 @@ public class BrugerDAO implements IBrugerDAO
 		{
 			while (rs.next()) 
 			{
-				list.add(new BrugerDTO(rs.getInt("brugerId"), rs.getString("brugerNavn"), rs.getString("initialer"), rs.getString("cpr"), rs.getString("password"), rs.getString("rolle"), rs.getInt("brugerstatus")));
+				list.add(new BrugerDTO(rs.getInt("brugerId"), rs.getString("brugerNavn"), rs.getString("initialer"), rs.getString("password"), rs.getString("cpr"), rs.getString("rolle"), rs.getInt("brugerstatus")));
 			}
 		}
 		catch (SQLException e) { throw new DALException(e); }

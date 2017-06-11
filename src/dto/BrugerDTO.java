@@ -3,8 +3,8 @@ package dto;
 import dtointerfaces.IBrugerDTO;
 
 public class BrugerDTO implements IBrugerDTO
-{
-	
+{	
+
 	int status;
 	int brugerId;					/** Bruger id i området 1-99999999. Vælges af brugerne */
 	String brugerNavn;				/** Bruger navn (bruger_navn) min. 2 max. 20 karakterer */
@@ -30,10 +30,12 @@ public class BrugerDTO implements IBrugerDTO
 		this.brugerId = bruger.getId();
 		this.brugerNavn = bruger.getBrugerNavn();
 		this.ini = bruger.getIni();
-		this.cpr = bruger.getCpr();
 		this.password = bruger.getPassword();
+		this.cpr = bruger.getCpr();
 		this.rolle = bruger.getRolle();
+		this.status = bruger.getStatus();
 	}
+	
 
 	public int getId() 
 	{
@@ -114,7 +116,7 @@ public class BrugerDTO implements IBrugerDTO
 	 */
 	public String toString() 
 	{
-		return brugerId + "\t" + brugerNavn + "\t" + ini + "\t" + cpr + "\t" + rolle + "\t" + password + "\t" + status;
+		return brugerId + "\t" + brugerNavn + "\t" + ini + "\t" + password + "\t" + cpr + "\t" + rolle + "\t" + status;
 	}
 	
 	public int getStatus()
