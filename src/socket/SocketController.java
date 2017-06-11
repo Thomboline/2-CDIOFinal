@@ -274,17 +274,17 @@ class SocketThread extends Thread
 	   	    		
 	   	    	case 3:
 	   		   	    System.out.println("Test nr: " + test);
-	   		   	SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: " + test));
+	   		   	SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Terminalnummer: " + test));
 	   	    		break;
 	   	    		
 	   	    	case 4:
 	   	    		System.out.println("Test nr: " + test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: " + test));
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborantnummer: " + test));
 	   	    		break;
 	   	    		
 	   	    	case 5:
 	   	    		System.out.println("Test nr: " + test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: " + test));
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: "));
 	   	    		break;
 	   	    		
 	   	    	case 6:

@@ -4,6 +4,7 @@ import java.awt.List;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import dao.BrugerDAO;
 import socket.ISocketController;
 import socket.ISocketObserver;
 import socket.SocketInMessage;
@@ -23,6 +24,7 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 
 	private ISocketController socketHandler;
 	private IWeightInterfaceController weightController;
+	private BrugerDAO bdao = new BrugerDAO();
 	private KeyState keyState = KeyState.K1;
 	private double currentWeight = 0.000;
 	private double containerWeight;
@@ -33,12 +35,12 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 	private String userName;
 	private int userId;
 	private int wtIterator = 3;
-	//private ArrayList<Integer> tempInf = new ArrayList<Integer>();
 	private int[] tempInf = new int[3];
+	int tm, lm, pb;
 	private int inf = 0;
 	DecimalFormat df = new DecimalFormat ("0.000");
-	private String tempMessage = "";
-	private char messageID;
+//	private String tempMessage = "";
+//	private char messageID;
 	
 	public WeightController(ISocketController socketHandler, IWeightInterfaceController weightInterfaceController) {
 		this.init(socketHandler, weightInterfaceController);
@@ -62,8 +64,7 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 			new Thread(socketHandler).start();
 			new Thread(weightController).start();
 			weightController.registerObserver(this);
-			
-			
+
 
 		} else {
 			System.err.println("No controllers injected!");
@@ -281,6 +282,7 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws Excep
 	
 	//Vælg afvejningsterminal
 	case 3:
+		System.out.println("Users: " + bdao.getBrugerList());
 		System.out.println("Performing case " + wtIterator);
 		isRM208 = true;
 		weightController.showMessageTernaryDisplay(message.getMessage());
@@ -315,7 +317,7 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws Excep
 	case 5:
 		isRM208 = true;
 		System.out.println("Performing case " + wtIterator);
-		weightController.showMessageTernaryDisplay(message.getMessage());
+		weightController.showMessageTernaryDisplay(message.getMessage() + bdao.getBruger(lm).getIni());
 		socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
 		try {
 			synchronized (socketHandler) {
@@ -512,11 +514,24 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws Excep
 			System.out.println("msCMD string split: " + temp);
 			tempInf[inf] = Integer.parseInt(temp);
 			System.out.println("TempInf: " + tempInf[inf]);
+			if(inf == 0) {
+				tm = tempInf[inf];
+			}
+			else if(inf == 1) {
+				lm = tempInf[inf];
+			}
+			else if(inf == 2) {
+				pb = tempInf[inf];
+			}
+			System.out.println("tm = " + tm + ", lm = " + lm + ", pb = " + pb);
+			inf++;
 		}
-			else {
+		else {
 				System.out.println("OK");
 			}
+		
 	}
+	
 	
 	public String prepMessageCMD() {
 		 
