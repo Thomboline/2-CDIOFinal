@@ -14,7 +14,10 @@
 	</form>
 <div>
 	<ul id="UserList"></ul>
-</div>	
+</div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src = "CreateUser.html"></script>
 
 <script>
 $(document).ready(function() {
@@ -40,11 +43,11 @@ function ListUsers() {
 }
 
 function renderList(data) {
-	var list = data == null ? [] : (data instanceof Array ? data : [data]);
+    var list = data == null ? [] : (data instanceof Array ? data : [data]);
 
-	$.each(list, function(index, user) {
-		$('#UserList').append(user);
-	});	
+    $.each(list, function(index, user) {
+        $('#UserList').append(user);
+    })
 }
 </script>
 
