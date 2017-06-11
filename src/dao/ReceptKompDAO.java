@@ -9,13 +9,14 @@ import connector.Connector;
 import connector.DALException;
 import daointerfaces.IReceptKompDAO;
 import dto.ReceptKompDTO;
+import dtointerfaces.IReceptKompDTO;
 
 public class ReceptKompDAO implements IReceptKompDAO
 {
 	Connector c = new Connector();
 	
 	@Override
-	public ReceptKompDTO getReceptKomp(int receptId, int raavareId) throws DALException, Exception 
+	public IReceptKompDTO getReceptKomp(int receptId, int raavareId) throws DALException, Exception 
 	{
 		ResultSet rs = Connector.doQuery("SELECT * FROM receptkomponent WHERE receptId = " + receptId + " AND raavareId = "+ raavareId);
 
@@ -40,9 +41,9 @@ public class ReceptKompDAO implements IReceptKompDAO
 	}
 
 	@Override
-	public List<ReceptKompDTO> getReceptKompList(int receptId) throws DALException, Exception 
+	public List<IReceptKompDTO> getReceptKompList(int receptId) throws DALException, Exception 
 	{
-		List<ReceptKompDTO> list = new ArrayList<>();
+		List<IReceptKompDTO> list = new ArrayList<>();
 
 		ResultSet rs = Connector.doQuery("SELECT * FROM receptkomponent WHERE receptId="+receptId);
 
@@ -71,9 +72,9 @@ public class ReceptKompDAO implements IReceptKompDAO
 	}
 
 	@Override
-	public List<ReceptKompDTO> getReceptKompList() throws DALException, Exception 
+	public List<IReceptKompDTO> getReceptKompList() throws DALException, Exception 
 	{
-		List<ReceptKompDTO> list = new ArrayList<>();
+		List<IReceptKompDTO> list = new ArrayList<>();
 
 		ResultSet rs = Connector.doQuery("SELECT * FROM receptkomponent");
 
@@ -102,7 +103,7 @@ public class ReceptKompDAO implements IReceptKompDAO
 	}
 
 	@Override
-	public void createReceptKomp(ReceptKompDTO receptkomponent) throws DALException, Exception 
+	public void createReceptKomp(IReceptKompDTO receptkomponent) throws DALException, Exception 
 	{
 		Connector.doUpdate
 		(
@@ -118,7 +119,7 @@ public class ReceptKompDAO implements IReceptKompDAO
 	}
 
 	@Override
-	public void updateReceptKomp(ReceptKompDTO receptkomponent) throws DALException, Exception 
+	public void updateReceptKomp(IReceptKompDTO receptkomponent) throws DALException, Exception 
 	{
 		Connector.doUpdate
 		(

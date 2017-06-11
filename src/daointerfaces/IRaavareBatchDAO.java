@@ -4,12 +4,13 @@ import java.util.List;
 
 import connector.DALException;
 import dto.RaavareBatchDTO;
+import dtointerfaces.IRaavareBatchDTO;
 
 public interface IRaavareBatchDAO 
 {
-	RaavareBatchDTO getRaavareBatch(int rbId) throws DALException, Exception;
-	List<RaavareBatchDTO> getRaavareBatchList() throws DALException, Exception;
-	List<RaavareBatchDTO> getRaavareBatchList(int raavareId) throws DALException, Exception;
-	void createRaavareBatch(RaavareBatchDTO raavarebatch) throws DALException, Exception;
-	void updateRaavareBatch(RaavareBatchDTO raavarebatch) throws DALException, Exception;
+	IRaavareBatchDTO getRaavareBatch(int rbId) throws DALException, Exception;
+	List<IRaavareBatchDTO> getRaavareBatchList() throws DALException, Exception;
+	List<IRaavareBatchDTO> getRaavareBatchList(int raavareId) throws DALException, Exception;
+	void createRaavareBatch(IRaavareBatchDTO raavarebatch) throws DALException, Exception;
+	void updateRaavareBatch(IRaavareBatchDTO raavarebatch) throws DALException, Exception;
 }

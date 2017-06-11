@@ -9,13 +9,14 @@ import connector.Connector;
 import connector.DALException;
 import daointerfaces.IRaavareDAO;
 import dto.RaavareDTO;
+import dtointerfaces.IRaavareDTO;
 
 public class RaavareDAO implements IRaavareDAO
 {
 	Connector c = new Connector();
 	
 	@Override
-	public RaavareDTO getRaavare(int raavareId) throws Exception 
+	public IRaavareDTO getRaavare(int raavareId) throws Exception 
 	{
 		ResultSet rs = Connector.doQuery("SELECT * FROM raavare WHERE raavareId = " + raavareId);
 		try 
@@ -36,9 +37,9 @@ public class RaavareDAO implements IRaavareDAO
 	}
 
 	@Override
-	public List<RaavareDTO> getRaavareList() throws Exception 
+	public List<IRaavareDTO> getRaavareList() throws Exception 
 	{
-		List<RaavareDTO> list = new ArrayList<>();
+		List<IRaavareDTO> list = new ArrayList<>();
 
 		ResultSet rs = Connector.doQuery("SELECT * FROM raavare");
 
@@ -66,7 +67,7 @@ public class RaavareDAO implements IRaavareDAO
 	}
 
 	@Override
-	public void createRaavare(RaavareDTO raavare) throws Exception 
+	public void createRaavare(IRaavareDTO raavare) throws Exception 
 	{
 		Connector.doUpdate
 		(
@@ -82,7 +83,7 @@ public class RaavareDAO implements IRaavareDAO
 	}
 
 	@Override
-	public void updateRaavare(RaavareDTO raavare) throws Exception 
+	public void updateRaavare(IRaavareDTO raavare) throws Exception 
 	{
 		Connector.doUpdate
 		(

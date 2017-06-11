@@ -4,11 +4,12 @@ import java.util.List;
 
 import connector.DALException;
 import dto.ProduktBatchDTO;
+import dtointerfaces.IProduktBatchDTO;
 
 public interface IProduktBatchDAO 
 {
-	ProduktBatchDTO getProduktBatch(int pbId) throws DALException, Exception;
-	List<ProduktBatchDTO> getProduktBatchList() throws DALException, Exception;
-	void createProduktBatch(ProduktBatchDTO produktbatch) throws DALException, Exception;
-	void updateProduktBatch(ProduktBatchDTO produktbatch) throws DALException, Exception;
+	IProduktBatchDTO getProduktBatch(int pbId) throws DALException, Exception;
+	List<IProduktBatchDTO> getProduktBatchList() throws DALException, Exception;
+	void createProduktBatch(IProduktBatchDTO produktbatch) throws DALException, Exception;
+	void updateProduktBatch(IProduktBatchDTO produktbatch) throws DALException, Exception;
 }
