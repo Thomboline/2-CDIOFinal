@@ -54,11 +54,11 @@ public class UserAdmin_Jersey {
 		return user;
 	}
 	
-	@PUT
-	@Path("/createUser")
+	@POST
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public IBrugerDTO create(IBrugerDTO user) throws Exception {
+		System.out.println("Creating user: " + user.getId());		
 		
 		dao.createBruger(user);
 		

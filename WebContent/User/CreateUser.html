@@ -25,7 +25,7 @@
     </label><br>
     CPR nummer:<br>
     <label>
-        <input type="number" name="Cpr" min="1">
+        <input type="text" name="Cpr" min="1">
     </label><br>
     Rolle:<br>
     <label>
@@ -44,7 +44,6 @@
 $(document).ready(function(event) {
 	$('#CreateUser').submit(function(event) {
 		event.preventDefault();
-		console.log("2");
 		var user = {};
 		user.brugerId = ("[id*=BrugerId]");
 		user.brugerNavn = ("[id*=Navn]");
@@ -53,7 +52,6 @@ $(document).ready(function(event) {
 		user.cpr = ("[id*=cpr]");
 		user.rolle = ("[id*=Rolle]");
 		user.status = ("[id*=Status]");
-		console.log("1");
 		CreateUser(user);
 		return false;
 	});
@@ -62,15 +60,15 @@ $(document).ready(function(event) {
 function CreateUser(user) {
 	$.ajax({
 		type: 'POST',
-		url: '/rest/UserService/createUser',
+		url: 'rest/UserService',
 		dataType: "json",
 		data: 'user: ' + JSON.stringify(user) + '}',
-		contentType: "application/json; charset=utf-8",
-		success: function (response) {
+		contentType: "application/json",
+		success: function (data) {
 			alert("User created");
 		},
-		error: function (errorThrown){
-			alert("Unsuccesful");
+		error: function (textStatus, errorThrown){
+			alert("Unsuccesful: " + textStatus);
 		}
 	});
 }
