@@ -3,7 +3,6 @@ $(document).ready(function() {
 		event.preventDefault();
 		console.log("1");
 		ListUsers();
-		console.log("2");
 		return false;
 	});
 	
@@ -12,7 +11,7 @@ $(document).ready(function() {
 		var user = {};
 		user.UserID = ("[id*=BrugerId]").val();
 		user.Navn = ("[id*=Navn]").val();
-		user.Ini = ("[id*=Initialer]")
+		user.Ini = ("[id*=Initialer]").val();
 		user.Cpr = ("[id*=cpr]").val();
 		CreateUser(user);
 		return false;
@@ -23,7 +22,7 @@ $(document).ready(function() {
 		var user = {};
 		user.UserID = ("[id*=BrugerId]").val();
 		user.Navn = ("[id*=Navn]").val();
-		user.Ini = ("[id*=Initialer]")
+		user.Ini = ("[id*=Initialer]").val();
 		user.Cpr = ("[id*=cpr]").val();
 		EditUser();
 		return false;
@@ -49,9 +48,14 @@ $(document).ready(function() {
 function ListUsers() {
 	$.ajax({
 		type: 'GET',
-		url: 'http://localhost:8080/CDIOFinal/HTML/HomePage.html',
+		url: '/UserService/users',
 		dataType: 'json',
-		success: renderList()
+		converters: {
+			'text json': true
+		},
+		success: function() {
+			$("#wrapper").html(renderList());
+		}
 	});
 }
 

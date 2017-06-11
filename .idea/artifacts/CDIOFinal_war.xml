@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="CDIOFinal:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="CDIOFinal-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="CDIOFinal:war exploded" />
+    </root>
+  </artifact>
+</component>

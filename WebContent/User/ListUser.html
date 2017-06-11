@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>	
+	<form id="ListUsers">
+		<div>
+			Søg på et BrugerID:<br>
+			<input type="number" name="UserID"><br>
+			<input type="submit" value="Søg">
+		</div>
+	</form>
+<div>
+	<ul id="UserList"></ul>
+</div>	
+
+<script>
+$(document).ready(function() {
+	$('#ListUsers').submit(function(event) {
+		event.preventDefault();
+		console.log("1");
+		ListUsers();
+		console.log("2");
+		return false;
+	});
+});
+
+function ListUsers() {
+	console.log("3");
+	$.ajax({
+		type: 'GET',
+		url: 'rest/UserService/users',
+		dataType: 'json',
+		converters: {
+			'text json': true
+		},
+		success: function(response) {
+			$("#UserList").html(renderList(response));
+		}
+	});
+}
+
+function renderList(data) {
+	var list = data == null ? [] : (data instanceof Array ? data : [data]);
+
+	$.each(list, function(user) {
+		$('#UserList').append(user);
+	});	
+}
+</script>
+
+</body>
+</html>
