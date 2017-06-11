@@ -42,7 +42,6 @@ function ListUsers() {
 function renderList(data) {
 	var list = data == null ? [] : (data instanceof Array ? data : [data]);
 
-	$('#UserList li').remove();
 	$.each(list, function(index, user) {
 		$('#UserList').append(user);
 	});	
