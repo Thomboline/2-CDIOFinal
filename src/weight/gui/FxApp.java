@@ -223,8 +223,8 @@ public class FxApp extends Application {
 				
 				txtload.setText(load.length() > 9 ? load.substring(0, 9) : load);
 				txtload.setVisible(true);
-				txtinfo[2].setVisible(false);
-				txtinfo[3].setVisible(false);
+				txtinfo[2].setVisible(false); //ændret fra false
+				txtinfo[3].setVisible(false); //ændret fra false
 			}
 		});
 	}
@@ -234,9 +234,9 @@ public class FxApp extends Application {
 			public void run() {
 				txtbottom.setText(msg);
 				txtbottom.setVisible(true);
-				txtinfo[2].setVisible(false);
-				txtinfo[3].setVisible(false);
-				userInput.setVisible(false);
+				txtinfo[2].setVisible(true); //ændret fra false
+				txtinfo[3].setVisible(false); //ændret fra false
+				userInput.setVisible(false);  //ændret fra false
 				
 			}
 		});
@@ -249,10 +249,11 @@ public class FxApp extends Application {
 	public void printText3(final String msg) {
 		Platform.runLater(new Runnable() {
 			@Override
+			//ændret fra 2 til 3
 			public void run() {
 				txtinfo[2].setText(msg);
 				txtinfo[2].setVisible(true);
-				txtload.setVisible(false);
+				txtload.setVisible(false); //ændret fra false
 			}
 		});
 	}
