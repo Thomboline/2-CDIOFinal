@@ -44,20 +44,22 @@
 $(document).ready(function(event) {
 	$('#CreateUser').submit(function(event) {
 		event.preventDefault();
+		console.log("2");
 		var user = {};
-		user.UserID = ("[id*=BrugerId]").val();
-		user.Navn = ("[id*=Navn]").val();
-		user.Ini = ("[id*=Initialer]").val();
-		user.Password = ("[id*=Password]").val();
-		user.Cpr = ("[id*=cpr]").val();
-		user.Rolle = ("[id*=Rolle]").val();
-		user.Status = ("[id*=Status]").val();
+		user.brugerId = ("[id*=BrugerId]");
+		user.brugerNavn = ("[id*=Navn]");
+		user.ini = ("[id*=Initialer]");
+		user.password = ("[id*=Password]");
+		user.cpr = ("[id*=cpr]");
+		user.rolle = ("[id*=Rolle]");
+		user.status = ("[id*=Status]");
+		console.log("1");
 		CreateUser(user);
 		return false;
 	});
 });
 
-function CreateUser() {
+function CreateUser(user) {
 	$.ajax({
 		type: 'POST',
 		url: '/rest/UserService/createUser',
