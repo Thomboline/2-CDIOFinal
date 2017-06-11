@@ -21,7 +21,7 @@ public class RaavareDAO implements IRaavareDAO
 		ResultSet rs = Connector.doQuery("SELECT * FROM raavare WHERE raavareId = " + raavareId);
 		try 
 		{
-			if (!rs.first()) throw new DALException("Raavare with raavareId="+raavareId+" does not exist.");
+			if (!rs.first()) throw new DALException("Raavare med raavareId="+raavareId+" eksistere ikke.");
 
 			return new RaavareDTO
 			(

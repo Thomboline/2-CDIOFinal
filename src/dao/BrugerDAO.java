@@ -25,7 +25,7 @@ public class BrugerDAO implements IBrugerDAO
 		
 		try 
 		{
-			if (!rs.first()) throw new Exception("Bruger with brugerId="+brugerId+" does not exist.");
+			if (!rs.first()) throw new Exception("Brugeren med brugerId="+brugerId+" eksistere ikke.");
 			return new BrugerDTO
 					(
 					rs.getInt("brugerId"),

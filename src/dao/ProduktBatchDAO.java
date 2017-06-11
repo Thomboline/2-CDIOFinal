@@ -20,7 +20,7 @@ public class ProduktBatchDAO implements IProduktBatchDAO
 		ResultSet rs = Connector.doQuery("SELECT * FROM produktbatch WHERE pbId = " + pbId);
 
 		try {
-			if (!rs.first()) throw new Exception("Product batch with id="+pbId+" does not exist.");
+			if (!rs.first()) throw new Exception("Product batch med id="+pbId+" eksistere ikke.");
 
 			return new ProduktBatchDTO(
 					rs.getInt("pbId"),

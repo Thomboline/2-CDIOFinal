@@ -24,7 +24,7 @@ public class ReceptKompDAO implements IReceptKompDAO
 		{
 			if (!rs.first())
 
-				throw new DALException("Recept Komponent with recept id="+receptId+" and raavare id="+raavareId+" does not exist.");
+				throw new DALException("Recept Komponen tmed recept id="+receptId+" og raavare id="+raavareId+" eksistere ikke.");
 
 			return new ReceptKompDTO
 			(

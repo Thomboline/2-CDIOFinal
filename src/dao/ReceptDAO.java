@@ -22,7 +22,7 @@ public class ReceptDAO implements IReceptDAO
 
 		try 
 		{
-			if (!rs.first()) throw new DALException("Recept with receptId="+receptId+" does not exist.");
+			if (!rs.first()) throw new DALException("Recept med receptId="+receptId+" eksistere ikke.");
 
 			return new ReceptDTO
 			(

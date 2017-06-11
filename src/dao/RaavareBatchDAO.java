@@ -22,7 +22,7 @@ public class RaavareBatchDAO implements IRaavareBatchDAO
 
 		try 
 		{
-			if (!rs.first()) throw new DALException("Raavare batch with id="+rbId+" does not exist.");
+			if (!rs.first()) throw new DALException("Raavare batch med id="+rbId+" eksistere ikke.");
 
 			return new RaavareBatchDTO
 			(
