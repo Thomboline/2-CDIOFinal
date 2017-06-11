@@ -69,10 +69,9 @@ public class UserAdmin_Jersey {
 	@Path("/users/{id}")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public IBrugerDTO delete(IBrugerDTO user) throws DALException 
-	{
+	public IBrugerDTO delete(IBrugerDTO user) throws DALException {
 		System.out.println("Updating user: " + user.getBrugerNavn());
-		dao.DeleteUser(user, 1);
+//		dao.DeleteUser(user, 1);
 		return user;
 	}
 }

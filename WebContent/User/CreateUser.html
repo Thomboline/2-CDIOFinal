@@ -57,7 +57,7 @@ $(document).ready(function(event) {
 function CreateUser() {
 	$.ajax({
 		type: 'POST',
-		url: 'http://localhost:8080/CDIOFinal/HTML/HomePage.html',
+		url: '/rest/UserService/createUser',
 		dataType: "json",
 		data: 'user: ' + JSON.stringify(user) + '}',
 		contentType: "application/json; charset=utf-8",
