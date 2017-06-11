@@ -9,33 +9,33 @@
 <form id="CreateUser">
     Bruger id:<br>
     <label>
-        <input type="number" name="BrugerID" min="1">
+        <input type="number" id="BrugerID" name="brugerID" min="1">
     </label><br>
     Bruger navn:<br>
     <label>
-        <input type="text" name="BrugerNavn">
+        <input type="text" id="BrugerNavn" name="navn">
     </label><br>
     Initialer:<br>
     <label>
-        <input type="text" name="Initialer">
+        <input type="text" id="Initialer" name="ini">
     </label><br>
     Password:<br>
     <label>
-    	<input type="text" name="Password">
+    	<input type="text" id="Password" name="password">
     </label><br>
     CPR nummer:<br>
     <label>
-        <input type="text" name="Cpr" min="1">
+        <input type="text" id="Cpr" name="cpr" min="1">
     </label><br>
     Rolle:<br>
     <label>
-        <input type="text" name="Rolle">
+        <input type="text" id="Rolle" name="rolle">
     </label>
     <label>
     </label><br>
     Status:<br>
     <Label>
-    	<input type="number" name="Status" max="1">
+    	<input type="number" id="Status" name="status" max="1">
     </Label><br>
     <input type="submit" value="Opret">
 </form>
@@ -46,7 +46,7 @@ $(document).ready(function(event) {
 		event.preventDefault();
 		var user = {};
 		user.brugerId = ("[id*=BrugerId]");
-		user.brugerNavn = ("[id*=Navn]");
+		user.brugerNavn = ("[id*=BrugerNavn]");
 		user.ini = ("[id*=Initialer]");
 		user.password = ("[id*=Password]");
 		user.cpr = ("[id*=cpr]");
@@ -62,12 +62,12 @@ function CreateUser(user) {
 		type: 'POST',
 		url: 'rest/UserService',
 		dataType: "json",
-		data: 'user: ' + JSON.stringify(user) + '}',
+		data: JSON.stringify(user),
 		contentType: "application/json",
-		success: function (data) {
-			alert("User created");
+		success: function (response) {
+			alert("User created: " + response );
 		},
-		error: function (textStatus, errorThrown){
+		error: function (jqXHR, textStatus, errorThrown){
 			alert("Unsuccesful: " + textStatus);
 		}
 	});
