@@ -60,7 +60,7 @@ public class UserAdmin_Jersey {
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public IBrugerDTO create(IBrugerDTO user) throws Exception {
 		
-		create(user);
+		dao.createBruger(user);
 		
 		return user;
 	}

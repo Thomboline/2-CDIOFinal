@@ -20,15 +20,12 @@
 $(document).ready(function() {
 	$('#ListUsers').submit(function(event) {
 		event.preventDefault();
-		console.log("1");
 		ListUsers();
-		console.log("2");
 		return false;
 	});
 });
 
 function ListUsers() {
-	console.log("3");
 	$.ajax({
 		type: 'GET',
 		url: 'rest/UserService/users',
@@ -45,7 +42,8 @@ function ListUsers() {
 function renderList(data) {
 	var list = data == null ? [] : (data instanceof Array ? data : [data]);
 
-	$.each(list, function(user) {
+	$('#UserList li').remove();
+	$.each(list, function(index, user) {
 		$('#UserList').append(user);
 	});	
 }
