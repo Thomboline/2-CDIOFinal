@@ -5,8 +5,15 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import dao.BrugerDAO;
+import dao.ProduktBatchDAO;
+import dao.RaavareBatchDAO;
+import dao.RaavareDAO;
+import dao.ReceptDAO;
+import dao.ReceptKompDAO;
+import dto.ReceptDTO;
 import socket.ISocketController;
 import socket.ISocketObserver;
+import socket.SocketController;
 import socket.SocketInMessage;
 import socket.SocketOutMessage;
 import weight.IWeightInterfaceController;
@@ -25,6 +32,11 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 	private ISocketController socketHandler;
 	private IWeightInterfaceController weightController;
 	private BrugerDAO bdao = new BrugerDAO();
+	private ProduktBatchDAO pdao = new ProduktBatchDAO();
+	private RaavareBatchDAO rbdao = new RaavareBatchDAO();
+	private RaavareDAO rdao = new RaavareDAO();
+	private ReceptDAO recdao = new ReceptDAO();
+	private ReceptKompDAO rkdao = new ReceptKompDAO();
 	private KeyState keyState = KeyState.K1;
 	private double currentWeight = 0.000;
 	private double containerWeight;
@@ -35,8 +47,8 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 	private String userName;
 	private int userId;
 	private int wtIterator = 3;
-	private int[] tempInf = new int[3];
-	int tm, lm, pb;
+	private int[] tempInf = new int[4];
+	int tm, lm, pb, rb;
 	private int inf = 0;
 	DecimalFormat df = new DecimalFormat ("0.000");
 //	private String tempMessage = "";
@@ -64,6 +76,27 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 			new Thread(socketHandler).start();
 			new Thread(weightController).start();
 			weightController.registerObserver(this);
+			
+			//Test info
+			try {
+				System.out.println("Users: " + bdao.getBrugerList());
+				System.out.println("Produktbatches: " + pdao.getProduktBatchList());
+				System.out.println("Råvarebatches: " + rbdao.getRaavareBatchList());
+				System.out.println("Recepter: " + recdao.getReceptList());
+				String rkomp = "{ ";
+				for(int i = 0; i < rkdao.getReceptKompList(1).size(); i++) {
+					if(!rkdao.getReceptKompList(1).isEmpty()) {
+						rkomp += rkdao.getReceptKompList(1).get(i);
+						if(i > 0)
+							rkomp += ", ";
+					}
+					rkomp += "}";
+				}
+				System.out.println("Receptkomponenter, Salmon: " + rkomp);
+				System.out.println(rdao.getRaavare(rkdao.getReceptKompList(1).get(0).getRaavareId()).getRaavareNavn());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
 
 		} else {
@@ -75,6 +108,11 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 	// Listening for socket input
 	@Override
 	public void notify(SocketInMessage message) {
+		
+		if(this.keyState.equals(KeyState.K2)) {
+			String[] accept = {"", "", "", "", "Cancel", "OK"};
+			weightController.setSoftButtonTexts(accept);
+		}
 		
 		try {
 		if(weightState(message, this.wtIterator)) {
@@ -88,28 +126,7 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 		catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		
-	}
-
-	private void handleKMessage(SocketInMessage message) {
-		switch (message.getMessage()) {
-		case "1":
-			this.keyState = KeyState.K1;
-			break;
-		case "2":
-			this.keyState = KeyState.K2;
-			break;
-		case "3":
-			this.keyState = KeyState.K3;
-			break;
-		case "4":
-			this.keyState = KeyState.K4;
-			break;
-		default:
-			socketHandler.sendMessage(new SocketOutMessage("ES"));
-			break;
 		}
-	}
 	
 	//Listening for UI input
 	@Override
@@ -145,34 +162,38 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 			if (keyPress.getKeyNumber() == 4) {
 				// Batch-id funktion
 			}
-			if (keyPress.getKeyNumber() == 5) {
-				// Log in & out funktion
+					
+			if (this.keyState.equals(KeyState.K2)) {
+				if (keyPress.getKeyNumber() == 5) {
+					notifyKeyPress(KeyPress.Cancel());
+					}
+				else if (keyPress.getKeyNumber() == 6) {
+					notifyKeyPress(KeyPress.Send());
+				}
 			}
+			else {
+				if (keyPress.getKeyNumber() == 5) {
+					// Log in & out funktion
+				}
+			}
+		
 			break;
 		case TARA:
 			if (keyState.equals(KeyState.K4) || keyState.equals(KeyState.K3)) {
 				socketHandler.sendMessage(new SocketOutMessage("K A 3"));
 			}
-
 			if (keyState.equals(KeyState.K1) || keyState.equals(KeyState.K4)) {
-
 				isTara = true;
 				if (isWriting) {
 					tara[0] = "Backspace";
 				}
 				weightController.setSoftButtonTexts(tara);
-
 				this.containerWeight += this.currentWeight;
 				notifyWeightChange(0);
 			}
-
 			break;
 		case TEXT:
-			// Implement in next project?
-			// Keep "INDTAST NR" in TernaryDisplay while writing message back
-			if (isRM208) {
-
-			}
+			if(this.keyState.equals(KeyState.K1)) {
 
 			if (isTara) {
 				tara[0] = "Backspace";
@@ -182,13 +203,13 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 			}
 
 			isWriting = true;
-//			keepMessageDisplay();
 			msCMD[counter] = keyPress.getCharacter();
 			String temp = new String(msCMD);
 			weightController.showMessageSecondaryDisplay(temp);
 			counter++;
-
-			break;
+			}
+			else {}
+			break; 
 		case ZERO:
 			if (keyState.equals(KeyState.K4) || keyState.equals(KeyState.K3)) {
 				socketHandler.sendMessage(new SocketOutMessage("K A 3"));
@@ -204,10 +225,16 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 			break;
 		case CANCEL:
 			isTara = false;
+			if(this.keyState.equals(KeyState.K2)) {
+				wtIterator--;
+				SocketController.test--;
+			} 
+			else {
 			weightController.setSoftButtonTexts(empty);
 			weightController.showMessageSecondaryDisplay(null);
 			flushMsCMD();
 			resetButtonTexts(tara, zero, empty);
+			}
 			break;
 		case EXIT:
 			weightController.unRegisterObserver(this);
@@ -225,7 +252,16 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 				} else {
 					weightController.setSoftButtonTexts(empty);
 				}
-
+				
+				//Stores input in weight info container
+				prepInfo();
+				//Prepares message and sends a new String to CMD
+				sendMessageCMD();
+				//Flush msCMD char array
+				flushMsCMD();
+				//Resets all soft button descriptions
+				resetButtonTexts(tara, zero, empty);
+				
 				if (isRM208) {
 					try {
 						synchronized (socketHandler) {
@@ -238,18 +274,26 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 				}
 
 				socketHandler.sendMessage(new SocketOutMessage("RM A "));
+			}
+			
+			if(this.keyState.equals(KeyState.K2)) {
 				
-				//Stores input in weight info container
-				prepInfo();
-
-				//Prepares message and sends a new String to CMD
-				sendMessageCMD();
-				
+//				if (isRM208) {
+					try {
+						synchronized (socketHandler) {
+							socketHandler.notify();
+							isRM208 = false;
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+//				}
+					
 				//Flush msCMD char array
 				flushMsCMD();
-				
-				//Resets all soft button descriptions
-				resetButtonTexts(tara, zero, empty);
+					
+				socketHandler.sendMessage(new SocketOutMessage("RM A "));
+				socketHandler.sendMessage(new SocketOutMessage("OK"));
 			}
 			break;
 		}
@@ -282,7 +326,6 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws Excep
 	
 	//Vælg afvejningsterminal
 	case 3:
-		System.out.println("Users: " + bdao.getBrugerList());
 		System.out.println("Performing case " + wtIterator);
 		isRM208 = true;
 		weightController.showMessageTernaryDisplay(message.getMessage());
@@ -311,12 +354,14 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws Excep
 		} catch (InterruptedException ex) {
 			ex.printStackTrace();
 		}
+		this.keyState = KeyState.K2;
 		return true;
 		
 	//Svar med Laborantens initialer
 	case 5:
 		isRM208 = true;
 		System.out.println("Performing case " + wtIterator);
+		System.out.println("Displaying initials of user " + bdao.getBruger(lm));
 		weightController.showMessageTernaryDisplay(message.getMessage() + bdao.getBruger(lm).getIni());
 		socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
 		try {
@@ -326,6 +371,7 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws Excep
 		} catch (InterruptedException ex) {
 			ex.printStackTrace();
 		}
+		this.keyState = KeyState.K1;
 		return true;
 	
 	//Indtast produktbatchnummer
@@ -341,13 +387,17 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws Excep
 		} catch (InterruptedException ex) {
 			ex.printStackTrace();
 		}
+		this.keyState = KeyState.K2;
 		return true;
 	
 	//Svar med recept
 	case 7:
 		isRM208 = true;
 		System.out.println("Performing case " + wtIterator);
-		weightController.showMessageTernaryDisplay(message.getMessage());
+//		recdao.createRecept(new ReceptDTO(pdao.getProduktBatch(pb).getReceptId(), "Salmon"));
+		weightController.showMessageTernaryDisplay(message.getMessage() + " " + recdao.getRecept(pdao.getProduktBatch(pb).getReceptId()).getReceptNavn());
+		weightController.showMessageSecondaryDisplay(rdao.getRaavare(rkdao.getReceptKompList(1).get(0).getRaavareId()).getRaavareNavn());
+//  	weightController.showMessageSecondaryDisplay(rkdao.getReceptKompList(recdao.getRecept(pdao.getProduktBatch(pb).getReceptId()).getReceptId()).toString());
 		socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
 		try {
 			synchronized (socketHandler) {
@@ -523,7 +573,7 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws Excep
 			else if(inf == 2) {
 				pb = tempInf[inf];
 			}
-			System.out.println("tm = " + tm + ", lm = " + lm + ", pb = " + pb);
+			System.out.println("tm = " + tm + ", lm = " + lm + ", pb = " + pb + ", rb = " + rb);
 			inf++;
 		}
 		else {
@@ -579,7 +629,12 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws Excep
 		zero[0] = "";
 		empty[0] = "";
 	}
-
+	
+	public void checkKeyState() {
+		if(this.keyState.equals(KeyState.K2)) {
+			
+		}
+	}
 	public void userLoginLocal() {
 		this.userName = "Anders And";
 		this.userId = 12;
