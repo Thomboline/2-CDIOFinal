@@ -557,9 +557,11 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws DALEx
 				System.out.println("Pk: " + pkdao.getProduktBatchKompList(pb).get(i).toString());
 				System.out.println("Pk bruger: " + pkdao.getProduktBatchKompList(1).get(i).getBrugerId());
 				
-				//Skal bruges: 
-				//if(rkdao.getProduktBatchKompList(pb).get(i).getBrugerId == 0) {
-				//Den første komponent uden bruger ID skal afvejes
+//				if(pkdao.getProduktBatchKompList(pb).get(i).getBrugerId() == 0) { 
+//					rkdao.getReceptKompList().get(i).getRaavareId()
+//					
+//				}
+					
 			
 			}
 			
