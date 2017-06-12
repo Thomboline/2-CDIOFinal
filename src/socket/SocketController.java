@@ -273,7 +273,7 @@ class SocketThread extends Thread
 	   	    //Test variabel
 	   	    while (true)
 	    	{
-	
+	   	    		
 	   	    	switch(SocketController.test) {
 	   	    		
 	   	    	case 3:
@@ -303,27 +303,28 @@ class SocketThread extends Thread
 	   	    		
 	   	    	case 8:
 	   	    		System.out.println("Test nr: " + SocketController.test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: " + SocketController.test));
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Current weight:"));
 	   	    		break;
 	   	    		
 	   	    	case 9:
 	   	    		System.out.println("Test nr: " + SocketController.test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: " + SocketController.test));
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Production started."));
 	   	    		break;
 	   	    		
 	   	    	case 10:
 	   	    		System.out.println("Test nr: " + SocketController.test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: " + SocketController.test));
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Tare weight."));
 	   	    		break;
-	   	    		
+	   	    	
+	   	    	//Afvejningsprocedure trin 11, 12, 13 & 14 hænger sammen i en case.
 	   	    	case 11:
 	   	    		System.out.println("Test nr: " + SocketController.test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: " + SocketController.test));
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Place tara and tare weight."));
 	   	    		break;
 	   	    	
 	   	    	case 12:
 	   	    		System.out.println("Test nr: " + SocketController.test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: " + SocketController.test));
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Ingredient batch: "));
 	   	    		break;
 	   	    	
 	   	    	case 13:
@@ -347,17 +348,19 @@ class SocketThread extends Thread
 	   	    		break;
 	   	    	}
 
-	   	 	SocketController.test++;
-			}
-		    } 
-		    catch (IOException e) 
-		    {
+	   	    	SocketController.test++;
+	   	    	}
+		    
+		  	
+		  }
+		  catch (IOException e) {
 		      System.out.println(e);
-		    }
+		   }
 
-		 }
+		 
+	  }
 		  
-	}
+}
 
 				//Hørte til i run();
 //	   	 		inLine = inStream.readLine();
