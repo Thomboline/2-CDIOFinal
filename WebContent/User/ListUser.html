@@ -22,7 +22,7 @@ $(document).ready(function() {
 	$('#ListUsers').submit(function(event) {
 		event.preventDefault();
 		data = $('#ListUsers').serializeArray();
-		int input = {
+		var input = {
 				id : data[0]['value']
 		};
 		search(input)
