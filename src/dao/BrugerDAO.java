@@ -111,15 +111,14 @@ public class BrugerDAO implements IBrugerDAO
 						)
 				);
 	}
-	public void deleteBruger(int id, int status) throws Exception 
+	public void deleteBruger(int id) throws Exception 
 	{
 		Connector.doUpdate
 		(
 				String.format
-				("CALL deleteBruger('%d','%s');",
+				("CALL deleteBruger('%d');",
 
-						id,
-						status
+						id
 				)
 		);
 	}
