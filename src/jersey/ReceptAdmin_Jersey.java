@@ -16,7 +16,7 @@ import daointerfaces.IReceptDAO;
 import daointerfaces.IReceptKompDAO;
 import dto.ReceptDTO;
 import dto.ReceptKompDTO;
-
+ 
 
 @Path("/ReceptService")
 public class ReceptAdmin_Jersey {
