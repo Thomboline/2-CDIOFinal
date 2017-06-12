@@ -99,7 +99,7 @@ public class BrugerDAO implements IBrugerDAO
 				);
 	}
 	@Override
-	public void resetPassword(BrugerDTO bruger) throws Exception 
+	public void resetPassword(int id) throws Exception 
 	{
 		PasswordGenerator PG = new PasswordGenerator();
 
@@ -108,21 +108,20 @@ public class BrugerDAO implements IBrugerDAO
 				String.format
 				("CALL resetPassword('%d','%s');",
 
-						bruger.getId(),
+						id,
 						PG.PasswordGen(PG.PasswordLength())
 						)
 				);
 	}
-	public void deleteBruger(BrugerDTO bruger) throws Exception 
+	public void deleteBruger(int id, int status) throws Exception 
 	{
-
 		Connector.doUpdate
 		(
 				String.format
 				("CALL deleteBruger('%d','%s');",
 
-						bruger.getId(),
-						bruger.getStatus()
+						id,
+						status
 				)
 		);
 	}
