@@ -19,12 +19,12 @@
         $('#CreateRaavare').submit(function(event) {
             data = $('#CreateRaavare').serializeArray();
             event.preventDefault();
-            var user = {
-                id : data[0]['value'],
-                RaavareNavn: data[1]['value'],
-                Leverandoer : data[2]['value'],
+            var raavare = {
+                raavareId : data[0]['value'],
+                raavareNavn: data[1]['value'],
+                leverandoer : data[2]['value']
             };
-            CreateRaavare(user);
+            CreateRaavare(raavare);
             return false;
         });
     });

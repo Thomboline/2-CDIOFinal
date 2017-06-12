@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form id="ListRaavare">
+    <div>
+        Søg på et RaavareID:<br>
+        <input id="number" type="number" name="RaavareID"><br>
+        <input type="submit" value="Søg">
+    </div>
+</form>
+<div>
+    <ul id="RaavareList"></ul>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#ListRaavare').submit(function(event) {
+            event.preventDefault();
+
+            var id = $("#number").val();
+            search(id);
+
+            return false;
+        });
+    });
+
+    function search(searchKey) {
+        if (searchKey) {
+            $.ajax({
+                type: 'GET',
+                url: 'rest/RaavareService/raavare/' + searchKey,
+                dataType: 'json',
+                converters: {
+                    'text json': true
+                },
+                success: function(response) {
+                    $("#RaavareList").html(renderList(response));
+                }
+            });
+        } else {
+            $.ajax({
+                type: 'GET',
+                url: 'rest/RaavareService/raavarelist',
+                dataType: 'json',
+                converters: {
+                    'text json': true
+                },
+                success: function(response) {
+                    $("#RaavareList").html(renderList(response));
+                }
+            });
+        }
+    }
+
+    function renderList(data) {
+        var list = JSON.parse(data);
+        if(list instanceof Array) {
+            $.each(list, function(index, raavare) {
+                $('#RaavareList').append("ID: "+raavare.raavareId+
+                    ", Raavarenavn: "+raavare.raavareNavn+
+                    ", Leverandoer: "+ raavare.leverandoer+ "<br>");
+            })
+        }
+        else{
+            $('#RaavareList').append("ID: "+list.raavareId+
+                ", Brugernavn: "+list.raavareNavn+
+                ", Initialer: "+ list.leverandoer+ "<br>");
+        }
+    }
+</script>
+
+</body>
+</html>

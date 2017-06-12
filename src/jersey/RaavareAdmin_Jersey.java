@@ -1,13 +1,14 @@
 package jersey;
 
 import java.util.List;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
 import connector.DALException;
 import dao.RaavareDAO;
@@ -29,15 +30,21 @@ public class RaavareAdmin_Jersey {
     IRaavareDAO dao = new RaavareDAO();
 
     @GET
-    @Path("/raavare")
+    @Path("/raavarelist")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public List<RaavareDTO> ListUsers() throws Exception {
+    public List<RaavareDTO> ListRaavarer() throws Exception {
 
         return dao.getRaavareList();
     }
-
-    @PUT
+    @GET
     @Path("/raavare/{id}")
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public RaavareDTO ListRaavare(@PathParam("id")int index) throws Exception {
+
+        return dao.getRaavare(index);
+    }
+    @PUT
+    @Path("/update")
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public RaavareDTO update(RaavareDTO raavare) throws Exception {
