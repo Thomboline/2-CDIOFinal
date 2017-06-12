@@ -21,20 +21,15 @@
 $(document).ready(function() {
 	$('#ListUsers').submit(function(event) {
 		event.preventDefault();
-		data = $('#ListUsers').serializeArray();
-		var input = {
-				id : data[0]['value']
-		};
 		
 		var id = $("#number").val();
 		search(id)
-		console.log(id);
+		
 		return false;
 	});
 });
 
 function search(searchKey) {
-	console.log("-->"+searchKey);
 	if (searchKey == "") {
 		ListUsers();			
 	} else {
@@ -60,6 +55,10 @@ function ListUser(searchKey) {
 	$.ajax({
 		type: 'GET',
 		url: 'rest/UserService/users/' + searchKey,
+		dataType: 'json',
+		converters: {
+			'text json': true
+		},
 		success: function(response) {
 			$("#UserList").html(renderList(response));
 		}
