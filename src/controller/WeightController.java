@@ -89,6 +89,8 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 				System.out.println("Produktbatches: " + pdao.getProduktBatchList());
 				System.out.println("Råvarebatches: " + rbdao.getRaavareBatchList());
 				System.out.println("Recepter: " + recdao.getReceptList());
+				
+				System.out.println("Råvarebatch kompatibel: " + rdao.getRaavare(pkdao.getProduktBatchKomp(3, 2).getRaavareBatchId()).getRaavareNavn());
 				String rkomp = "{ ";
 				for(int i = 0; i < rkdao.getReceptKompList(1).size(); i++) {
 					if(!rkdao.getReceptKompList(1).isEmpty()) {
@@ -553,14 +555,16 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws DALEx
 	case 13:
 		try {
 			//TEST VARIABEL, HARD CODED 1 TAL
-			for(int i = 0; i < pkdao.getProduktBatchKompList(2).size(); i++) {
+			for(int i = 0; i < pkdao.getProduktBatchKompList(pb).size(); i++) {
+				if(pkdao.getProduktBatchKompList(pb).get(i).getBrugerId() == 0) { 
 				System.out.println("Pk: " + pkdao.getProduktBatchKompList(pb).get(i).toString());
 				System.out.println("Pk bruger: " + pkdao.getProduktBatchKompList(1).get(i).getBrugerId());
+				System.out.println("Råvarebatch kompatibel: " + rdao.getRaavare(pkdao.getProduktBatchKomp(pb, i).getRaavareBatchId()).getRaavareNavn());
 				
-//				if(pkdao.getProduktBatchKompList(pb).get(i).getBrugerId() == 0) { 
-//					rkdao.getReceptKompList().get(i).getRaavareId()
-//					
-//				}
+				
+//					rkdao.getReceptKompList().get().getRaavareId()
+					
+				}
 					
 			
 			}
