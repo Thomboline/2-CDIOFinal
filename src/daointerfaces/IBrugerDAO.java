@@ -13,6 +13,6 @@ public interface IBrugerDAO
 		void createBruger(BrugerDTO opr) throws DALException, Exception;
 		void updateBruger(BrugerDTO opr) throws DALException, Exception;
 		void resetPassword(int id)throws DALException, Exception;
-		void deleteBruger(int id, int status) throws DALException, Exception;
+		void deleteBruger(int id) throws DALException, Exception;
 		boolean login(BrugerDTO bruger) throws DALException, Exception;
 }

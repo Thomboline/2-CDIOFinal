@@ -1,5 +1,5 @@
 package dao;
-
+/*gfdg*/
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,8 +12,6 @@ import connector.Connector;
 import connector.DALException;
 import daointerfaces.IBrugerDAO;
 import dto.BrugerDTO;
-
-
 
 public class BrugerDAO implements IBrugerDAO
 {
@@ -113,15 +111,13 @@ public class BrugerDAO implements IBrugerDAO
 						)
 				);
 	}
-	public void deleteBruger(int id, int status) throws Exception 
+	public void deleteBruger(int id) throws Exception 
 	{
 		Connector.doUpdate
 		(
 				String.format
-				("CALL deleteBruger('%d','%s');",
-
-						id,
-						status
+				("CALL deleteBruger('%d');",
+						id
 				)
 		);
 	}
