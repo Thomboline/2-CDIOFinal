@@ -12,7 +12,8 @@ import javax.ws.rs.core.MediaType;
 import connector.DALException;
 import dao.ReceptDAO;
 import daointerfaces.IReceptDAO;
-import dto.ReceptDTO;
+import dtointerfaces.IReceptDTO;
+
 
 @Path("/ReceptService")
 public class ReceptAdmin_Jersey {
@@ -30,7 +31,7 @@ public class ReceptAdmin_Jersey {
     @GET
     @Path("/recept")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public List<ReceptDTO> ListUsers() throws Exception {
+    public List<IReceptDTO> ListUsers() throws Exception {
 
         return dao.getReceptList();
     }
@@ -39,7 +40,7 @@ public class ReceptAdmin_Jersey {
     @Path("/recept/{id}")
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public ReceptDTO update(ReceptDTO recept) throws Exception {
+    public IReceptDTO update(IReceptDTO recept) throws Exception {
         System.out.println("Updating recept: " + (recept.getReceptId()));
 
         dao.updateRecept(recept);
@@ -49,7 +50,7 @@ public class ReceptAdmin_Jersey {
     @POST
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public ReceptDTO create(ReceptDTO recept) throws Exception {
+    public IReceptDTO create(IReceptDTO recept) throws Exception {
         System.out.println("Creating recept: " + recept.getReceptNavn());
 
         dao.createRecept(recept);
@@ -61,7 +62,7 @@ public class ReceptAdmin_Jersey {
     @Path("/recept/{id}")
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public ReceptDTO delete(ReceptDTO recept) throws DALException {
+    public IReceptDTO delete(IReceptDTO recept) throws DALException {
         System.out.println("Updating user: " + recept.getReceptNavn());
 //		dao.DeleteUser(user, 1);
         return recept;

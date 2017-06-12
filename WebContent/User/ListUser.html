@@ -1,8 +1,9 @@
+
 <form id="ListUsers">
 	<div>
-		Sï¿½g pï¿½ et BrugerID:<br>
+		Søg på et BrugerID:<br>
 		<input type="number" name="UserID"><br>
-		<input type="submit" value="Sï¿½g">
+		<input type="submit" value="Søg">
 	</div>
 </form>
 <div>
@@ -16,17 +17,17 @@
 $(document).ready(function() {
 	$('#ListUsers').submit(function(event) {
 		event.preventDefault();
-		Search($('#SearchKey').val());
+		var searchKey = {
+				id : ('#UserID').val()
+			}
+		if (searchKey == "") {
+			ListUsers();			
+		} else {
+			ListUser(searchKey);
+		}
 		return false;
 	});
 });
-function Search (input) {}
-	if (searchKey != '') {
-		ListUser(searchKey);
-	} else {
-		ListUsers();
-	}
-}
 
 function ListUsers() {
 	$.ajax({

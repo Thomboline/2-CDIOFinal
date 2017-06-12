@@ -12,7 +12,7 @@ import javax.ws.rs.core.MediaType;
 import connector.DALException;
 import dao.RaavareDAO;
 import daointerfaces.IRaavareDAO;
-import dto.RaavareDTO;
+import dtointerfaces.IRaavareDTO;
 
 
 @Path("/RaavareService")
@@ -31,7 +31,7 @@ public class RaavareAdmin_Jersey {
     @GET
     @Path("/raavare")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public List<RaavareDTO> ListRaavare() throws Exception {
+    public List<IRaavareDTO> ListUsers() throws Exception {
 
         return dao.getRaavareList();
     }
@@ -40,7 +40,7 @@ public class RaavareAdmin_Jersey {
     @Path("/raavare/{id}")
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public RaavareDTO update(RaavareDTO raavare) throws Exception {
+    public IRaavareDTO update(IRaavareDTO raavare) throws Exception {
         System.out.println("Updating raavare: " + (raavare.getRaavareId()));
 
         dao.updateRaavare(raavare);
@@ -50,7 +50,7 @@ public class RaavareAdmin_Jersey {
     @POST
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public RaavareDTO create(RaavareDTO raavare) throws Exception {
+    public IRaavareDTO create(IRaavareDTO raavare) throws Exception {
         System.out.println("Creating raavare: " + raavare.getRaavareNavn());
 
         dao.createRaavare(raavare);
@@ -59,10 +59,10 @@ public class RaavareAdmin_Jersey {
     }
 
     @POST
-    @Path("/raavare/{id}")
+    @Path("/users/{id}")
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public RaavareDTO delete(RaavareDTO raavare) throws DALException {
+    public IRaavareDTO delete(IRaavareDTO raavare) throws DALException {
         System.out.println("Updating raavare: " + raavare.getRaavareNavn());
 //		dao.DeleteUser(user, 1);
         return raavare;
