@@ -17,7 +17,14 @@
 $(document).ready(function() {
 	$('#ListUsers').submit(function(event) {
 		event.preventDefault();
-		ListUsers();
+		var searchKey = {
+				id : ('#UserID').val()
+			}
+		if (searchKey == "") {
+			ListUsers();			
+		} else {
+			ListUser(searchKey);
+		}
 		return false;
 	});
 });
@@ -26,6 +33,20 @@ function ListUsers() {
 	$.ajax({
 		type: 'GET',
 		url: 'rest/UserService/users',
+		dataType: 'json',
+		converters: {
+			'text json': true
+		},
+		success: function(response) {
+			$("#UserList").html(renderList(response));
+		}
+	});
+}
+
+function ListUser(searchKey) {
+	$.ajax({
+		type: 'GET',
+		url: 'rest/UserService/users/' + searchKey,
 		dataType: 'json',
 		converters: {
 			'text json': true

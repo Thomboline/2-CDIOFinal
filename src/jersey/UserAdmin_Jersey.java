@@ -16,11 +16,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import connector.DALException;
 import dao.BrugerDAO;
 import daointerfaces.IBrugerDAO;
 import dto.BrugerDTO;
-import dtointerfaces.IBrugerDTO;
+
 
 
 @Path("/UserService")
@@ -45,14 +44,22 @@ public class UserAdmin_Jersey {
 //		return dao.getBrugerList();
 	}
 	
+	@GET
+	@Path("users/{id}")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public BrugerDTO ListUser(int index) throws Exception {
+		
+		return (BrugerDTO) dao.getBruger(index);	
+	}
+	
 	@PUT
 	@Path("/users/{id}")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public BrugerDTO update(BrugerDTO user) throws Exception {
-		System.out.println("Updating user: " + user.getBrugerNavn());
 
 		dao.updateBruger(user);
+
 		return user;
 	}
 	
@@ -62,17 +69,6 @@ public class UserAdmin_Jersey {
 	public BrugerDTO create(BrugerDTO user) throws Exception {		
 		
 		dao.createBruger(user);
-		
-		return user;
-	}
-	
-	@PUT
-	@Path("/update/{id}")
-	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public BrugerDTO edit(BrugerDTO user) throws Exception {
-		
-		dao.updateBruger(user);
 		
 		return user;
 	}

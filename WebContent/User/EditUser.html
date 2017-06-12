@@ -44,7 +44,7 @@ $(document).ready(function(event) {
 		rolle : data[5]['value'],
 		status : data[6]['value']
 		};
-		CreateUser(user);
+		EditUser(user);
 		return false;
 	});
 });
@@ -52,9 +52,9 @@ $(document).ready(function(event) {
 function EditUser() {
 	$.ajax({
 		type: 'PUT',
-		url: 'rest/UserService/update',
+		url: 'rest/UserService/users/',
 		dataType: "json",
-		data: 'user: ' + JSON.stringify(user) + '}',
+		data: JSON.stringify(user),
 		contentType: "application/json; charset=utf-8",
 		success: function (response) {
 			alert("User edited");
@@ -63,4 +63,5 @@ function EditUser() {
 			alert("Unsuccessful");
 		}
 	});
-} 
+}
+</script>
