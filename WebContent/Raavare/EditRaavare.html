@@ -1,5 +1,47 @@
-<form id="searchRaavare" action="Raavare.js">
-    Indtast råvare id:<br>
-    <input type="text" placeholder="id">
-    <input type="submit" value="søg">
+<form id="EditRaavare">
+    Raavare id:<br>
+    <label>
+        <input type="number" name="RaavareID" min="1">
+    </label><br>
+    Raavare navn:<br>
+    <label>
+        <input type="text" name="RaavareNavn">
+    </label><br>
+    Leverandoer:<br>
+    <label>
+        <input type="text" name="Leverandoer">
+    </label><br>
+    <input type="submit" value="Opret">
 </form>
+
+<script>
+    $(document).ready(function(event) {
+        $("#EditRaavare").submit(function(event) {
+            data = $("#EditRaavare").serializeArray();
+            event.preventDefault();
+            var raavare = {
+                raavareId : data[0]['value'],
+                raavareNavn : data[1]['value'],
+                leverandoer : data[2]['value']
+            };
+            EditRaavare(raavare);
+            return false;
+        });
+    });
+
+    function EditRaavare(raavare) {
+        $.ajax({
+            type: 'PUT',
+            url: 'rest/RaavareService/update',
+            dataType: "json",
+            data: JSON.stringify(raavare),
+            contentType: 'application/json',
+            success: function (response) {
+                alert("Raavare edited: " + response);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("Unsuccessful: " + textStatus);
+            }
+        });
+    }
+</script>

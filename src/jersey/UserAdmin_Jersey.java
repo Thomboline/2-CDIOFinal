@@ -74,7 +74,7 @@ public class UserAdmin_Jersey {
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public void resetPassword(@PathParam("id")int id) throws Exception {
 		
-		dao.resetPassword(id);
+//		dao.resetPassword(id);
 		
 	}
 	
@@ -84,7 +84,7 @@ public class UserAdmin_Jersey {
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public void delete(@PathParam("id")int id) throws Exception {
 		
-		dao.deleteBruger(id, 0);
+//		dao.deleteBruger(id);
 		
 	}
 }
