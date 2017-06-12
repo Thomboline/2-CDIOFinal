@@ -23,6 +23,7 @@ $.ajax({
 	data: JSON.stringify(tempUser),
 	contentType: "application/json",
 	success: function (response) {
+		window.open('HomePage.html')/
 		alert("Login succesful: " + response );
 	},
 	error: function (jqXHR, textStatus, errorThrown){
