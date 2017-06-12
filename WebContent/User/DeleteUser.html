@@ -6,11 +6,11 @@
 </head>
 <body>
 
-<form id="ResetPassword">
+<form id="DeleteUser">
 	<div>
-		Nulstil password for bruger:<br>
+		Deaktiver bruger:<br>
 		<input id="number" type="number" name="UserID"><br>
-		<input type="submit" value="Nulstil">
+		<input type="submit" value="Deaktiver">
 	</div>
 </form>
 
@@ -18,20 +18,20 @@
 
 <script> 
 $(document).ready(function() {
-	$('#ResetPassword').submit(function(event) {
+	$('#DeleteUser').submit(function(event) {
 		event.preventDefault();
 		
 		var id = $("#number").val();
-		resetPassword(id);
+		DeleteUser(id);
 		
 		return false;
 	});
 });
 	
-function resetPassword(id) {
+function DeleteUser(id) {
 	$.ajax({
 		type: 'PUT',
-		url: 'rest/UserService/password/' + id, 
+		url: 'rest/UserService/delete/' + id, 
 		dataType: 'json',
 		success: function(response) {
 			alert("success: " + response);

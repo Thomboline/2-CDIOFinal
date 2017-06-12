@@ -81,7 +81,6 @@ public class UserAdmin_Jersey {
 	@PUT
 	@Path("/delete/{id}")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public void delete(@PathParam("id")int id) throws Exception {
 		
 		dao.deleteBruger(id, 0);
