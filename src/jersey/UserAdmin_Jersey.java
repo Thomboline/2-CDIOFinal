@@ -41,6 +41,7 @@ public class UserAdmin_Jersey {
 	
 		
 		return null;
+		
 //		return dao.getBrugerList();
 	}
 	

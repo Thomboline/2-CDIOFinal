@@ -74,7 +74,7 @@ function CreateUser() {
 		}
 	});
 }
- 
+
 function EditUser() {
 	$.ajax({
 		type: 'PUT',
