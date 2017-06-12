@@ -6,9 +6,15 @@ $(document).ready(function(event) {
 		data = $('#Login').serializeArray();
 		event.preventDefault();
 		var tempUser = {
-		id : data[0]['value'],
+		brugerId : data[0]['value'],
 		password : data[1]['value'],
+		ini : data[2]["test"],
+		password : data[3]["test"],
+		cpr : data[4]["test"],
+		rolle : data[5]["admin"],
+		status : data[6]["1"]
 		};
+		window.alert("So far so good");
 		Login(tempUser);
 		return false;
 	});
@@ -17,7 +23,7 @@ $(document).ready(function(event) {
 function Login(tempUser) {
 $.ajax({
 	type: 'GET',
-	url: 'rest/UserService',
+	url: 'rest/LoginService',
 	dataType: "json",
 	data: JSON.stringify(tempUser),
 	contentType: "application/json",
