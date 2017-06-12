@@ -123,8 +123,8 @@ public class BrugerDAO implements IBrugerDAO
 
 						bruger.getId(),
 						bruger.getStatus()
-						)
-				);
+				)
+		);
 	}
 	public boolean login(BrugerDTO bruger) throws Exception
 	{
