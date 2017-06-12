@@ -30,39 +30,31 @@ $(document).ready(function() {
 });
 
 function search(searchKey) {
-	if (searchKey == "") {
-		ListUsers();			
+	if (searchKey) {
+		$.ajax({
+			type: 'GET',
+			url: 'rest/UserService/users/' + searchKey,
+			dataType: 'json',
+			converters: {
+				'text json': true
+			},
+			success: function(response) {
+				$("#UserList").html(renderList(response));
+			}
+		});			
 	} else {
-		ListUser(searchKey);
+		$.ajax({
+			type: 'GET',
+			url: 'rest/UserService/userlist',
+			dataType: 'json',
+			converters: {
+				'text json': true
+			},
+			success: function(response) {
+				$("#UserList").html(renderList(response));
+			}
+		});
 	}
-}
-
-function ListUsers() {
-	$.ajax({
-		type: 'GET',
-		url: 'rest/UserService/users',
-		dataType: 'json',
-		converters: {
-			'text json': true
-		},
-		success: function(response) {
-			$("#UserList").html(renderList(response));
-		}
-	});
-}
-
-function ListUser(searchKey) {
-	$.ajax({
-		type: 'GET',
-		url: 'rest/UserService/users/' + searchKey,
-		dataType: 'json',
-		converters: {
-			'text json': true
-		},
-		success: function(response) {
-			$("#UserList").html(renderList(response));
-		}
-	});
 }
 
 function renderList(data) {

@@ -21,8 +21,6 @@ import dao.BrugerDAO;
 import daointerfaces.IBrugerDAO;
 import dto.BrugerDTO;
 
-
-
 @Path("/UserService")
 public class UserAdmin_Jersey {
 	
@@ -35,10 +33,10 @@ public class UserAdmin_Jersey {
 	IBrugerDAO dao = new BrugerDAO();
 	
 	@GET
-	@Path("/users")
+	@Path("/userlist")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public List<BrugerDTO> ListUsers() throws Exception {	
-		
+		System.out.println("Hej");
 		return dao.getBrugerList();
 	}
 	
