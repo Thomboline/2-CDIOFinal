@@ -58,15 +58,26 @@ function search(searchKey) {
 }
 
 function renderList(data) {
-    console.log("data");
-    console.log(data);
     var list = JSON.parse(data);
-    console.log("list");
     console.log(list);
-
-    $.each(list, function(index, user) {
-        $('#UserList').append("ID: "+user.id+", status: "+user.status+", Bruger navn: "+user.brugerNavn+", Initialer: "+user.ini+", Cpr-nummer: "+user.cpr+", Rolle: "+user.rolle+"<br>");
-    })
+    if(list instanceof Array) {
+        $.each(list, function(index, user) {
+            $('#UserList').append("ID: "+user.id+
+                ", Brugernavn: "+user.brugerNavn+
+                ", Initialer: "+ user.ini+
+                ", Cpr-nummer: "+user.cpr+
+                ", Rolle: "+user.rolle+
+                ", Status: "+user.status+"<br>");
+        })
+    }
+    else{
+        $('#UserList').append("ID: "+list.id+
+            ", Brugernavn: "+list.brugerNavn+
+            ", Initialer: "+ list.ini+
+            ", Cpr-nummer: "+list.cpr+
+            ", Rolle: "+list.rolle+
+            ", Status: "+list.status+"<br>");
+    }
 }
 </script>
 
