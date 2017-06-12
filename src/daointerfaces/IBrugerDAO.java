@@ -14,5 +14,5 @@ public interface IBrugerDAO
 		void updateBruger(BrugerDTO opr) throws DALException, Exception;
 		void resetPassword(BrugerDTO bruger)throws DALException, Exception;
 		void deleteBruger(BrugerDTO bruger) throws DALException, Exception;
-		BrugerDTO login(BrugerDTO bruger) throws DALException, Exception;
+		boolean login(BrugerDTO bruger) throws DALException, Exception;
 }

@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mysql.jdbc.PreparedStatement;
+
 import PasswordGenerator.PasswordGenerator;
 import connector.Connector;
 import connector.DALException;
@@ -124,17 +126,22 @@ public class BrugerDAO implements IBrugerDAO
 						)
 				);
 	}
-	public BrugerDTO login(BrugerDTO bruger) throws Exception
+	public boolean login(BrugerDTO bruger) throws Exception
 	{
-		Connector.doUpdate
-		(
-				String.format
-				("CALL Login('%d','%s');",
+		boolean request;
+		String Verification;
+		
+		Verification = "select Login(?,?)";
+		java.sql.PreparedStatement pst = c.getPreparedStatement(Verification);
+		
+		pst.setInt(1, bruger.getId());
+		pst.setString(2, bruger.getPassword());
+	
+		ResultSet rs = pst.executeQuery();
+		rs.next();
+		
+		request = rs.getBoolean(1);
 
-						bruger.getId(),
-						bruger.getPassword()
-						)
-				);
-		return bruger;
+		return request;
 	}
 }

@@ -1,9 +1,6 @@
 package controller;
 
-import java.awt.List;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-
 import socket.ISocketController;
 import socket.ISocketObserver;
 import socket.SocketInMessage;
@@ -267,19 +264,19 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 	}
 	
 	
-	//Aflåst miljø til afvejningsprocedure
+	//Aflï¿½st miljï¿½ til afvejningsprocedure
 public boolean weightState(SocketInMessage message, int wtIterator) throws Exception {
 	
 	//Brug 'tempInf' til at gemme midlertidige variable
 	//[0] til terminal nummer
 	//[1] til laborant nummer
-	//[2] til råvarebatch nummer
+	//[2] til rï¿½varebatch nummer
 	
-	//Switch-casen starter på 3 så cases svarer til de egentlige trin i afvejningsproceduren
+	//Switch-casen starter pï¿½ 3 sï¿½ cases svarer til de egentlige trin i afvejningsproceduren
 	
 	switch (wtIterator) {
 	
-	//Vælg afvejningsterminal
+	//Vï¿½lg afvejningsterminal
 	case 3:
 		System.out.println("Performing case " + wtIterator);
 		isRM208 = true;
@@ -356,7 +353,7 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws Excep
 		}
 		return true;
 	
-	//Kontroller at vægten er ubelastet
+	//Kontroller at vï¿½gten er ubelastet
 	case 8:
 		isRM208 = true;
 		System.out.println("Performing case " + wtIterator);
@@ -371,7 +368,7 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws Excep
 		}
 		return true;
 	
-	//Sætter produktbatches status til "Under produktion"
+	//Sï¿½tter produktbatches status til "Under produktion"
 	case 9:
 		isRM208 = true;
 		System.out.println("Performing case " + wtIterator);
@@ -386,7 +383,7 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws Excep
 		}
 		return true;
 	
-	//Vægten tareres
+	//Vï¿½gten tareres
 	case 10:
 		isRM208 = true;
 		System.out.println("Performing case " + wtIterator);
@@ -401,7 +398,7 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws Excep
 		}
 		return true;
 	
-	//Vægten beder om første tara beholder
+	//Vï¿½gten beder om fï¿½rste tara beholder
 	case 11:
 		isRM208 = true;
 		System.out.println("Performing case " + wtIterator);
@@ -431,7 +428,7 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws Excep
 		}
 		return true;
 	
-	//Tara vægt registreres
+	//Tara vï¿½gt registreres
 	case 13:
 		isRM208 = true;
 		System.out.println("Performing case " + wtIterator);
@@ -446,7 +443,7 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws Excep
 		}
 		return true;
 	
-	//Vægten tareres
+	//Vï¿½gten tareres
 	case 14:
 		isRM208 = true;
 		System.out.println("Performing case " + wtIterator);
@@ -461,7 +458,7 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws Excep
 		}
 		return true;
 	
-	//Indtast råvarebatchnummer
+	//Indtast rï¿½varebatchnummer
 	case 15:
 		isRM208 = true;
 		System.out.println("Performing case " + wtIterator);
@@ -591,7 +588,7 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws Excep
 	
 }
 
-								//Hører til nederst i notify()
+								//Hï¿½rer til nederst i notify()
 //if (isRM208) {
 //
 //} else {
