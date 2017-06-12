@@ -2,7 +2,7 @@
  * Created by Bij og Stu on 07/06/2017.
  */
 $(document).ready(function(event) {
-	window.alert("So far so good");
+	
 	$('#Login').submit(function(event) {
 		data = $('#Login').serializeArray();
 		event.preventDefault();
@@ -10,7 +10,7 @@ $(document).ready(function(event) {
 		brugerId : data[0]['value'],
 		password : data[1]['value']
 		};
-		window.alert("So far so good 2");
+		window.alert(JSON.stringify(tempUser));
 		Login(tempUser);
 		return false;
 	});
@@ -24,10 +24,10 @@ $.ajax({
 	data: JSON.stringify(tempUser),
 	contentType: "application/json",
 	success: function (response) {
-		window.open('HomePage.html')/
 		alert("Login succesful: " + response );
 	},
 	error: function (jqXHR, textStatus, errorThrown){
+		
 		alert("Login unsuccesful: " + textStatus);
 	}
 });
