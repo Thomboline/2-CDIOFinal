@@ -24,11 +24,11 @@ import dto.BrugerDTO;
 @Path("/UserService")
 public class UserAdmin_Jersey {
 	
-//	@GET
-//	@Produces({MediaType.APPLICATION_JSON})
-//	public String showMessage() {
-//		return "it works!";
-//	}
+	@GET
+	@Produces({MediaType.APPLICATION_JSON})
+	public String showMessage() {
+		return "it works!";
+	}
 	
 	IBrugerDAO dao = new BrugerDAO();
 	
@@ -72,7 +72,6 @@ public class UserAdmin_Jersey {
 	@PUT
 	@Path("/password/{id}")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public void resetPassword(@PathParam("id")int id) throws Exception {
 		
 		dao.resetPassword(id);
