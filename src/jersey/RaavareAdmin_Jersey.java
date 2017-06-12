@@ -12,7 +12,7 @@ import javax.ws.rs.core.MediaType;
 import connector.DALException;
 import dao.RaavareDAO;
 import daointerfaces.IRaavareDAO;
-import dtointerfaces.IRaavareDTO;
+import dto.RaavareDTO;
 
 
 @Path("/RaavareService")
@@ -31,7 +31,7 @@ public class RaavareAdmin_Jersey {
     @GET
     @Path("/raavare")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public List<IRaavareDTO> ListUsers() throws Exception {
+    public List<RaavareDTO> ListUsers() throws Exception {
 
         return dao.getRaavareList();
     }
@@ -40,7 +40,7 @@ public class RaavareAdmin_Jersey {
     @Path("/raavare/{id}")
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public IRaavareDTO update(IRaavareDTO raavare) throws Exception {
+    public RaavareDTO update(RaavareDTO raavare) throws Exception {
         System.out.println("Updating raavare: " + (raavare.getRaavareId()));
 
         dao.updateRaavare(raavare);
@@ -50,7 +50,7 @@ public class RaavareAdmin_Jersey {
     @POST
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public IRaavareDTO create(IRaavareDTO raavare) throws Exception {
+    public RaavareDTO create(RaavareDTO raavare) throws Exception {
         System.out.println("Creating raavare: " + raavare.getRaavareNavn());
 
         dao.createRaavare(raavare);
@@ -62,7 +62,7 @@ public class RaavareAdmin_Jersey {
     @Path("/users/{id}")
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public IRaavareDTO delete(IRaavareDTO raavare) throws DALException {
+    public RaavareDTO delete(RaavareDTO raavare) throws DALException {
         System.out.println("Updating raavare: " + raavare.getRaavareNavn());
 //		dao.DeleteUser(user, 1);
         return raavare;
