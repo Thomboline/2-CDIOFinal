@@ -9,7 +9,7 @@
 <form id="ListUsers">
 	<div>
 		Søg på et BrugerID:<br>
-		<input type="number" name="UserID"><br>
+		<input id="number" type="number" name="UserID"><br>
 		<input type="submit" value="Søg">
 	</div>
 </form>
@@ -25,14 +25,16 @@ $(document).ready(function() {
 		var input = {
 				id : data[0]['value']
 		};
-		search(input)
-		console.log(input);
+		
+		var id = $("#number").val();
+		search(id)
+		console.log(id);
 		return false;
 	});
 });
 
 function search(searchKey) {
-	
+	console.log("-->"+searchKey);
 	if (searchKey == "") {
 		ListUsers();			
 	} else {
@@ -58,10 +60,6 @@ function ListUser(searchKey) {
 	$.ajax({
 		type: 'GET',
 		url: 'rest/UserService/users/' + searchKey,
-		dataType: 'json',
-		converters: {
-			'text json': true
-		},
 		success: function(response) {
 			$("#UserList").html(renderList(response));
 		}

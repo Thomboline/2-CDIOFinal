@@ -46,15 +46,15 @@ public class UserAdmin_Jersey {
 	@Path("/users/{id}")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public BrugerDTO ListUser(@PathParam("id")int index) throws Exception {
-		
+		System.out.println("hej" + index);
 		return (BrugerDTO) dao.getBruger(index);	
 	}
 	
 	@PUT
-	@Path("/users/{id}")
+	@Path("/update/{user}")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public BrugerDTO update(@PathParam("id")BrugerDTO user) throws Exception {
+	public BrugerDTO update(@PathParam("user")BrugerDTO user) throws Exception {
 
 		dao.updateBruger(user);
 
@@ -72,7 +72,7 @@ public class UserAdmin_Jersey {
 	}
 	
 	@POST
-	@Path("/users/{id}")
+	@Path("/delete/{id}")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public BrugerDTO delete(BrugerDTO user) throws Exception {
