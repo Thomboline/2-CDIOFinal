@@ -1,75 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body> 
-
 <form id="CreateUser">
     Bruger id:<br>
     <label>
-        <input type="number" name="BrugerID" min="1">
+        <input type="number" id="BrugerID" name="brugerID" min="1">
     </label><br>
     Bruger navn:<br>
     <label>
-        <input type="text" name="BrugerNavn">
+        <input type="text" id="BrugerNavn" name="navn">
     </label><br>
     Initialer:<br>
     <label>
-        <input type="text" name="Initialer">
+        <input type="text" id="Initialer" name="ini">
     </label><br>
     Password:<br>
     <label>
-    	<input type="text" name="Password">
-    </label>
+    	<input type="text" id="Password" name="password">
+    </label><br>
     CPR nummer:<br>
     <label>
-        <input type="number" name="Cpr" min="1">
-    </label>
-    Rolle:
+        <input type="text" id="Cpr" name="cpr" min="1">
+    </label><br>
+    Rolle:<br>
     <label>
+        <input type="text" id="Rolle" name="rolle">
     </label>
-    Status:
+    Status:<br>
     <Label>
-    	<input type="number" name="Status" max="1">
-    </Label>
+    	<input type="number" id="Status" name="status" max="1">
+    </Label><br>
     <input type="submit" value="Opret">
 </form>
 
 <script>
 $(document).ready(function(event) {
 	$('#CreateUser').submit(function(event) {
+		data = $('#CreateUser').serializeArray();
 		event.preventDefault();
-		var user = {};
-		user.UserID = ("[id*=BrugerId]").val();
-		user.Navn = ("[id*=Navn]").val();
-		user.Ini = ("[id*=Initialer]").val();
-		user.Password = ("[id*=Password]").val();
-		user.Cpr = ("[id*=cpr]").val();
-		user.Rolle = ("[id*=Rolle]").val();
-		user.Status = ("[id*=Status]").val();
+		var user = {
+		id : data[0]['value'],
+		brugerNavn : data[1]['value'],
+		ini : data[2]['value'],
+		password : data[3]['value'],
+		cpr : data[4]['value'],
+		rolle : data[5]['value'],
+		status : data[6]['value']
+		};
 		CreateUser(user);
 		return false;
 	});
 });
 
-function CreateUser() {
+function CreateUser(user) {
 	$.ajax({
 		type: 'POST',
-		url: '/rest/UserService/createUser',
+		url: 'rest/UserService',
 		dataType: "json",
-		data: 'user: ' + JSON.stringify(user) + '}',
-		contentType: "application/json; charset=utf-8",
+		data: JSON.stringify(user),
+		contentType: "application/json",
 		success: function (response) {
-			alert("User created");
+			alert("User created: " + response );
 		},
-		error: function (errorThrown){
-			alert("Unsuccesful");
+		error: function (jqXHR, textStatus, errorThrown){
+			alert("Unsuccesful: " + textStatus);
 		}
 	});
 }
 </script>
-
-</body>
-</html>

@@ -1,10 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<form id="CreateUser">
+    Bruger id:<br>
+    <label>
+        <input type="number" name="BrugerID" min="1">
+    </label><br>
+    Bruger navn:<br>
+    <label>
+        <input type="text" name="BrugerNavn">
+    </label><br>
+    Initialer:<br>
+    <label>
+        <input type="text" name="Initialer">
+    </label><br>
+    Password:<br>
+    <label>
+    	<input type="text" name="Password">
+    </label><br>
+    CPR nummer:<br>
+    <label>
+        <input type="text" name="Cpr" min="1">
+    </label><br>
+    Rolle:<br>
+    <label>
+        <input type="text" name="Rolle">
+    </label>
+    Status:<br>
+    <Label>
+    	<input type="number" name="Status" max="1">
+    </Label><br>
+    <input type="submit" value="Opret">
+</form>
 
-</body>
-</html>
+<script>
+$(document).ready(function(event) {
+	$('#EditUser').submit(function(event) {
+		data = $('#EditUser').serializeArray();
+		event.preventDefault();
+		var user = {
+		id : data[0]['value'],
+		brugerNavn : data[1]['value'],
+		ini : data[2]['value'],
+		password : data[3]['value'],
+		cpr : data[4]['value'],
+		rolle : data[5]['value'],
+		status : data[6]['value']
+		};
+		EditUser(user);
+		return false;
+	});
+});
+
+function EditUser() {
+	$.ajax({
+		type: 'PUT',
+		url: 'rest/UserService/users/ + ',
+		dataType: "json",
+		data: JSON.stringify(user),
+		contentType: "application/json; charset=utf-8",
+		success: function (response) {
+			alert("User edited");
+		},
+		error: function (errorThrown) {
+			alert("Unsuccessful");
+		}
+	});
+}
+</script>
