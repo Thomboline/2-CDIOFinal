@@ -8,11 +8,6 @@ $(document).ready(function(event) {
 		var tempUser = {
 		brugerId : data[0]['value'],
 		password : data[1]['value'],
-		ini : data[2]["test"],
-		password : data[3]["test"],
-		cpr : data[4]["test"],
-		rolle : data[5]["admin"],
-		status : data[6]["1"]
 		};
 		window.alert("So far so good");
 		Login(tempUser);
