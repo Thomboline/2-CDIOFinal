@@ -1,4 +1,4 @@
-<form action="Raavare.js">
+<form id="CreateRaavare">
     Råvare id:<br>
     <label>
         <input type="number" name="RaavareId" min="1">
@@ -14,3 +14,34 @@
     <input type="submit" value="Opret">
 </form>
 
+<script>
+    $(document).ready(function(event) {
+        $('#CreateRaavare').submit(function(event) {
+            data = $('#CreateRaavare').serializeArray();
+            event.preventDefault();
+            var user = {
+                id : data[0]['value'],
+                RaavareNavn: data[1]['value'],
+                Leverandoer : data[2]['value'],
+            };
+            CreateRaavare(user);
+            return false;
+        });
+    });
+
+    function CreateRaavare(raavare) {
+        $.ajax({
+            type: 'POST',
+            url: 'rest/RaavareService',
+            dataType: "json",
+            data: JSON.stringify(raavare),
+            contentType: "application/json",
+            success: function (response) {
+                alert("Raavare created: " + response );
+            },
+            error: function (jqXHR, textStatus, errorThrown){
+                alert("Unsuccesful: " + textStatus);
+            }
+        });
+    }
+</script>

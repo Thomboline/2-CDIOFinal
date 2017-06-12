@@ -59,7 +59,7 @@ public class RaavareAdmin_Jersey {
     }
 
     @POST
-    @Path("/users/{id}")
+    @Path("/raavare/{id}")
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public RaavareDTO delete(RaavareDTO raavare) throws DALException {
