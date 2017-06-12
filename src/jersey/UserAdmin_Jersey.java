@@ -70,13 +70,22 @@ public class UserAdmin_Jersey {
 	}
 	
 	@POST
+	@Path("/password/{id}")
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public void resetPassword(@PathParam("id")int id) throws Exception {
+		
+		dao.resetPassword(id);
+		
+	}
+	
+	@POST
 	@Path("/delete/{id}")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public BrugerDTO delete(BrugerDTO user) throws Exception {
+	public void delete(@PathParam("id")int id) throws Exception {
 		
-		dao.deleteBruger(user);
+		dao.deleteBruger(id);
 		
-		return user;
 	}
 }

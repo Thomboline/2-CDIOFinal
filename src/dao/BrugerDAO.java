@@ -44,7 +44,7 @@ public class BrugerDAO implements IBrugerDAO
 	public List<BrugerDTO> getBrugerList() throws Exception 
 	{
 		List<BrugerDTO> list = new ArrayList<BrugerDTO>();
-		ResultSet rs = Connector.doQuery("SELECT * FROM sql11178303.brugere natural join sql11178303.brugerinfo");
+		ResultSet rs = Connector.doQuery("SELECT * FROM sql11178303.brugerinfo natural join sql11178303.brugere");
 		
 		try
 		{
