@@ -45,14 +45,14 @@ public class UserAdmin_Jersey {
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public BrugerDTO ListUser(@PathParam("id")int index) throws Exception {
 		System.out.println("hej" + index);
-		return (BrugerDTO) dao.getBruger(index);	
+		return dao.getBruger(index);	
 	}
 	
 	@PUT
-	@Path("/update/{user}")
+	@Path("/update")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public BrugerDTO update(@PathParam("user")BrugerDTO user) throws Exception {
+	public BrugerDTO update(BrugerDTO user) throws Exception {
 
 		dao.updateBruger(user);
 
