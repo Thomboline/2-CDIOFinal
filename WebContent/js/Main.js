@@ -124,6 +124,10 @@ $(document).ready( function() {
         $("#DU").on("click", function() {
             $("#wrapper").load("User/DeleteUser.html");
         });
+        
+        $("#RP").on("click", function() {
+        	$("#wrapper").load("User/ResetPassword.html");
+        });
     });
 
     $("#ProfilIndstillinger").on("click", function () {
