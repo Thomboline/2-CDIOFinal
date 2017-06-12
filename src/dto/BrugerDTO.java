@@ -1,12 +1,12 @@
 package dto;
 
-import dtointerfaces.IBrugerDTO;
 
-public class BrugerDTO implements IBrugerDTO
+
+public class BrugerDTO
 {	
 
 	int status;
-	int brugerId;					/** Bruger id i området 1-99999999. Vælges af brugerne */
+	int brugerId;					/** Bruger id i omrï¿½det 1-99999999. Vï¿½lges af brugerne */
 	String brugerNavn;				/** Bruger navn (bruger_navn) min. 2 max. 20 karakterer */
 	String ini;						/** Bruger initialer min. 2 max. 4 karakterer */
 	String cpr;						/** Bruger cpr-nr 10 karakterer */

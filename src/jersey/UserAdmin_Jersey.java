@@ -19,7 +19,7 @@ import javax.ws.rs.core.MediaType;
 import connector.DALException;
 import dao.BrugerDAO;
 import daointerfaces.IBrugerDAO;
-import dtointerfaces.IBrugerDTO;
+import dto.BrugerDTO;
 
 
 @Path("/UserService")
