@@ -14,6 +14,10 @@ public class BrugerDTO implements IBrugerDTO
 	//List<String> roller;			/** Liste over roller */
 	String rolle;
 	
+	public BrugerDTO(){
+		
+	}
+	
 	public BrugerDTO(int brugerId, String brugerNavn, String ini, String password, String cpr, String rolle, int status) 
 	{
 		this.brugerId = brugerId;
@@ -35,7 +39,6 @@ public class BrugerDTO implements IBrugerDTO
 		this.rolle = bruger.getRolle();
 		this.status = bruger.getStatus();
 	}
-	
 
 	public int getId() 
 	{

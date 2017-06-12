@@ -1,11 +1,3 @@
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body> 
-
 <form id="CreateUser">
     Bruger id:<br>
     <label>
@@ -43,21 +35,24 @@
 <script>
 $(document).ready(function(event) {
 	$('#CreateUser').submit(function(event) {
+		data = $('#CreateUser').serializeArray();
 		event.preventDefault();
-		var user = {};
-		user.brugerId = ("[id*=BrugerId]");
-		user.brugerNavn = ("[id*=BrugerNavn]");
-		user.ini = ("[id*=Initialer]");
-		user.password = ("[id*=Password]");
-		user.cpr = ("[id*=cpr]");
-		user.rolle = ("[id*=Rolle]");
-		user.status = ("[id*=Status]");
+		var user = {
+		id : data[0]['value'],
+		brugerNavn : data[1]['value'],
+		ini : data[2]['value'],
+		password : data[3]['value'],
+		cpr : data[4]['value'],
+		rolle : data[5]['value'],
+		status : data[6]['value']
+		};
 		CreateUser(user);
 		return false;
 	});
 });
 
 function CreateUser(user) {
+	console.log("user: " + JSON.stringify(user));
 	$.ajax({
 		type: 'POST',
 		url: 'rest/UserService',
@@ -73,6 +68,3 @@ function CreateUser(user) {
 	});
 }
 </script>
-
-</body>
-</html>

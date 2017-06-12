@@ -19,6 +19,7 @@ import javax.ws.rs.core.MediaType;
 import connector.DALException;
 import dao.BrugerDAO;
 import daointerfaces.IBrugerDAO;
+import dto.BrugerDTO;
 import dtointerfaces.IBrugerDTO;
 
 
@@ -30,8 +31,6 @@ public class UserAdmin_Jersey {
 	public String showMessage() {
 		return "it works!";
 	}
-
-
 	
 	IBrugerDAO dao = new BrugerDAO();
 	
@@ -47,7 +46,7 @@ public class UserAdmin_Jersey {
 	@Path("/users/{id}")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public IBrugerDTO update(IBrugerDTO user) throws Exception {
+	public IBrugerDTO update(BrugerDTO user) throws Exception {
 		System.out.println("Updating user: " + user.getBrugerNavn());
 
 		dao.updateBruger(user);
@@ -57,7 +56,7 @@ public class UserAdmin_Jersey {
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public IBrugerDTO create(IBrugerDTO user) throws Exception {
+	public IBrugerDTO create(BrugerDTO user) throws Exception {
 		System.out.println("Creating user: " + user.getId());		
 		
 		dao.createBruger(user);
@@ -69,7 +68,7 @@ public class UserAdmin_Jersey {
 	@Path("/users/{id}")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public IBrugerDTO delete(IBrugerDTO user) throws DALException {
+	public IBrugerDTO delete(BrugerDTO user) throws DALException {
 		System.out.println("Updating user: " + user.getBrugerNavn());
 //		dao.DeleteUser(user, 1);
 		return user;
