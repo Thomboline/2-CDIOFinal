@@ -1,11 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
 <form id="CreateUser">
     Bruger id:<br>
     <label>
@@ -31,8 +23,6 @@
     <label>
         <input type="text" name="Rolle">
     </label>
-    <label>
-    </label><br>
     Status:<br>
     <Label>
     	<input type="number" name="Status" max="1">
@@ -40,6 +30,37 @@
     <input type="submit" value="Opret">
 </form>
 
+<script>
+$(document).ready(function(event) {
+	$('#EditUser').submit(function(event) {
+		data = $('#EditUser').serializeArray();
+		event.preventDefault();
+		var user = {
+		id : data[0]['value'],
+		brugerNavn : data[1]['value'],
+		ini : data[2]['value'],
+		password : data[3]['value'],
+		cpr : data[4]['value'],
+		rolle : data[5]['value'],
+		status : data[6]['value']
+		};
+		CreateUser(user);
+		return false;
+	});
+});
 
-</body>
-</html>
+function EditUser() {
+	$.ajax({
+		type: 'PUT',
+		url: 'rest/UserService/update',
+		dataType: "json",
+		data: 'user: ' + JSON.stringify(user) + '}',
+		contentType: "application/json; charset=utf-8",
+		success: function (response) {
+			alert("User edited");
+		},
+		error: function (errorThrown) {
+			alert("Unsuccessful");
+		}
+	});
+} 

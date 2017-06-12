@@ -23,8 +23,6 @@
     <label>
         <input type="text" id="Rolle" name="rolle">
     </label>
-    <label>
-    </label><br>
     Status:<br>
     <Label>
     	<input type="number" id="Status" name="status" max="1">
@@ -52,7 +50,6 @@ $(document).ready(function(event) {
 });
 
 function CreateUser(user) {
-	console.log("user: " + JSON.stringify(user));
 	$.ajax({
 		type: 'POST',
 		url: 'rest/UserService',
