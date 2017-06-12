@@ -23,7 +23,7 @@ $(document).ready(function() {
 		event.preventDefault();
 		
 		var id = $("#number").val();
-		search(id)
+		search(id);
 		
 		return false;
 	});
@@ -58,10 +58,14 @@ function search(searchKey) {
 }
 
 function renderList(data) {
-    var list = data == null ? [] : (data instanceof Array ? data : [data]);
+    console.log("data");
+    console.log(data);
+    var list = JSON.parse(data);
+    console.log("list");
+    console.log(list);
 
     $.each(list, function(index, user) {
-        $('#UserList').append(user);
+        $('#UserList').append("ID: "+user.id+", status: "+user.status+", Bruger navn: "+user.brugerNavn+", Initialer: "+user.ini+", Cpr-nummer: "+user.cpr+", Rolle: "+user.rolle+"<br>");
     })
 }
 </script>

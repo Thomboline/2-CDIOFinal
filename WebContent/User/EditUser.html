@@ -32,8 +32,8 @@
 
 <script>
 $(document).ready(function(event) {
-	$('#EditUser').submit(function(event) {
-		data = $('#EditUser').serializeArray();
+	$("#EditUser").submit(function(event) {
+		data = $("#EditUser").serializeArray();
 		event.preventDefault();
 		var user = {
 		id : data[0]['value'],
