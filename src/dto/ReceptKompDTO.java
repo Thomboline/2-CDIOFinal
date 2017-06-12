@@ -1,8 +1,6 @@
 package dto;
 
-import dtointerfaces.IReceptKompDTO;
-
-public class ReceptKompDTO implements IReceptKompDTO
+public class ReceptKompDTO
 {
 	
 	int receptId;				/** recept id i området 1-99999999 */
@@ -10,6 +8,9 @@ public class ReceptKompDTO implements IReceptKompDTO
 	double nomNetto;			/** nominel nettomængde i området 0,05 - 20,0 kg */
 	double tolerance;			/** tolerance i området 0,1 - 10,0 % */
 	
+	public ReceptKompDTO()
+	{
+	}
 	
 	public ReceptKompDTO(int receptId, int raavareId, double nomNetto, double tolerance) 
 	{

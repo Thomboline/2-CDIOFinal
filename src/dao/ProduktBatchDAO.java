@@ -8,14 +8,14 @@ import java.util.List;
 import connector.Connector;
 import daointerfaces.IProduktBatchDAO;
 import dto.ProduktBatchDTO;
-import dtointerfaces.IProduktBatchDTO;
+
 
 public class ProduktBatchDAO implements IProduktBatchDAO
 {
 	Connector c = new Connector();
 	
 	@Override
-	public IProduktBatchDTO getProduktBatch(int pbId) throws Exception
+	public ProduktBatchDTO getProduktBatch(int pbId) throws Exception
 	{
 		ResultSet rs = Connector.doQuery("SELECT * FROM produktbatch WHERE pbId = " + pbId);
 
@@ -34,9 +34,9 @@ public class ProduktBatchDAO implements IProduktBatchDAO
 	}
 
 	@Override
-	public List<IProduktBatchDTO> getProduktBatchList() throws Exception 
+	public List<ProduktBatchDTO> getProduktBatchList() throws Exception 
 	{
-		List<IProduktBatchDTO> list = new ArrayList<>();
+		List<ProduktBatchDTO> list = new ArrayList<>();
 
 		ResultSet rs = Connector.doQuery("SELECT * FROM produktbatch");
 
@@ -64,7 +64,7 @@ public class ProduktBatchDAO implements IProduktBatchDAO
 	}
 
 	@Override
-	public void createProduktBatch(IProduktBatchDTO produktbatch) throws Exception 
+	public void createProduktBatch(ProduktBatchDTO produktbatch) throws Exception 
 	{
 		Connector.doUpdate
 		(
@@ -79,7 +79,7 @@ public class ProduktBatchDAO implements IProduktBatchDAO
 	}
 
 	@Override
-	public void updateProduktBatch(IProduktBatchDTO produktbatch) throws Exception 
+	public void updateProduktBatch(ProduktBatchDTO produktbatch) throws Exception 
 	{
 		Connector.doUpdate
 		(

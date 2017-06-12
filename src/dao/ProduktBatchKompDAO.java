@@ -1,5 +1,4 @@
 package dao;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,14 +8,14 @@ import connector.Connector;
 import connector.DALException;
 import daointerfaces.IProduktBatchKompDAO;
 import dto.ProduktBatchKompDTO;
-import dtointerfaces.IProduktBatchKompDTO;
+
 
 public class ProduktBatchKompDAO implements IProduktBatchKompDAO
 {
 	Connector c = new Connector();
 	
 	@Override
-	public IProduktBatchKompDTO getProduktBatchKomp(int pbId, int rbId) throws Exception 
+	public ProduktBatchKompDTO getProduktBatchKomp(int pbId, int rbId) throws Exception 
 	{
 		ResultSet rs = Connector.doQuery("SELECT * FROM produktbatchkomponent WHERE pbId = " + pbId + " AND rbId = " + rbId);
 
@@ -41,9 +40,9 @@ public class ProduktBatchKompDAO implements IProduktBatchKompDAO
 	}
 
 	@Override
-	public List<IProduktBatchKompDTO> getProduktBatchKompList(int pbId) throws Exception 
+	public List<ProduktBatchKompDTO> getProduktBatchKompList(int pbId) throws Exception 
 	{
-		List<IProduktBatchKompDTO> list = new ArrayList<>();
+		List<ProduktBatchKompDTO> list = new ArrayList<>();
 
 		ResultSet rs = Connector.doQuery("SELECT * FROM produktbatchkomponent WHERE pbId = " + pbId);
 
@@ -72,9 +71,9 @@ public class ProduktBatchKompDAO implements IProduktBatchKompDAO
 	}
 
 	@Override
-	public List<IProduktBatchKompDTO> getProduktBatchKompList() throws Exception 
+	public List<ProduktBatchKompDTO> getProduktBatchKompList() throws Exception 
 	{
-		List<IProduktBatchKompDTO> list = new ArrayList<>();
+		List<ProduktBatchKompDTO> list = new ArrayList<>();
 
 		ResultSet rs = Connector.doQuery("SELECT * FROM produktbatchkomponent");
 
@@ -105,7 +104,7 @@ public class ProduktBatchKompDAO implements IProduktBatchKompDAO
 	}
 
 	@Override
-	public void createProduktBatchKomp(IProduktBatchKompDTO produktbatchkomponent) throws DALException, Exception 
+	public void createProduktBatchKomp(ProduktBatchKompDTO produktbatchkomponent) throws DALException, Exception 
 	{
 		Connector.doUpdate
 		(
@@ -124,7 +123,7 @@ public class ProduktBatchKompDAO implements IProduktBatchKompDAO
 	}
 
 	@Override
-	public void updateProduktBatchKomp(IProduktBatchKompDTO produktbatchkomponent) throws DALException, Exception 
+	public void updateProduktBatchKomp(ProduktBatchKompDTO produktbatchkomponent) throws DALException, Exception 
 	{
 		Connector.doUpdate
 		(

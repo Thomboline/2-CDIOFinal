@@ -9,14 +9,14 @@ import connector.Connector;
 import connector.DALException;
 import daointerfaces.IRaavareBatchDAO;
 import dto.RaavareBatchDTO;
-import dtointerfaces.IRaavareBatchDTO;
+
 
 public class RaavareBatchDAO implements IRaavareBatchDAO
 {
 	Connector c = new Connector();
 	
 	@Override
-	public IRaavareBatchDTO getRaavareBatch(int rbId) throws DALException, Exception 
+	public RaavareBatchDTO getRaavareBatch(int rbId) throws DALException, Exception 
 	{
 		ResultSet rs = Connector.doQuery("SELECT * FROM raavarebatch WHERE rbId =" + rbId);
 
@@ -38,9 +38,9 @@ public class RaavareBatchDAO implements IRaavareBatchDAO
 	}
 
 	@Override
-	public List<IRaavareBatchDTO> getRaavareBatchList() throws DALException, Exception 
+	public List<RaavareBatchDTO> getRaavareBatchList() throws DALException, Exception 
 	{
-		List<IRaavareBatchDTO> list = new ArrayList<>();
+		List<RaavareBatchDTO> list = new ArrayList<>();
 
 		ResultSet rs = Connector.doQuery("SELECT * FROM raavarebatch");
 	
@@ -68,9 +68,9 @@ public class RaavareBatchDAO implements IRaavareBatchDAO
 	}
 
 	@Override
-	public List<IRaavareBatchDTO> getRaavareBatchList(int rbId) throws DALException, Exception 
+	public List<RaavareBatchDTO> getRaavareBatchList(int rbId) throws DALException, Exception 
 	{
-		List<IRaavareBatchDTO> list = new ArrayList<>();
+		List<RaavareBatchDTO> list = new ArrayList<>();
 
 		ResultSet rs = Connector.doQuery("select * from raavarebatch where rbId = " + rbId);
 
@@ -99,7 +99,7 @@ public class RaavareBatchDAO implements IRaavareBatchDAO
 	}
 
 	@Override
-	public void createRaavareBatch(IRaavareBatchDTO raavarebatch) throws DALException, Exception 
+	public void createRaavareBatch(RaavareBatchDTO raavarebatch) throws DALException, Exception 
 	{
 		Connector.doUpdate(
 
@@ -114,7 +114,7 @@ public class RaavareBatchDAO implements IRaavareBatchDAO
 	}
 
 	@Override
-	public void updateRaavareBatch(IRaavareBatchDTO raavarebatch) throws DALException, Exception 
+	public void updateRaavareBatch(RaavareBatchDTO raavarebatch) throws DALException, Exception 
 	{
 		Connector.doUpdate(
 

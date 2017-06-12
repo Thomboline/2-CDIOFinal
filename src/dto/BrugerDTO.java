@@ -1,8 +1,6 @@
 package dto;
 
-import dtointerfaces.IBrugerDTO;
-
-public class BrugerDTO implements IBrugerDTO
+public class BrugerDTO
 {	
 
 	int status;
@@ -13,6 +11,10 @@ public class BrugerDTO implements IBrugerDTO
 	String password;				/** Bruger password min. 5 max. 8 karakterer */
 	//List<String> roller;			/** Liste over roller */
 	String rolle;
+	
+	public BrugerDTO()
+	{
+	}
 	
 	public BrugerDTO(int brugerId, String brugerNavn, String ini, String password, String cpr, String rolle, int status) 
 	{

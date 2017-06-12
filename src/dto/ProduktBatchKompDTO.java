@@ -1,8 +1,6 @@
 package dto;
 
-import dtointerfaces.IProduktBatchKompDTO;
-
-public class ProduktBatchKompDTO implements IProduktBatchKompDTO
+public class ProduktBatchKompDTO
 {
 	
 	int terminal;
@@ -11,6 +9,10 @@ public class ProduktBatchKompDTO implements IProduktBatchKompDTO
 	double tara;				/** tara i kg */
 	double netto;				/** afvejet nettom�ngde i kg */
 	int brugerId;					/** Laborant-identifikationsnummer */
+	
+	public ProduktBatchKompDTO()
+	{
+	}
 	
 	public ProduktBatchKompDTO(int pbId, int rbId, int brugerId, double tara, double netto, int terminal) 
 	{
