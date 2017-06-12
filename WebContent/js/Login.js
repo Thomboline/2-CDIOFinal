@@ -14,7 +14,7 @@ $(document).ready(function(event) {
 	});
 });
 
-function Login(tempUser) 
+function Login(tempUser) {
 $.ajax({
 	type: 'GET',
 	url: 'rest/UserService',
@@ -28,7 +28,4 @@ $.ajax({
 		alert("Login unsuccesful: " + textStatus);
 	}
 });
-        return false;
-    });
-});
-
+}

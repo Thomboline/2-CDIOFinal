@@ -60,7 +60,7 @@ public class databasetest
 		else if(testtype == 5)
 		{
 			BrugerDTO BDTO = new BrugerDTO(2, null, null, null, null, null, 1);
-			BDAO.resetPassword(BDTO);
+//			BDAO.resetPassword(BDTO);
 		}
 		else if(testtype == 6)
 		{

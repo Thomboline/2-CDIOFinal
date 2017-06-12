@@ -1,4 +1,4 @@
-<form action="RaavareBatch.js">
+<form id="CreateRaavareBatch">
     RåvareBatch id:<br>
     <label>
         <input type="number" name="RaavareBatchId" min="1">
@@ -14,3 +14,34 @@
     <input type="submit" value="Opret">
 </form>
 
+<script>
+    $(document).ready(function(event) {
+        $('#CreateRaavareBatch').submit(function(event) {
+            data = $('#CreateRaavareBatch').serializeArray();
+            event.preventDefault();
+            var raavareBatch = {
+                rbId : data[0]['value'],
+                raavareId: data[1]['value'],
+                maengde : data[2]['value']
+            };
+            CreateRaavareBatch(raavareBatch);
+            return false;
+        });
+    });
+
+    function CreateRaavareBatch(raavareBatch) {
+        $.ajax({
+            type: 'POST',
+            url: 'rest/RaavareBatchService',
+            dataType: "json",
+            data: JSON.stringify(raavareBatch),
+            contentType: "application/json",
+            success: function (response) {
+                alert("RaavareBatch created: " + response );
+            },
+            error: function (jqXHR, textStatus, errorThrown){
+                alert("Unsuccesful: " + textStatus);
+            }
+        });
+    }
+</script>
