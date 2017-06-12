@@ -13,7 +13,18 @@ import dao.BrugerDAO;
 import daointerfaces.IBrugerDAO;
 import dto.BrugerDTO;
 
-@PATH("/LoginService")
+@Path("/LoginService")
 public class LoginService {
 
+	IBrugerDAO dao = new BrugerDAO();
+	
+	
+	@GET
+	@Path("users/{id}")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public BrugerDTO getBruger(BrugerDTO user) throws Exception {
+		
+		return dao.login(user);
+	}
+	
 }

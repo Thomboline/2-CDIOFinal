@@ -124,9 +124,8 @@ public class BrugerDAO implements IBrugerDAO
 						)
 				);
 	}
-	public boolean login(BrugerDTO bruger) throws Exception
+	public BrugerDTO login(BrugerDTO bruger) throws Exception
 	{
-		boolean loginCheck = false;
 		Connector.doUpdate
 		(
 				String.format
@@ -136,6 +135,6 @@ public class BrugerDAO implements IBrugerDAO
 						bruger.getPassword()
 						)
 				);
-		return loginCheck;
+		return bruger;
 	}
 }
