@@ -9,52 +9,54 @@
 <form id="CreateUser">
     Bruger id:<br>
     <label>
-        <input type="number" name="BrugerID" min="1">
+        <input type="number" name="BrugerID" id="BrugerId" min="1">
     </label><br>
     Bruger navn:<br>
     <label>
-        <input type="text" name="BrugerNavn">
+        <input type="text" name="BrugerNavn" id="BrugerNavn">
     </label><br>
     Initialer:<br>
     <label>
-        <input type="text" name="Initialer">
+        <input type="text" name="Initialer" id="Initialer">
     </label><br>
     Password:<br>
     <label>
-    	<input type="text" name="Password">
+    	<input type="text" name="Password" id="Password">
     </label><br>
     CPR nummer:<br>
     <label>
-        <input type="text" name="Cpr" min="1">
+        <input type="text" name="Cpr" id="cpr" min="1">
     </label><br>
     Rolle:<br>
     <label>
-        <input type="text" name="Rolle">
+        <input type="text" name="Rolle" id="Rolle">
     </label>
     <label>
     </label><br>
     Status:<br>
     <Label>
-    	<input type="number" name="Status" max="1">
+    	<input type="number" name="Status" id="Status" max="1">
     </Label><br>
     <input type="submit" value="Opret">
 </form>
 
 <script>
-$(document).ready(function(event) {
-	$('#CreateUser').submit(function(event) {
-		event.preventDefault();
-		var user = {};
-		user.brugerId = ("[id*=BrugerId]");
-		user.brugerNavn = ("[id*=Navn]");
-		user.ini = ("[id*=Initialer]");
-		user.password = ("[id*=Password]");
-		user.cpr = ("[id*=cpr]");
-		user.rolle = ("[id*=Rolle]");
-		user.status = ("[id*=Status]");
-		CreateUser(user);
-		return false;
-	});
+
+$(document).ready(function(){
+
+    $('#CreateUser').submit(function(){
+    	
+    	var user = {
+			brugerId: $("#BrugerId").val(),
+			BrugerNavn: $("#BrugerNavn").val(),
+			Initialer: $("#Initialer").val(),
+			Password: $("#Password").val(),
+			Cpr: $("#Cpr").val(),
+			Rolle: $("#Rolle").val(),
+			Status: $("Status").val()
+    	};
+    	CreateUser(user);
+  });
 });
 
 function CreateUser(user) {
@@ -62,12 +64,13 @@ function CreateUser(user) {
 		type: 'POST',
 		url: 'rest/UserService',
 		dataType: "json",
-		data: 'user: ' + JSON.stringify(user) + '}',
+		data: JSON.stringify(user),
 		contentType: "application/json",
 		success: function (data) {
 			alert("User created");
 		},
 		error: function (textStatus, errorThrown){
+			console.log(data);
 			alert("Unsuccesful: " + textStatus);
 		}
 	});

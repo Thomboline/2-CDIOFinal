@@ -16,9 +16,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import connector.DALException;
 import dao.BrugerDAO;
 import daointerfaces.IBrugerDAO;
+import dto.BrugerDTO;
 import dtointerfaces.IBrugerDTO;
 
 
@@ -34,6 +37,7 @@ public class UserAdmin_Jersey {
 
 	
 	IBrugerDAO dao = new BrugerDAO();
+	
 	
 	@GET
 	@Path("/users")
@@ -58,6 +62,7 @@ public class UserAdmin_Jersey {
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public IBrugerDTO create(IBrugerDTO user) throws Exception {
+		
 		System.out.println("Creating user: " + user.getId());		
 		
 		dao.createBruger(user);
