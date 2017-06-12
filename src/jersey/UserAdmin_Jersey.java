@@ -39,9 +39,8 @@ public class UserAdmin_Jersey {
 	public List<BrugerDTO> ListUsers() throws Exception {
 	
 		
-		return null;
 		
-//		return dao.getBrugerList();
+		return dao.getBrugerList();
 	}
 	
 	@GET
