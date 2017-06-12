@@ -21,6 +21,7 @@ public class LoginService
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public boolean verifyBruger(BrugerDTO user) throws Exception 
 	{
+		System.out.println("EN LILLE TEST");
 		return dao.login(user);
 	}
 	
