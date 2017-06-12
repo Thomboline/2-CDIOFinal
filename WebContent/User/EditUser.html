@@ -52,7 +52,7 @@ $(document).ready(function(event) {
 function EditUser() {
 	$.ajax({
 		type: 'PUT',
-		url: 'rest/UserService/users/',
+		url: 'rest/UserService/users/ + ',
 		dataType: "json",
 		data: JSON.stringify(user),
 		contentType: "application/json; charset=utf-8",
