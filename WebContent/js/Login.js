@@ -2,14 +2,15 @@
  * Created by Bij og Stu on 07/06/2017.
  */
 $(document).ready(function(event) {
+	window.alert("So far so good");
 	$('#Login').submit(function(event) {
 		data = $('#Login').serializeArray();
 		event.preventDefault();
 		var tempUser = {
 		brugerId : data[0]['value'],
-		password : data[1]['value'],
+		password : data[1]['value']
 		};
-		window.alert("So far so good");
+		window.alert("So far so good 2");
 		Login(tempUser);
 		return false;
 	});
