@@ -117,7 +117,6 @@ public class BrugerDAO implements IBrugerDAO
 		(
 				String.format
 				("CALL deleteBruger('%d');",
-
 						id
 				)
 		);

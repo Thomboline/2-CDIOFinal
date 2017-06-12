@@ -30,8 +30,8 @@
     <input type="submit" value="Opret">
 </form>
 
-<script>
-$(document).ready(function(event) {
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
+$(document).ready(function() {
 	$('#CreateUser').submit(function(event) {
 		data = $('#CreateUser').serializeArray();
 		event.preventDefault();
@@ -59,8 +59,7 @@ function CreateUser(user) {
 		success: function (response) {
 			alert("User created: " + response );
 		},
-		error: function (jqXHR, textStatus, errorThrown)
-		{
+		error: function (jqXHR, textStatus, errorThrown){
 			alert("Unsuccesful: " + textStatus);
 		}
 	});

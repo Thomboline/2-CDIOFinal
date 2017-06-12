@@ -2,6 +2,10 @@
  * 
  */
 /**
+/**
+ * 
+ */
+/**
  * @author Thomas-PC
  *
  */
@@ -69,20 +73,18 @@ public class UserAdmin_Jersey {
 		return user;
 	}
 	
-	@POST
+	@PUT
 	@Path("/password/{id}")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public void resetPassword(@PathParam("id")int id) throws Exception {
 		
 		dao.resetPassword(id);
 		
 	}
 	
-	@POST
+	@PUT
 	@Path("/delete/{id}")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public void delete(@PathParam("id")int id) throws Exception {
 		
 		dao.deleteBruger(id);

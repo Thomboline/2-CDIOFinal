@@ -17,7 +17,7 @@ public class LoginService
 	
 	
 	@GET
-	@Path("users/{id}")
+	@Path("/Verify")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public boolean verifyBruger(BrugerDTO user) throws Exception 
 	{

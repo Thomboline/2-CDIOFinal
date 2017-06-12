@@ -10,6 +10,7 @@ $(document).ready(function(event) {
 		brugerId : data[0]['value'],
 		password : data[1]['value'],
 		};
+		window.alert("So far so good");
 		Login(tempUser);
 		return false;
 	});
