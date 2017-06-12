@@ -16,26 +16,26 @@ import dto.BrugerDTO;
 public class BrugerDAO implements IBrugerDAO
 {
 	Connector c = new Connector();
-	
+
 	@Override
 	public BrugerDTO getBruger(int brugerId) throws Exception 
 	{
-	
+
 		ResultSet rs = Connector.doQuery("SELECT * FROM sql11178303.brugere natural join sql11178303.brugerinfo WHERE brugerId = " + brugerId);
-		
+
 		try 
 		{
 			if (!rs.first()) throw new Exception("Brugeren med brugerId="+brugerId+" eksistere ikke.");
 			return new BrugerDTO
 					(
-					rs.getInt("brugerId"),
-					rs.getString("brugerNavn"),
-					rs.getString("initialer"),
-					rs.getString("password"),
-					rs.getString("cpr"),
-					rs.getString("rolle"),
-					rs.getInt("brugerStatus")
-					);
+							rs.getInt("brugerId"),
+							rs.getString("brugerNavn"),
+							rs.getString("initialer"),
+							rs.getString("password"),
+							rs.getString("cpr"),
+							rs.getString("rolle"),
+							rs.getInt("brugerStatus")
+							);
 		} 
 		catch (SQLException e) {throw new DALException(e); }
 	}
@@ -45,7 +45,7 @@ public class BrugerDAO implements IBrugerDAO
 	{
 		List<BrugerDTO> list = new ArrayList<BrugerDTO>();
 		ResultSet rs = Connector.doQuery("SELECT * FROM sql11178303.brugere natural join sql11178303.brugerinfo");
-		
+
 		try
 		{
 			while (rs.next()) 
@@ -56,7 +56,7 @@ public class BrugerDAO implements IBrugerDAO
 		catch (SQLException e) { throw new DALException(e); }
 		return list;
 	}
-	
+
 	@Override
 	public void createBruger(BrugerDTO bruger) throws Exception
 	{
@@ -72,9 +72,9 @@ public class BrugerDAO implements IBrugerDAO
 						bruger.getCpr(),
 						bruger.getRolle(),
 						bruger.getStatus()
-				)
-		);
-		
+						)
+				);
+
 	}
 
 	@Override
@@ -92,15 +92,15 @@ public class BrugerDAO implements IBrugerDAO
 						bruger.getStatus(),
 						bruger.getCpr(),
 						bruger.getRolle()
-						
-				)
-		);
+
+						)
+				);
 	}
 	@Override
 	public void resetPassword(BrugerDTO bruger) throws Exception 
 	{
 		PasswordGenerator PG = new PasswordGenerator();
-		
+
 		Connector.doUpdate
 		(
 				String.format
@@ -108,12 +108,12 @@ public class BrugerDAO implements IBrugerDAO
 
 						bruger.getId(),
 						PG.PasswordGen(PG.PasswordLength())
-				)
-		);
+						)
+				);
 	}
 	public void deleteBruger(BrugerDTO bruger) throws Exception 
 	{
-		
+
 		Connector.doUpdate
 		(
 				String.format
@@ -121,7 +121,21 @@ public class BrugerDAO implements IBrugerDAO
 
 						bruger.getId(),
 						bruger.getStatus()
-				)
-		);
+						)
+				);
+	}
+	public boolean login(BrugerDTO bruger) throws Exception
+	{
+		boolean loginCheck = false;
+		Connector.doUpdate
+		(
+				String.format
+				("CALL Login('%d','%s');",
+
+						bruger.getId(),
+						bruger.getPassword()
+						)
+				);
+		return loginCheck;
 	}
 }
