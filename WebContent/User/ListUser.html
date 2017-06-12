@@ -1,33 +1,44 @@
-
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+ -->
 <form id="ListUsers">
 	<div>
-		Søg på et BrugerID:<br>
+		SÃ¸g pÃ¥ et BrugerID:<br>
 		<input type="number" name="UserID"><br>
-		<input type="submit" value="Søg">
+		<input type="submit" value="SÃ¸g">
 	</div>
 </form>
 <div>
 	<ul id="UserList"></ul>
 </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-    <script src = "CreateUser.html"></script>
 
 <script>
 $(document).ready(function() {
 	$('#ListUsers').submit(function(event) {
 		event.preventDefault();
-		var searchKey = {
-				id : ('#UserID').val()
-			}
-		if (searchKey == "") {
-			ListUsers();			
-		} else {
-			ListUser(searchKey);
-		}
+		data = $('#ListUsers').serializeArray();
+		int input = {
+				id : data[0]['value']
+		};
+		search(input)
+		console.log(input);
 		return false;
 	});
 });
+
+function search(searchKey) {
+	
+	if (searchKey == "") {
+		ListUsers();			
+	} else {
+		ListUser(searchKey);
+	}
+}
 
 function ListUsers() {
 	$.ajax({
@@ -65,3 +76,6 @@ function renderList(data) {
     })
 }
 </script>
+
+</body>
+</html>

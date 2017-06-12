@@ -13,6 +13,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -36,17 +37,15 @@ public class UserAdmin_Jersey {
 	@GET
 	@Path("/users")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public List<BrugerDTO> ListUsers() throws Exception {
-	
-		
+	public List<BrugerDTO> ListUsers() throws Exception {	
 		
 		return dao.getBrugerList();
 	}
 	
 	@GET
-	@Path("users/{id}")
+	@Path("/users/{id}")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public BrugerDTO ListUser(int index) throws Exception {
+	public BrugerDTO ListUser(@PathParam("id")int index) throws Exception {
 		
 		return (BrugerDTO) dao.getBruger(index);	
 	}
@@ -55,7 +54,7 @@ public class UserAdmin_Jersey {
 	@Path("/users/{id}")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public BrugerDTO update(BrugerDTO user) throws Exception {
+	public BrugerDTO update(@PathParam("id")BrugerDTO user) throws Exception {
 
 		dao.updateBruger(user);
 
