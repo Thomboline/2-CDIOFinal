@@ -30,6 +30,8 @@ public class SocketController implements ISocketController
 	private int runOnce = 0;
 	private int Port = 8000;
 	
+	public static int test = 3;
+	
 	
 	public void OutputCMD(String message)
 	{
@@ -58,6 +60,7 @@ public class SocketController implements ISocketController
   	public void setPortNumber(int newPort) {
   		this.Port = newPort;
   	}
+  	
   	
 	@Override
 	public void registerObserver(ISocketObserver observer) 
@@ -109,7 +112,7 @@ public class SocketController implements ISocketController
 			
 		}
 	}
-
+	
 	@Override
 	public void run() 
 	{
@@ -124,6 +127,7 @@ public class SocketController implements ISocketController
 			e1.printStackTrace();
 		} 
 	}
+	
 
 	private void waitForConnections(ServerSocket listeningSocket) {
 		try {
@@ -144,7 +148,6 @@ public class SocketController implements ISocketController
 					OutputCMD(ChangePortMessage2);
 					int NewPort = Integer.parseInt(inStream.readLine());
 					setPortNumber(NewPort);
-
 					break;
 				case "n":
 					break;
@@ -169,7 +172,7 @@ public class SocketController implements ISocketController
 			e.printStackTrace();
 		}
 	}
-
+	
 	public void notifyObservers(SocketInMessage message) 
 	{
 		for (ISocketObserver socketObserver : observers) 
@@ -202,6 +205,7 @@ public class SocketController implements ISocketController
 	}
 	
 }
+
 class SocketThread extends Thread 
 {	
 	
@@ -220,6 +224,7 @@ class SocketThread extends Thread
 	    this.SC = SC;
 	  }
 	  
+	  	
 	public boolean login() {
 		
 		this.userName = "Anders And";
@@ -252,10 +257,10 @@ class SocketThread extends Thread
 		}
 		
 	}
-
+	
 	  public void run() 
 	  {	
-		  String inLine;
+		//  String inLine;
 		  
 		  try 
 		  {
@@ -266,84 +271,98 @@ class SocketThread extends Thread
 	   	    SC.viewClient();
 	   	    
 	   	    //Test variabel
-	   	    int test = 3;
 	   	    while (true)
 	    	{
-	
-	   	    	switch(test) {
+	   	    		
+	   	    	switch(SocketController.test) {
 	   	    		
 	   	    	case 3:
-	   		   	    System.out.println("Test nr: " + test);
-	   		   	SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: " + test));
+	   		   	    System.out.println("Test nr: " + SocketController.test);
+	   		   	SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Terminalnummer: "));
 	   	    		break;
 	   	    		
 	   	    	case 4:
-	   	    		System.out.println("Test nr: " + test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: " + test));
+	   	    		System.out.println("Test nr: " + SocketController.test);
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborantnummer: "));
 	   	    		break;
 	   	    		
 	   	    	case 5:
-	   	    		System.out.println("Test nr: " + test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: " + test));
+	   	    		System.out.println("Test nr: " + SocketController.test);
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: "));
 	   	    		break;
 	   	    		
 	   	    	case 6:
-	   	    		System.out.println("Test nr: " + test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: " + test));
+	   	    		System.out.println("Test nr: " + SocketController.test);
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Produktbatch: "));
 	   	    		break;
 	   	    		
 	   	    	case 7:
-	   	    		System.out.println("Test nr: " + test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: " + test));
+	   	    		System.out.println("Test nr: " + SocketController.test);
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Recept: "));
 	   	    		break;
 	   	    		
 	   	    	case 8:
-	   	    		System.out.println("Test nr: " + test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: " + test));
+	   	    		System.out.println("Test nr: " + SocketController.test);
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Current weight:"));
 	   	    		break;
 	   	    		
 	   	    	case 9:
-	   	    		System.out.println("Test nr: " + test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: " + test));
+	   	    		System.out.println("Test nr: " + SocketController.test);
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Production started."));
 	   	    		break;
 	   	    		
 	   	    	case 10:
-	   	    		System.out.println("Test nr: " + test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: " + test));
+	   	    		System.out.println("Test nr: " + SocketController.test);
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Tare weight."));
 	   	    		break;
-	   	    		
+	   	    	
+	   	    	//Afvejningsprocedure trin 11, 12, 13 & 14 hænger sammen i en case.
 	   	    	case 11:
-	   	    		System.out.println("Test nr: " + test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: " + test));
+	   	    		System.out.println("Test nr: " + SocketController.test);
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Place tara and tare weight."));
 	   	    		break;
 	   	    	
 	   	    	case 12:
-	   	    		System.out.println("Test nr: " + test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: " + test));
+	   	    		System.out.println("Test nr: " + SocketController.test);
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Ingredient batch: "));
 	   	    		break;
 	   	    	
 	   	    	case 13:
-	   	    		System.out.println("Test nr: " + test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: " + test));
+	   	    		System.out.println("Test nr: " + SocketController.test);
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: " + SocketController.test));
 	   	    		break;
 	   	    	
 	   	    	case 14:
-	   	    		System.out.println("Test nr: " + test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: " + test));
+	   	    		System.out.println("Test nr: " + SocketController.test);
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: " + SocketController.test));
 	   	    		break;
 	   	    	
 	   	    	case 15:
-	   	    		System.out.println("Test nr: " + test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: " + test));
+	   	    		System.out.println("Test nr: " + SocketController.test);
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: " + SocketController.test));
 	   	    		break;
 	   	    	
 	   	    	case 16:
-	   	    		System.out.println("Test nr: " + test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: " + test));
+	   	    		System.out.println("Test nr: " + SocketController.test);
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: " + SocketController.test));
 	   	    		break;
 	   	    	}
 
-	   	 	test++;
+	   	    	SocketController.test++;
+	   	    	}
+		    
+		  	
+		  }
+		  catch (IOException e) {
+		      System.out.println(e);
+		   }
+
+		 
+	  }
+		  
+}
+
+				//Hørte til i run();
 //	   	 		inLine = inStream.readLine();
 //	    
 //	    		System.out.println(inLine);
@@ -414,13 +433,4 @@ class SocketThread extends Thread
 //						}
 //					break;
 //				}
-			}
-	    } 
-	    catch (IOException e) 
-	    {
-	      System.out.println(e);
-	    }
 
-	 }
-	  
-}

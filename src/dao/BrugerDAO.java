@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mysql.jdbc.PreparedStatement;
+
 import PasswordGenerator.PasswordGenerator;
 import connector.Connector;
 import connector.DALException;
@@ -16,26 +18,26 @@ import dto.BrugerDTO;
 public class BrugerDAO implements IBrugerDAO
 {
 	Connector c = new Connector();
-	
+
 	@Override
 	public BrugerDTO getBruger(int brugerId) throws Exception 
 	{
-	
+
 		ResultSet rs = Connector.doQuery("SELECT * FROM sql11178303.brugere natural join sql11178303.brugerinfo WHERE brugerId = " + brugerId);
-		
+
 		try 
 		{
 			if (!rs.first()) throw new Exception("Brugeren med brugerId="+brugerId+" eksistere ikke.");
 			return new BrugerDTO
 					(
-					rs.getInt("brugerId"),
-					rs.getString("brugerNavn"),
-					rs.getString("initialer"),
-					rs.getString("password"),
-					rs.getString("cpr"),
-					rs.getString("rolle"),
-					rs.getInt("brugerStatus")
-					);
+							rs.getInt("brugerId"),
+							rs.getString("brugerNavn"),
+							rs.getString("initialer"),
+							rs.getString("password"),
+							rs.getString("cpr"),
+							rs.getString("rolle"),
+							rs.getInt("brugerStatus")
+							);
 		} 
 		catch (SQLException e) {throw new DALException(e); }
 	}
@@ -44,8 +46,8 @@ public class BrugerDAO implements IBrugerDAO
 	public List<BrugerDTO> getBrugerList() throws Exception 
 	{
 		List<BrugerDTO> list = new ArrayList<BrugerDTO>();
-		ResultSet rs = Connector.doQuery("SELECT * FROM sql11178303.brugerinfo natural join sql11178303.brugere");
-		
+		ResultSet rs = Connector.doQuery("SELECT * FROM sql11178303.brugere natural join sql11178303.brugerinfo");
+
 		try
 		{
 			while (rs.next()) 
@@ -56,7 +58,7 @@ public class BrugerDAO implements IBrugerDAO
 		catch (SQLException e) { throw new DALException(e); }
 		return list;
 	}
-	
+
 	@Override
 	public void createBruger(BrugerDTO bruger) throws Exception
 	{
@@ -72,9 +74,9 @@ public class BrugerDAO implements IBrugerDAO
 						bruger.getCpr(),
 						bruger.getRolle(),
 						bruger.getStatus()
-				)
-		);
-		
+						)
+				);
+
 	}
 
 	@Override
@@ -92,36 +94,53 @@ public class BrugerDAO implements IBrugerDAO
 						bruger.getStatus(),
 						bruger.getCpr(),
 						bruger.getRolle()
-						
-				)
-		);
+
+						)
+				);
 	}
 	@Override
-	public void resetPassword(BrugerDTO bruger) throws Exception 
+	public void resetPassword(int id) throws Exception 
 	{
 		PasswordGenerator PG = new PasswordGenerator();
-		
+
 		Connector.doUpdate
 		(
 				String.format
 				("CALL resetPassword('%d','%s');",
 
-						bruger.getId(),
+						id,
 						PG.PasswordGen(PG.PasswordLength())
-				)
-		);
+						)
+				);
 	}
-	public void deleteBruger(BrugerDTO bruger) throws Exception 
+	public void deleteBruger(int id, int status) throws Exception 
 	{
-		
 		Connector.doUpdate
 		(
 				String.format
 				("CALL deleteBruger('%d','%s');",
 
-						bruger.getId(),
-						bruger.getStatus()
+						id,
+						status
 				)
 		);
+	}
+	public boolean login(BrugerDTO bruger) throws Exception
+	{
+		boolean request;
+		String Verification;
+		
+		Verification = "select Login(?,?)";
+		java.sql.PreparedStatement pst = c.getPreparedStatement(Verification);
+		
+		pst.setInt(1, bruger.getId());
+		pst.setString(2, bruger.getPassword());
+	
+		ResultSet rs = pst.executeQuery();
+		rs.next();
+		
+		request = rs.getBoolean(1);
+
+		return request;
 	}
 }

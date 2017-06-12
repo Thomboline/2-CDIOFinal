@@ -85,7 +85,7 @@ public class UserAdmin_Jersey {
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public void delete(@PathParam("id")int id) throws Exception {
 		
-		dao.deleteBruger(id);
+		dao.deleteBruger(id, 0);
 		
 	}
 }

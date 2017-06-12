@@ -26,7 +26,7 @@ public class databasetest
 {
 	public static void main(String[] args) throws DALException, Exception 
 	{
-		BrugerDAOTest(3);
+		BrugerDAOTest(6);
 //		RaavareDAOTest(1);
 //		RaavareBatchDAOTest(1);
 //		ReceptDAOTest(1);
@@ -61,6 +61,11 @@ public class databasetest
 		{
 			BrugerDTO BDTO = new BrugerDTO(2, null, null, null, null, null, 1);
 			BDAO.resetPassword(BDTO);
+		}
+		else if(testtype == 6)
+		{
+			BrugerDTO BDTO = new BrugerDTO(1, null, null, "1", null, null, 0);
+			BDAO.login(BDTO);
 		}
 
 

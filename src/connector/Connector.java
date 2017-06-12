@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+import java.sql.PreparedStatement;
 
 public class Connector {
     private final String HOST     = "sql11.freemysqlhosting.net";
@@ -44,4 +44,9 @@ public class Connector {
         Statement stmt = connection.createStatement();
         stmt.executeUpdate(query);
     }
+    public PreparedStatement getPreparedStatement(String sql) throws SQLException 
+	{
+		return connection.prepareStatement(sql);
+	}
+
 }
