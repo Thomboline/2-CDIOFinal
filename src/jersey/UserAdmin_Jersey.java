@@ -36,7 +36,7 @@ public class UserAdmin_Jersey {
 	@Path("/userlist")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public List<BrugerDTO> ListUsers() throws Exception {	
-		System.out.println("Hej");
+
 		return dao.getBrugerList();
 	}
 	
@@ -44,7 +44,7 @@ public class UserAdmin_Jersey {
 	@Path("/users/{id}")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public BrugerDTO ListUser(@PathParam("id")int index) throws Exception {
-		System.out.println("hej" + index);
+			
 		return dao.getBruger(index);	
 	}
 	
