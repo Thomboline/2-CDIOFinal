@@ -1,4 +1,4 @@
-<form id="CreateUser">
+<form id="EditUser">
     Bruger id:<br>
     <label>
         <input type="number" name="BrugerID" min="1">
@@ -49,18 +49,18 @@ $(document).ready(function(event) {
 	});
 });
 
-function EditUser() {
+function EditUser(user) {
 	$.ajax({
 		type: 'PUT',
-		url: 'rest/UserService/users/ + ',
+		url: 'rest/UserService/update',
 		dataType: "json",
 		data: JSON.stringify(user),
-		contentType: "application/json; charset=utf-8",
+		contentType: 'application/json',
 		success: function (response) {
-			alert("User edited");
+			alert("User edited: " + response);
 		},
-		error: function (errorThrown) {
-			alert("Unsuccessful");
+		error: function (jqXHR, textStatus, errorThrown) {
+			alert("Unsuccessful: " + textStatus);
 		}
 	});
 }
