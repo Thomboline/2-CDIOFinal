@@ -1,4 +1,4 @@
-<form action="Recept.js">
+<form id="CreateRecept">
     Recept id:<br>
     <label>
         <input type="number" name="ReceptId" min="1">
@@ -21,3 +21,34 @@
     </label>
     <input type="submit" value="Opret">
 </form>
+
+<script>
+    $(document).ready(function(event) {
+        $('#CreateRecept').submit(function(event) {
+            data = $('#CreateRecept').serializeArray();
+            event.preventDefault();
+            var recept = {
+                receptId : data[0]['value'],
+                receptNavn: data[1]['value']
+            };
+            CreateRecept(recept);
+            return false;
+        });
+    });
+
+    function CreateRecept(recept) {
+        $.ajax({
+            type: 'POST',
+            url: 'rest/ReceptService',
+            dataType: "json",
+            data: JSON.stringify(recept),
+            contentType: "application/json",
+            success: function (response) {
+                alert("Recept created: " + response );
+            },
+            error: function (jqXHR, textStatus, errorThrown){
+                alert("Unsuccesful: " + textStatus);
+            }
+        });
+    }
+</script>
