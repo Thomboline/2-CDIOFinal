@@ -1,4 +1,3 @@
-
 <form id="ListUsers">
 	<div>
 		Søg på et BrugerID:<br>
@@ -17,17 +16,17 @@
 $(document).ready(function() {
 	$('#ListUsers').submit(function(event) {
 		event.preventDefault();
-		var searchKey = {
-				id : ('#UserID').val()
-			}
-		if (searchKey == "") {
-			ListUsers();			
-		} else {
-			ListUser(searchKey);
-		}
+		Search($('#SearchKey').val());
 		return false;
 	});
 });
+function Search (input) {}
+	if (searchKey != '') {
+		ListUser(searchKey);
+	} else {
+		ListUsers();
+	}
+}
 
 function ListUsers() {
 	$.ajax({
