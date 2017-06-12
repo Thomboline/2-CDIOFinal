@@ -9,20 +9,20 @@ import connector.Connector;
 import connector.DALException;
 import daointerfaces.IReceptDAO;
 import dto.ReceptDTO;
-import dtointerfaces.IReceptDTO;
+
 
 public class ReceptDAO implements IReceptDAO
 {
 	Connector c = new Connector();
 	
 	@Override
-	public IReceptDTO getRecept(int receptId) throws Exception 
+	public ReceptDTO getRecept(int receptId) throws Exception 
 	{
 		ResultSet rs = Connector.doQuery("SELECT * FROM recept WHERE receptId = " + receptId);
 
 		try 
 		{
-			if (!rs.first()) throw new DALException("Recept with receptId="+receptId+" does not exist.");
+			if (!rs.first()) throw new DALException("Recept med receptId="+receptId+" eksistere ikke.");
 
 			return new ReceptDTO
 			(
@@ -37,9 +37,9 @@ public class ReceptDAO implements IReceptDAO
 	}
 
 	@Override
-	public List<IReceptDTO> getReceptList() throws Exception 
+	public List<ReceptDTO> getReceptList() throws Exception 
 	{
-		List<IReceptDTO> list = new ArrayList<>();
+		List<ReceptDTO> list = new ArrayList<>();
 
 		ResultSet rs = Connector.doQuery("SELECT * FROM recept");
 
@@ -66,7 +66,7 @@ public class ReceptDAO implements IReceptDAO
 	}
 	
 	@Override
-	public void createRecept(IReceptDTO recept) throws Exception 
+	public void createRecept(ReceptDTO recept) throws Exception 
 	{
 		Connector.doUpdate
 		(
@@ -75,7 +75,7 @@ public class ReceptDAO implements IReceptDAO
 	}
 
 	@Override
-	public void updateRecept(IReceptDTO recept) throws Exception 
+	public void updateRecept(ReceptDTO recept) throws Exception 
 	{
 		Connector.doUpdate
 		(

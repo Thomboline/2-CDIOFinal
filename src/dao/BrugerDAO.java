@@ -10,7 +10,7 @@ import connector.Connector;
 import connector.DALException;
 import daointerfaces.IBrugerDAO;
 import dto.BrugerDTO;
-import dtointerfaces.IBrugerDTO;
+
 
 
 public class BrugerDAO implements IBrugerDAO
@@ -18,14 +18,14 @@ public class BrugerDAO implements IBrugerDAO
 	Connector c = new Connector();
 	
 	@Override
-	public IBrugerDTO getBruger(int brugerId) throws Exception 
+	public BrugerDTO getBruger(int brugerId) throws Exception 
 	{
 	
 		ResultSet rs = Connector.doQuery("SELECT * FROM sql11178303.brugere natural join sql11178303.brugerinfo WHERE brugerId = " + brugerId);
 		
 		try 
 		{
-			if (!rs.first()) throw new Exception("Bruger with brugerId="+brugerId+" does not exist.");
+			if (!rs.first()) throw new Exception("Brugeren med brugerId="+brugerId+" eksistere ikke.");
 			return new BrugerDTO
 					(
 					rs.getInt("brugerId"),
@@ -41,9 +41,9 @@ public class BrugerDAO implements IBrugerDAO
 	}
 
 	@Override
-	public List<IBrugerDTO> getBrugerList() throws Exception 
+	public List<BrugerDTO> getBrugerList() throws Exception 
 	{
-		List<IBrugerDTO> list = new ArrayList<IBrugerDTO>();
+		List<BrugerDTO> list = new ArrayList<BrugerDTO>();
 		ResultSet rs = Connector.doQuery("SELECT * FROM sql11178303.brugere natural join sql11178303.brugerinfo");
 		
 		try
@@ -58,7 +58,7 @@ public class BrugerDAO implements IBrugerDAO
 	}
 	
 	@Override
-	public void createBruger(IBrugerDTO bruger) throws Exception
+	public void createBruger(BrugerDTO bruger) throws Exception
 	{
 		Connector.doUpdate
 		(
@@ -78,7 +78,7 @@ public class BrugerDAO implements IBrugerDAO
 	}
 
 	@Override
-	public void updateBruger(IBrugerDTO bruger) throws Exception 
+	public void updateBruger(BrugerDTO bruger) throws Exception 
 	{
 		Connector.doUpdate
 		(
@@ -97,7 +97,7 @@ public class BrugerDAO implements IBrugerDAO
 		);
 	}
 	@Override
-	public void resetPassword(IBrugerDTO bruger) throws Exception 
+	public void resetPassword(BrugerDTO bruger) throws Exception 
 	{
 		PasswordGenerator PG = new PasswordGenerator();
 		
@@ -111,7 +111,7 @@ public class BrugerDAO implements IBrugerDAO
 				)
 		);
 	}
-	public void deleteBruger(IBrugerDTO bruger) throws Exception 
+	public void deleteBruger(BrugerDTO bruger) throws Exception 
 	{
 		
 		Connector.doUpdate

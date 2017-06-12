@@ -9,19 +9,19 @@ import connector.Connector;
 import connector.DALException;
 import daointerfaces.IRaavareDAO;
 import dto.RaavareDTO;
-import dtointerfaces.IRaavareDTO;
+
 
 public class RaavareDAO implements IRaavareDAO
 {
 	Connector c = new Connector();
 	
 	@Override
-	public IRaavareDTO getRaavare(int raavareId) throws Exception 
+	public RaavareDTO getRaavare(int raavareId) throws Exception 
 	{
 		ResultSet rs = Connector.doQuery("SELECT * FROM raavare WHERE raavareId = " + raavareId);
 		try 
 		{
-			if (!rs.first()) throw new DALException("Raavare with raavareId="+raavareId+" does not exist.");
+			if (!rs.first()) throw new DALException("Raavare med raavareId="+raavareId+" eksistere ikke.");
 
 			return new RaavareDTO
 			(
@@ -37,9 +37,9 @@ public class RaavareDAO implements IRaavareDAO
 	}
 
 	@Override
-	public List<IRaavareDTO> getRaavareList() throws Exception 
+	public List<RaavareDTO> getRaavareList() throws Exception 
 	{
-		List<IRaavareDTO> list = new ArrayList<>();
+		List<RaavareDTO> list = new ArrayList<>();
 
 		ResultSet rs = Connector.doQuery("SELECT * FROM raavare");
 
@@ -67,7 +67,7 @@ public class RaavareDAO implements IRaavareDAO
 	}
 
 	@Override
-	public void createRaavare(IRaavareDTO raavare) throws Exception 
+	public void createRaavare(RaavareDTO raavare) throws Exception 
 	{
 		Connector.doUpdate
 		(
@@ -83,7 +83,7 @@ public class RaavareDAO implements IRaavareDAO
 	}
 
 	@Override
-	public void updateRaavare(IRaavareDTO raavare) throws Exception 
+	public void updateRaavare(RaavareDTO raavare) throws Exception 
 	{
 		Connector.doUpdate
 		(

@@ -1,13 +1,14 @@
 package dto;
 
-import dtointerfaces.IProduktBatchDTO;
-
-public class ProduktBatchDTO implements IProduktBatchDTO
+public class ProduktBatchDTO
 {
 	int pbId;				/** produkt batch id i området 1-99999999. Vælges af brugerne */
 	int status;				/** status 0: ikke påbegyndt, 1: under produktion, 2: afsluttet */
 	int receptId;			/** recept id i området 1-99999999. Vælges af brugerne */
 	
+	public ProduktBatchDTO()
+	{
+	}
 	
 	public ProduktBatchDTO(int pbId, int receptId, int status ) 
 	{

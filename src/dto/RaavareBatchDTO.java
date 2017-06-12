@@ -1,12 +1,14 @@
 package dto;
 
-import dtointerfaces.IRaavareBatchDTO;
-
-public class RaavareBatchDTO implements IRaavareBatchDTO
+public class RaavareBatchDTO
 {
 	int rbId;			/** raavare batch id i området 1-99999999. Vælges af brugerne */
 	int raavareId;		/** raavare id i området 1-99999999 vælges af brugerne */
 	double maengde;		/** mængde på lager */
+	
+	public RaavareBatchDTO()
+	{
+	}
 	
 	public RaavareBatchDTO(int rbId, int raavareId, double maengde) 
 	{
