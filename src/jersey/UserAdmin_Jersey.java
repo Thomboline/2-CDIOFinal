@@ -38,8 +38,10 @@ public class UserAdmin_Jersey {
 	@Path("/users")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public List<BrugerDTO> ListUsers() throws Exception {
+	
 		
-		return dao.getBrugerList();
+		return null;
+//		return dao.getBrugerList();
 	}
 	
 	@PUT
