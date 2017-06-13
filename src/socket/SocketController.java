@@ -303,43 +303,43 @@ class SocketThread extends Thread
 	   	    		
 	   	    	case 8:
 	   	    		System.out.println("Test nr: " + SocketController.test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Current weight:"));
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Nuværende vægt: "));
 	   	    		break;
 	   	    		
 	   	    	case 9:
 	   	    		System.out.println("Test nr: " + SocketController.test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Production started."));
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Produktion igangsat"));
 	   	    		break;
 	   	    		
 	   	    	case 10:
 	   	    		System.out.println("Test nr: " + SocketController.test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Tare weight."));
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Tarér vægten."));
 	   	    		break;
 	   	    	
 	   	    	//Afvejningsprocedure trin 11, 12, 13 & 14 hænger sammen i en case.
 	   	    	case 11:
 	   	    		System.out.println("Test nr: " + SocketController.test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Place tara and tare weight."));
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Placer tara og tarér vægten"));
 	   	    		break;
 	   	    	
 	   	    	case 12:
 	   	    		System.out.println("Test nr: " + SocketController.test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Ingredient batch: "));
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Raavarebatch: "));
 	   	    		break;
 	   	    	
 	   	    	case 13:
 	   	    		System.out.println("Test nr: " + SocketController.test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: " + SocketController.test));
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Tryk OK for at starte afvejning"));
 	   	    		break;
 	   	    	
 	   	    	case 14:
 	   	    		System.out.println("Test nr: " + SocketController.test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: " + SocketController.test));
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Afvej raavare"));
 	   	    		break;
-	   	    	
+	   	  
 	   	    	case 15:
 	   	    		System.out.println("Test nr: " + SocketController.test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: " + SocketController.test));
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Vægten er registreret."));
 	   	    		break;
 	   	    	
 	   	    	case 16:

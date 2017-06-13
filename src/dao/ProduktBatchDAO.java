@@ -24,8 +24,9 @@ public class ProduktBatchDAO implements IProduktBatchDAO
 
 			return new ProduktBatchDTO(
 					rs.getInt("pbId"),
-					rs.getInt("pb_status"),
-					rs.getInt("receptId")
+					rs.getInt("receptId"),
+					rs.getInt("pb_status")
+					
 			);
 		} catch (SQLException e) 
 		{

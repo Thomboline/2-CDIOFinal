@@ -3,17 +3,17 @@ package dto;
 public class ProduktBatchDTO
 {
 	int pbId;				/** produkt batch id i området 1-99999999. Vælges af brugerne */
-	int status;				/** status 0: ikke påbegyndt, 1: under produktion, 2: afsluttet */
+	int pb_status;			/** status 0: ikke påbegyndt, 1: under produktion, 2: afsluttet */
 	int receptId;			/** recept id i området 1-99999999. Vælges af brugerne */
 	
 	public ProduktBatchDTO()
 	{
 	}
 	
-	public ProduktBatchDTO(int pbId, int receptId, int status ) 
+	public ProduktBatchDTO(int pbId, int receptId, int pb_status ) 
 	{
 		this.pbId = pbId;
-		this.status = status;
+		this.pb_status = pb_status;
 		this.receptId = receptId;
 	}
 
@@ -29,12 +29,12 @@ public class ProduktBatchDTO
 
 	public int getStatus() 
 	{
-		return status;
+		return pb_status;
 	}
 
-	public void setStatus(int status) 
+	public void setStatus(int pb_status) 
 	{
-		this.status = status;
+		this.pb_status = pb_status;
 	}
 
 	public int getReceptId() 
@@ -49,7 +49,7 @@ public class ProduktBatchDTO
 
 	public String toString() 
 	{
-		return pbId + "\t" + status + "\t" + receptId;
+		return pbId + "\t" + receptId + "\t" + pb_status;
 	}
 	
 }
