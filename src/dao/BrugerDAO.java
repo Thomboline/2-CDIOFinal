@@ -65,7 +65,7 @@ public class BrugerDAO implements IBrugerDAO
 				String.format
 				("CALL createBruger('%d','%s','%s','%s','%s','%s','%d');",
 
-						bruger.getId(),
+						bruger.getBrugerId(),
 						bruger.getBrugerNavn(),
 						bruger.getIni(),
 						bruger.getPassword(),
@@ -85,7 +85,7 @@ public class BrugerDAO implements IBrugerDAO
 				String.format
 				("CALL updateBruger(%d,'%s','%s','%s','%d','%s','%s');",
 
-						bruger.getId(),
+						bruger.getBrugerId(),
 						bruger.getBrugerNavn(),
 						bruger.getIni(),
 						bruger.getPassword(),
@@ -129,7 +129,7 @@ public class BrugerDAO implements IBrugerDAO
 		Verification = "select Login(?,?)";
 		java.sql.PreparedStatement pst = c.getPreparedStatement(Verification);
 		
-		pst.setInt(1, bruger.getId());
+		pst.setInt(1, bruger.getBrugerId());
 		pst.setString(2, bruger.getPassword());
 	
 		ResultSet rs = pst.executeQuery();

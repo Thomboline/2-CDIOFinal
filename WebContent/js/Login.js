@@ -10,7 +10,6 @@ $(document).ready(function(event) {
 		brugerId : data[0]['value'],
 		password : data[1]['value']
 		};
-		window.alert(JSON.stringify(tempUser));
 		Login(tempUser);
 		return false;
 	});
@@ -18,12 +17,13 @@ $(document).ready(function(event) {
 
 function Login(tempUser) {
 $.ajax({
-	type: 'GET',
+	type: 'POST',
 	url: 'rest/LoginService',
 	dataType: "json",
 	data: JSON.stringify(tempUser),
 	contentType: "application/json",
 	success: function (response) {
+		window.location.replace("http://localhost:8080/CDIOFinal/HomePage.html");
 		alert("Login succesful: " + response );
 	},
 	error: function (jqXHR, textStatus, errorThrown){

@@ -22,12 +22,11 @@ public class LoginService
 	IBrugerDAO dao = new BrugerDAO();
 	
 
-	@GET
+	@POST
 	//@Path("/verify/")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public boolean verifyBruger(BrugerDTO tempUser) throws Exception 
 	{
-		System.out.println("EN LILLE TEST");
 		return dao.login(tempUser);
 	}
 	

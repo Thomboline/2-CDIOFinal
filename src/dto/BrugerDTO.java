@@ -5,14 +5,14 @@ package dto;
 public class BrugerDTO
 {	
 
-	int status;
-	int brugerId;					/** Bruger id i omr�det 1-99999999. V�lges af brugerne */
-	String brugerNavn;				/** Bruger navn (bruger_navn) min. 2 max. 20 karakterer */
-	String ini;						/** Bruger initialer min. 2 max. 4 karakterer */
-	String cpr;						/** Bruger cpr-nr 10 karakterer */
-	String password;				/** Bruger password min. 5 max. 8 karakterer */
+	private int status;
+	private int brugerId;					/** Bruger id i omr�det 1-99999999. V�lges af brugerne */
+	private String brugerNavn;				/** Bruger navn (bruger_navn) min. 2 max. 20 karakterer */
+	private String ini;						/** Bruger initialer min. 2 max. 4 karakterer */
+	private String cpr;						/** Bruger cpr-nr 10 karakterer */
+	private String password;				/** Bruger password min. 5 max. 8 karakterer */
 	//List<String> roller;			/** Liste over roller */
-	String rolle;
+	private String rolle;
 	
 	public BrugerDTO(){
 		
@@ -31,7 +31,7 @@ public class BrugerDTO
 
 	public BrugerDTO(BrugerDTO bruger) 
 	{
-		this.brugerId = bruger.getId();
+		this.brugerId = bruger.getBrugerId();
 		this.brugerNavn = bruger.getBrugerNavn();
 		this.ini = bruger.getIni();
 		this.password = bruger.getPassword();
@@ -40,12 +40,12 @@ public class BrugerDTO
 		this.status = bruger.getStatus();
 	}
 
-	public int getId() 
+	public int getBrugerId() 
 	{
 		return brugerId;
 	}
 
-	public void setId(int brugerId) 
+	public void setBrugerId(int brugerId) 
 	{
 
 		this.brugerId = brugerId;
