@@ -11,8 +11,11 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import connector.DALException;
+import dao.RaavareBatchDAO;
 import dao.RaavareDAO;
+import daointerfaces.IRaavareBatchDAO;
 import daointerfaces.IRaavareDAO;
+import dto.RaavareBatchDTO;
 import dto.RaavareDTO;
 
 
@@ -27,21 +30,22 @@ public class RaavareAdmin_Jersey {
 
 
 
-    IRaavareDAO dao = new RaavareDAO();
+    IRaavareDAO raavare_dao = new RaavareDAO();
+    IRaavareBatchDAO raavareBatch_dao = new RaavareBatchDAO();
 
     @GET
     @Path("/raavarelist")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public List<RaavareDTO> ListRaavarer() throws Exception {
 
-        return dao.getRaavareList();
+        return raavare_dao.getRaavareList();
     }
     @GET
     @Path("/raavare/{id}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public RaavareDTO ListRaavare(@PathParam("id")int index) throws Exception {
 
-        return dao.getRaavare(index);
+        return raavare_dao.getRaavare(index);
     }
     @PUT
     @Path("/update")
@@ -50,7 +54,7 @@ public class RaavareAdmin_Jersey {
     public RaavareDTO update(RaavareDTO raavare) throws Exception {
         System.out.println("Updating raavare: " + (raavare.getRaavareId()));
 
-        dao.updateRaavare(raavare);
+        raavare_dao.updateRaavare(raavare);
         return raavare;
     }
 
@@ -60,7 +64,7 @@ public class RaavareAdmin_Jersey {
     public RaavareDTO create(RaavareDTO raavare) throws Exception {
         System.out.println("Creating raavare: " + raavare.getRaavareNavn());
 
-        dao.createRaavare(raavare);
+        raavare_dao.createRaavare(raavare);
 
         return raavare;
     }
@@ -73,5 +77,17 @@ public class RaavareAdmin_Jersey {
         System.out.println("Updating raavare: " + raavare.getRaavareNavn());
 //		dao.DeleteUser(user, 1);
         return raavare;
+    }
+    
+    
+    @POST
+    @Path("/RaavareBatchService")
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public RaavareBatchDTO create(RaavareBatchDTO raavareBatch) throws Exception {
+    	System.out.println("Creating raavarebatch: " + raavareBatch.getRaavareBatchId());
+        raavareBatch_dao.createRaavareBatch(raavareBatch);
+
+        return raavareBatch;
     }
 }

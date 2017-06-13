@@ -60,6 +60,6 @@ body {
     display: block;
 }
 
-div.Laborant, div.Vaerkfoerer, div.Farmaceut {
+div.Laborant, div.Vaerkfoerer	 {
     display: none;
 }
