@@ -39,7 +39,7 @@
                     'text json': true
                 },
                 success: function(response) {
-                    $("#RaavareList").html(renderList(response));
+                    $("#RaavareList").empty().html(renderList(response));
                 }
             });
         } else {
@@ -51,7 +51,7 @@
                     'text json': true
                 },
                 success: function(response) {
-                    $("#RaavareList").html(renderList(response));
+                    $("#RaavareList").empty().html(renderList(response));
                 }
             });
         }
