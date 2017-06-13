@@ -1,5 +1,6 @@
 /**
  * Created by Bij og Stu on 07/06/2017.
+ * lidt rettelser
  */
 $(document).ready(function(event) 
 {
