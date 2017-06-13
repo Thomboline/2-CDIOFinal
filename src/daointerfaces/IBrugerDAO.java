@@ -15,4 +15,5 @@ public interface IBrugerDAO
 		void resetPassword(int id)throws DALException, Exception;
 		void deleteBruger(int id) throws DALException, Exception;
 		boolean login(BrugerDTO bruger) throws DALException, Exception;
+		String getRolle(int id) throws DALException, Exception;
 }

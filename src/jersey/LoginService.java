@@ -3,6 +3,7 @@ package jersey;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -23,11 +24,22 @@ public class LoginService
 	
 
 	@POST
-	//@Path("/verify/")
+	@Path("/verify/")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public boolean verifyBruger(BrugerDTO tempUser) throws Exception 
 	{
 		return dao.login(tempUser);
 	}
+	
+	@POST
+	@Path("/rolle/{id}")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public String ListUser(@PathParam("id")int id) throws Exception {
+		System.out.println("test");
+		return dao.getRolle(id);	
+	}
+	
+	
+	
 	
 }
