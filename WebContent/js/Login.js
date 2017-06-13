@@ -27,7 +27,7 @@ $.ajax({
 	{
 		var test = getRolle(tempUser[Object.keys(tempUser)[0]]);
 	
-		alert(test);
+		alert("Hvorfor virker det ikke " +test);
 		
 		if(response==true)
 		{
@@ -46,21 +46,24 @@ $.ajax({
 	}
 });
 }
-function getRolle(searchKey) {
-	alert("test");
+function getRolle(searchKey) 
+{
 	$.ajax({
-		type: 'POST',
-		url: 'rest/LoginService/rolle' + searchKey,
-		dataType: "json",
-		data: JSON.stringify(searchKey),
-		contentType: "application/json",
-		success: function (response) 
+		type: 'GET',
+		url: 'rest/LoginService/rolle/' + searchKey,
+		dataType: 'json',
+		converters: {
+			'text json': true
+		},
+		success: function(response) 
 		{
+			alert("Det virker nu " + response);
 			return response;
 		},
-		error: function (jqXHR, textStatus, errorThrown){
-			
+		error: function (jqXHR, textStatus, errorThrown)
+		{
+			alert("Dette er id " + searchKey);
 			alert("Could not receive the role: " + textStatus);
 		}
-	});
+	});	
 }

@@ -139,7 +139,7 @@ public class BrugerDAO implements IBrugerDAO
 
 		return Request;
 	}
-	public String getRolle(int id) throws Exception
+	public String getRolle(int brugerId) throws Exception
 	{
 		String Query;
 		String DBRolle;
@@ -147,7 +147,7 @@ public class BrugerDAO implements IBrugerDAO
 		Query = "select getRolle(?)";
 		java.sql.PreparedStatement pst = c.getPreparedStatement(Query);
 		
-		pst.setInt(1, id);
+		pst.setInt(1, brugerId);
 	
 		ResultSet rs = pst.executeQuery();
 		rs.next();
