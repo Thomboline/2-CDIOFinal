@@ -10,7 +10,6 @@ $(document).ready(function(event) {
 		brugerId : data[0]['value'],
 		password : data[1]['value']
 		};
-		window.alert(JSON.stringify(tempUser));
 		Login(tempUser);
 		return false;
 	});
