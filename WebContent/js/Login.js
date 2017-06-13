@@ -2,14 +2,15 @@
  * Created by Bij og Stu on 07/06/2017.
  */
 $(document).ready(function(event) {
+	
 	$('#Login').submit(function(event) {
 		data = $('#Login').serializeArray();
 		event.preventDefault();
 		var tempUser = {
 		brugerId : data[0]['value'],
-		password : data[1]['value'],
+		password : data[1]['value']
 		};
-		window.alert("So far so good");
+		window.alert(JSON.stringify(tempUser));
 		Login(tempUser);
 		return false;
 	});
@@ -26,6 +27,7 @@ $.ajax({
 		alert("Login succesful: " + response );
 	},
 	error: function (jqXHR, textStatus, errorThrown){
+		
 		alert("Login unsuccesful: " + textStatus);
 	}
 });
