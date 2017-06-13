@@ -1,16 +1,16 @@
 /**
  * Created by Bij og Stu on 07/06/2017.
  */
-$(document).ready(function(event) {
-	
-	$('#Login').submit(function(event) {
+$(document).ready(function(event) 
+{
+	$('#Login').submit(function(event) 
+	{
 		data = $('#Login').serializeArray();
 		event.preventDefault();
 		var tempUser = {
 		brugerId : data[0]['value'],
 		password : data[1]['value']
 		};
-		
 		Login(tempUser);
 		return false;
 	});
@@ -25,20 +25,8 @@ $.ajax({
 	contentType: "application/json",
 	success: function (response) 
 	{
-		var test = getRolle(tempUser[Object.keys(tempUser)[0]]);
-	
-		alert("Hvorfor virker det ikke " +test);
-		
-		if(response==true)
-		{
-			
-			alert("Login succesful: " + response );
-			window.location.replace("http://localhost:8080/CDIOFinal/HomePage.html");
-		}
-		else
-		{
-			alert("Login unsuccesful, wrong id or password!");
-		}
+		getRolle(tempUser[Object.keys(tempUser)[0]], response);
+
 	},
 	error: function (jqXHR, textStatus, errorThrown){
 		
@@ -46,19 +34,49 @@ $.ajax({
 	}
 });
 }
-function getRolle(searchKey) 
+function getRolle(id, verify) 
 {
-	$.ajax({
+		$.ajax({
 		type: 'GET',
-		url: 'rest/LoginService/rolle/' + searchKey,
+		url: 'rest/LoginService/rolle/' + id,
 		dataType: 'json',
+		async: false,
 		converters: {
 			'text json': true
 		},
 		success: function(response) 
 		{
-			alert("Det virker nu " + response);
-			return response;
+			if(verify == true)
+			{
+				if(response == admin)
+				{
+//					Et kald til main.js
+//					alert("id er: " + id);
+//					alert("Rolle er: " + response);
+					window.location.replace("http://localhost:8080/CDIOFinal/HomePage.html");
+				}
+				else if(response == farmaceut)
+				{
+					
+				}
+				else if(response == vaerkfoerer)
+				{
+					
+				}
+				else if(response == laborant)
+				{
+					
+				}
+				else if(response == root)
+				{
+					
+				}
+				
+			}
+			else
+			{
+				alert("Login unsuccesful, wrong id or password!");
+			}
 		},
 		error: function (jqXHR, textStatus, errorThrown)
 		{

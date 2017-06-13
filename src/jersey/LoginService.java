@@ -35,8 +35,9 @@ public class LoginService
 	@GET
 	@Path("/rolle/{id}")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-	public String ListUser(@PathParam("id")int id) throws Exception {
-		System.out.println("test");
+	public String ListUser(@PathParam("id")int id) throws Exception 
+	{
+
 		return dao.getRolle(id);	
 	}
 	
