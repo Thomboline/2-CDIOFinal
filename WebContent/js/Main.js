@@ -4,6 +4,7 @@ function RolleVerify(Rolle)
 	{
 		if (Rolle == "farmaceut")
 		{
+			
 			$(".Farmaceut").load("Administration.html #RaavareAdmin, #RaavareBatchAdmin, #ProduktBatchAdmin, #ReceptAdmin", function () {
 		        $("#LR").on("click", function(){
 		            $("#wrapper").load("Raavare/ListRaavare.html");

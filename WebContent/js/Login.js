@@ -48,11 +48,8 @@ function getRolle(id, verify)
 			if(verify == true)
 			{
 				alert("Dette er lige inden RolleVerify og rollen er følgende: " + response);
+				window.location.replace("http://localhost:8080/CDIOFinal/HomePage.html");
 				RolleVerify(response);
-//
-//				alert("id er: " + id);
-//				alert("Rolle er: " + response);
-//				window.location.replace("http://localhost:8080/CDIOFinal/HomePage.html");
 			}
 			else
 			{
