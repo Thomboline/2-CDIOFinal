@@ -1,38 +1,45 @@
 <form id="CreateRaavareBatch">
     RåvareBatch id:<br>
     <label>
-        <input type="number" name="RaavareBatchId" min="1">
+        <input type="number" id = "RaavareBatchId" name="RaavareBatchId" min="1">
     </label><br>
     Råvare Id:<br>
     <label>
-        <input type="number" name="RaavareID" min="1">
+        <input type="number" id = "RaavareId" name="RaavareId" min="1">
     </label><br>
     Mængde (kg):<br>
     <label>
-        <input type="number" name="maengde" step="0.0001">
+        <input type="number" id = "Maengde" name="Maengde" step="0.0001">
     </label><br>
     <input type="submit" value="Opret">
 </form>
 
 <script>
-    $(document).ready(function(event) {
+    $(document).ready(function() {
         $('#CreateRaavareBatch').submit(function(event) {
             data = $('#CreateRaavareBatch').serializeArray();
             event.preventDefault();
             var raavareBatch = {
-                rbId : data[0]['value'],
-                raavareId: data[1]['value'],
-                maengde : data[2]['value']
+                RaavareBatchId : data[0]['value'],
+                RaavareId: data[1]['value'],
+                Maengde : data[2]['value']
             };
+            console.log(raavareBatch);
+            
+            alert("test");
+            window.alert(JSON.stringify(raavareBatch));
             CreateRaavareBatch(raavareBatch);
             return false;
         });
     });
+    
+    
+    
 
     function CreateRaavareBatch(raavareBatch) {
         $.ajax({
             type: 'POST',
-            url: 'rest/RaavareBatchService',
+            url: 'rest/RaavareService/RaavareBatchService',
             dataType: "json",
             data: JSON.stringify(raavareBatch),
             contentType: "application/json",
