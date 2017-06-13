@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form id="FAddRaavare">    
+    <div id="addRaavare">
+    	Recept Id: <br>
+    	<label>
+    		<input type="number" name="receptId">
+    	</label>
+		Råvare Navn: <br>
+		<label>
+			<input type="text" name="RaavareNavn">
+		</label><br>
+		Mængde: <br>
+		<label>
+			<input type="number" name="Maengde">
+		</label><br>
+		Tolerance: <br>
+		<label>
+			<input type="number" name="tolerance">
+		</label>
+		
+		<input type="submit" onclick="getElementById=('Option').style.display.block" value="Opret">
+	</div>
+</form>
+
+    <div id="option">
+    	Vil du oprette recept komponenter?
+    	<a href="#" id="JA">Ja</a><a href="http://localhost:8080/CDIOFinal/HomePage.html">Nej</a>
+    </div>
+<script> 
+$(document).ready(function() {
+    	$("#JA").on("click", function() {
+        $("#CreateRecept").load("AddReceptKomp.html");
+    });
+
+    	$('#FAddRaavare').submit(function(event) {
+    		dataKomp = $('#FAddRaavare').serializeArray();
+    		event.preventDefault();
+    				
+    		var receptKomp = {
+    			receptId : dataKomp[0]['value'],
+    			raavareId : dataKomp[1]['value'],
+    			nomNetto : dataKomp[2]['value'],
+    			tolerance : dataKomp[3]['value']
+    		}
+    		
+    		CreateReceptKomp(dataKomp);
+    		return false;
+    });
+
+    	
+});
+
+
+function CreateReceptKomp(receptKomponent) {
+	$.ajax({
+    	type: 'POST',
+        url: 'rest/ReceptService/createReceptKomp',
+        dataType: "json",
+        data: JSON.stringify(recept),
+        contentType: "application/json",
+        success: function (response) {
+        	alert("Recept created: " + response );
+        },
+        error: function (jqXHR, textStatus, errorThrown){
+            alert("Unsuccesful: " + textStatus);
+        }
+    });
+}
+</script>    
+    
+</body>
+</html>

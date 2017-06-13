@@ -1,3 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body> 
+
 <form id="CreateRecept">
     Recept id:<br>
     <label>
@@ -7,48 +15,52 @@
     <label>
         <input type="text" name="ReceptNavn">
     </label><br>
-    Råvare id:<br>
-    <label>
-        <input type="number" name="RaavareId" min="1">
-    </label><br>
-    Mængde (kg):<br>
-    <label>
-        <input type="number" name="Maengde" min="0.05" max="20" step="0.01">
-    </label>
-    Tolerance (%):<br>
-    <label>
-        <input type="number" name="Tolerance" min="0.1" max="10" step="0.1">
-    </label>
-    <input type="submit" value="Opret">
+
+    <input type="submit" onclick="getElementById=('Option').style.display.block" value="Opret">
 </form>
+    
+    <div id="option">
+    	Vil du oprette recept komponenter?
+    	<a href="#" id="JA">Ja</a><a href="http://localhost:8080/CDIOFinal/HomePage.html">Nej</a>
+    </div>
 
 <script>
-    $(document).ready(function(event) {
-        $('#CreateRecept').submit(function(event) {
-            data = $('#CreateRecept').serializeArray();
-            event.preventDefault();
-            var recept = {
-                receptId : data[0]['value'],
-                receptNavn: data[1]['value']
-            };
-            CreateRecept(recept);
-            return false;
-        });
+$(document).ready(function() {
+	$('#CreateRecept').submit(function(event) {
+     	data = $('#CreateRecept').serializeArray();
+        event.preventDefault();
+               
+        var recept = {
+            receptId : data[0]['value'],
+            receptNavn: data[1]['value']
+        };
+        
+        CreateRecept(recept);
+        return false;
     });
+	
+	$("#JA").on("click", function() {
+        $("#CreateRecept").load("AddReceptKomp.html");
+    });
+});
 
-    function CreateRecept(recept) {
-        $.ajax({
-            type: 'POST',
-            url: 'rest/ReceptService',
-            dataType: "json",
-            data: JSON.stringify(recept),
-            contentType: "application/json",
-            success: function (response) {
-                alert("Recept created: " + response );
-            },
-            error: function (jqXHR, textStatus, errorThrown){
-                alert("Unsuccesful: " + textStatus);
-            }
-        });
-    }
+function CreateRecept(recept) {
+	$.ajax({
+    	type: 'POST',
+        url: 'rest/ReceptService/createRecept',
+        dataType: "json",
+        data: JSON.stringify(recept),
+        contentType: "application/json",
+        success: function (response) {
+        	alert("Recept created: " + response );
+        },
+        error: function (jqXHR, textStatus, errorThrown){
+            alert("Unsuccesful: " + textStatus);
+        }
+    });
+}
+
 </script>
+
+</body>
+</html>

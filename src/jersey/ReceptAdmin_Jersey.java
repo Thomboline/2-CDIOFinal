@@ -11,9 +11,12 @@ import javax.ws.rs.core.MediaType;
 
 import connector.DALException;
 import dao.ReceptDAO;
+import dao.ReceptKompDAO;
 import daointerfaces.IReceptDAO;
+import daointerfaces.IReceptKompDAO;
 import dto.ReceptDTO;
-
+import dto.ReceptKompDTO;
+ 
 
 @Path("/ReceptService")
 public class ReceptAdmin_Jersey {
@@ -27,6 +30,7 @@ public class ReceptAdmin_Jersey {
 
 
     IReceptDAO dao = new ReceptDAO();
+    IReceptKompDAO daoKomp = new ReceptKompDAO();
 
     @GET
     @Path("/recept")
@@ -48,14 +52,26 @@ public class ReceptAdmin_Jersey {
     }
 
     @POST
+    @Path("/createRecept")
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public ReceptDTO create(ReceptDTO recept) throws Exception {
+    public ReceptDTO createRecept(ReceptDTO recept) throws Exception {
         System.out.println("Creating recept: " + recept.getReceptNavn());
 
         dao.createRecept(recept);
 
         return recept;
+    }
+    
+    @POST
+    @Path("/createReceptKomp")
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public ReceptKompDTO createKomp(ReceptKompDTO receptKomp) throws Exception {
+       
+        daoKomp.createReceptKomp(receptKomp);;
+
+        return receptKomp;
     }
 
     @POST
