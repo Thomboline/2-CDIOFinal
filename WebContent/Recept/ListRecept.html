@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form id="ListRecepts">
+    <div>
+        Søg på et ReceptID:<br>
+        <input id="number" type="number" name="ReceptID"><br>
+        <input type="submit" value="Søg">
+    </div>
+</form>
+<div>
+    <ul id="ReceptList"></ul>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#ListRecepts').submit(function(event) {
+            event.preventDefault();
+
+            var id = $("#number").val();
+            search(id);
+
+            return false;
+        });
+    });
+
+    function search(searchKey) {
+        if (searchKey) {
+            $.ajax({
+                type: 'GET',
+                url: 'rest/ReceptService/recepts/' + searchKey,
+                dataType: 'json',
+                converters: {
+                    'text json': true
+                },
+                success: function(response) {
+                    $("#ReceptList").html(renderList(response));
+                }
+            });
+        } else {
+            $.ajax({
+                type: 'GET',
+                url: 'rest/ReceptService/receptlist',
+                dataType: 'json',
+                converters: {
+                    'text json': true
+                },
+                success: function(response) {
+                    $("#ReceptList").html(renderList(response));
+                }
+            });
+        }
+    }
+
+    function renderList(data) {
+        var list = JSON.parse(data);
+        console.log(list);
+        if(list instanceof Array) {
+            $.each(list, function(index, recept) {
+                $('#ReceptList').append("ID: "+recept.receptId+
+                    ", Receptnavn: "+recept.receptNavn+ "<br>");
+            })
+        }
+        else{
+            $('#ReceptList').append("ID: "+list.receptId+
+                ", Brugernavn: "+list.receptNavn+ "<br>");
+        }
+    }
+</script>
+
+</body>
+</html>

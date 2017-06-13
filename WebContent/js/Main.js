@@ -134,5 +134,4 @@ $(document).ready( function() {
         $("#wrapper").load("User/ProfileSettings.html")
     });
 
-
 });

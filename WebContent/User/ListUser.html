@@ -39,7 +39,7 @@ function search(searchKey) {
 				'text json': true
 			},
 			success: function(response) {
-				$("#UserList").html(renderList(response));
+				$("#UserList").empty().html(renderList(response));
 			}
 		});			
 	} else {
@@ -51,7 +51,7 @@ function search(searchKey) {
 				'text json': true
 			},
 			success: function(response) {
-				$("#UserList").html(renderList(response));
+				$("#UserList").empty().html(renderList(response));
 			}
 		});
 	}
@@ -62,7 +62,7 @@ function renderList(data) {
     console.log(list);
     if(list instanceof Array) {
         $.each(list, function(index, user) {
-            $('#UserList').append("ID: "+user.id+
+            $('#UserList').append("ID: "+user.brugerId+
                 ", Brugernavn: "+user.brugerNavn+
                 ", Initialer: "+ user.ini+
                 ", Cpr-nummer: "+user.cpr+
@@ -71,7 +71,7 @@ function renderList(data) {
         })
     }
     else{
-        $('#UserList').append("ID: "+list.id+
+        $('#UserList').append("ID: "+list.brugerId+
             ", Brugernavn: "+list.brugerNavn+
             ", Initialer: "+ list.ini+
             ", Cpr-nummer: "+list.cpr+
@@ -79,6 +79,7 @@ function renderList(data) {
             ", Status: "+list.status+"<br>");
     }
 }
+
 </script>
 
 </body>
