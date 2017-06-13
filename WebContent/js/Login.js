@@ -22,9 +22,17 @@ $.ajax({
 	dataType: "json",
 	data: JSON.stringify(tempUser),
 	contentType: "application/json",
-	success: function (response) {
-		window.location.replace("http://localhost:8080/CDIOFinal/HomePage.html");
-		alert("Login succesful: " + response );
+	success: function (response) 
+	{
+		if(response==true)
+		{
+			alert("Login succesful: " + response );
+			window.location.replace("http://localhost:8080/CDIOFinal/HomePage.html");
+		}
+		else
+		{
+			alert("Login unsuccesful, wrong id or password!");
+		}
 	},
 	error: function (jqXHR, textStatus, errorThrown){
 		

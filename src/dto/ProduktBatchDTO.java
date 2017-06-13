@@ -2,9 +2,9 @@ package dto;
 
 public class ProduktBatchDTO
 {
-	int pbId;				/** produkt batch id i området 1-99999999. Vælges af brugerne */
-	int status;				/** status 0: ikke påbegyndt, 1: under produktion, 2: afsluttet */
-	int receptId;			/** recept id i området 1-99999999. Vælges af brugerne */
+	private int pbId;				/** produkt batch id i området 1-99999999. Vælges af brugerne */
+	private int status;				/** status 0: ikke påbegyndt, 1: under produktion, 2: afsluttet */
+	private int receptId;			/** recept id i området 1-99999999. Vælges af brugerne */
 	
 	public ProduktBatchDTO()
 	{
