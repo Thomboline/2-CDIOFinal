@@ -26,7 +26,6 @@ $.ajax({
 	success: function (response) 
 	{
 		getRolle(tempUser[Object.keys(tempUser)[0]], response);
-
 	},
 	error: function (jqXHR, textStatus, errorThrown){
 		
@@ -48,30 +47,12 @@ function getRolle(id, verify)
 		{
 			if(verify == true)
 			{
-				if(response == admin)
-				{
-//					Et kald til main.js
-//					alert("id er: " + id);
-//					alert("Rolle er: " + response);
-					window.location.replace("http://localhost:8080/CDIOFinal/HomePage.html");
-				}
-				else if(response == farmaceut)
-				{
-					
-				}
-				else if(response == vaerkfoerer)
-				{
-					
-				}
-				else if(response == laborant)
-				{
-					
-				}
-				else if(response == root)
-				{
-					
-				}
-				
+				alert("Dette er lige inden RolleVerify og rollen er følgende: " + response);
+				RolleVerify(response);
+//
+//				alert("id er: " + id);
+//				alert("Rolle er: " + response);
+//				window.location.replace("http://localhost:8080/CDIOFinal/HomePage.html");
 			}
 			else
 			{
