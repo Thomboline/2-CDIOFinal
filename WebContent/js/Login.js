@@ -18,12 +18,13 @@ $(document).ready(function(event) {
 
 function Login(tempUser) {
 $.ajax({
-	type: 'GET',
+	type: 'POST',
 	url: 'rest/LoginService',
 	dataType: "json",
 	data: JSON.stringify(tempUser),
 	contentType: "application/json",
 	success: function (response) {
+		window.location.replace("http://localhost:8080/CDIOFinal/HomePage.html");
 		alert("Login succesful: " + response );
 	},
 	error: function (jqXHR, textStatus, errorThrown){
