@@ -2,9 +2,9 @@ package dto;
 
 public class RaavareBatchDTO
 {
-	int rbId;			/** raavare batch id i området 1-99999999. Vælges af brugerne */
-	int raavareId;		/** raavare id i området 1-99999999 vælges af brugerne */
-	double maengde;		/** mængde på lager */
+	private int rbId;			/** raavare batch id i området 1-99999999. Vælges af brugerne */
+	private int raavareId;		/** raavare id i området 1-99999999 vælges af brugerne */
+	private double maengde;		/** mængde på lager */
 	
 	public RaavareBatchDTO()
 	{
