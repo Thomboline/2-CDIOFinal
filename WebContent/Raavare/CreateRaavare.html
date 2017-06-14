@@ -32,7 +32,7 @@
     function CreateRaavare(raavare) {
         $.ajax({
             type: 'POST',
-            url: 'rest/RaavareService',
+            url: 'rest/RaavareService/createRaavare',
             dataType: "json",
             data: JSON.stringify(raavare),
             contentType: "application/json",
