@@ -21,7 +21,7 @@ import dto.RaavareBatchDTO;
 import dto.RaavareDTO;
 import dto.ReceptDTO;
 import dto.ReceptKompDTO;
-
+//Test
 public class databasetest 
 {
 	public static void main(String[] args) throws DALException, Exception 
