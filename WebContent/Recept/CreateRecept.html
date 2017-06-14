@@ -76,7 +76,7 @@ button {
     }
 }
 
-.addRaavare {
+#addRaavare {
 	display: none;
 }
     
@@ -109,9 +109,9 @@ button {
     	</div>
     </div>
     
-<div class="addRaavare">
+<div id="addRaavare">
 	<form id="FAddRaavare">    
-    	Råvare Navn: <br>
+    	Råvare Id: <br>
 		<label>
 			<input type="text" name="RaavareNavn">
 		</label><br>
@@ -136,16 +136,14 @@ $(document).ready(function() {
         
         console.log(data);
         
-        var receptId = {
-            receptId : data[0]['value']
-        };
+        var receptId = data[0]['value'];
         
         var recept = {
         		receptId : data[0]['value'],
         		receptNavn : data[1]['value']
         };
         
-        console.log(recept);
+        console.log(receptId);
         
         Global(receptId);
         CreateRecept(recept);
@@ -165,7 +163,9 @@ $(document).ready(function() {
     		tolerance : dataKomp[2]['value']
     	}
     	
-    	CreateReceptKomp(dataKomp);
+    	console.log(receptKomp);
+    	
+    	CreateReceptKomp(receptKomp);
     	return false;
     });
     
@@ -183,7 +183,7 @@ function showOptionModal() {
 
 function showAddRaavare() {
 	document.getElementById('CreateRecept').style.display = 'none';
-	document.getElementById('AddRaavare').style.display = 'block';
+	document.getElementById('addRaavare').style.display = 'inline';
 	document.getElementById('option').style.display = 'none';
 }
 
