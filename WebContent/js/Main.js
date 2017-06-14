@@ -9,10 +9,15 @@ $(document).ready(function(event)
             password : data[1]['value']
         };
         Login(tempUser);
+        ClearLogin();
         return false;
     });
 });
 
+
+function ClearLogin() {
+    document.getElementById("Login").reset();
+}
 
 function Login(tempUser) {
     $.ajax({
@@ -229,5 +234,9 @@ function RolleVerify(Rolle) {
         }
 
 
+    $("#LogUd").on("click", function () {
+        $(".container").hide();
+        $("#Login").show()
+    });
 
 
