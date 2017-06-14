@@ -111,7 +111,7 @@ function RolleVerify(Rolle)
                         });
 
                         $("#LPB").on("click", function () {
-                            $("#wrapper").load("ProduktBatch/LisrProduktBatch.html");
+                            $("#wrapper").load("ProduktBatch/ListProduktBatch.html");
                         });
 
                         $("#CPB").on("click", function () {
@@ -232,10 +232,11 @@ function RolleVerify(Rolle)
 }
 
 
-$("#LogUd").on("click", function () 
-{
-	$(".container").hide();
-    $("#Login").show()
-});
+$("#LogUd").on("click", function () { 
+    $("#wrapper").empty(); 
+    $(".container").hide(); 
+    $(".Administrator").empty(); 
+    $(".Farmaceut").empty(); 
+    $("#Login").show() }); 
 
 
