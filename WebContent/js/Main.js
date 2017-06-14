@@ -15,6 +15,7 @@ $(document).ready(function(event)
 });
 
 
+
 function ClearLogin() {
     document.getElementById("Login").reset();
 }
