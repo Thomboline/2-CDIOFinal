@@ -8,18 +8,19 @@ $(document).ready(function(event)
             brugerId : data[0]['value'],
             password : data[1]['value']
         };
-        Login(tempUser);
+        LoginValidation(tempUser);
         ClearLogin();
         return false;
     });
 });
 
-function ClearLogin() {
+function ClearLogin() 
+{
     document.getElementById("Login").reset();
 }
 
-
-function Login(tempUser) {
+function LoginValidation(tempUser) 
+{
     $.ajax({
         type: 'POST',
         url: 'rest/LoginService/verify',
@@ -28,7 +29,7 @@ function Login(tempUser) {
         contentType: "application/json",
         success: function (response)
         {
-            getRolle(tempUser[Object.keys(tempUser)[0]], response);
+        	UserRights(tempUser[Object.keys(tempUser)[0]], response);
         },
         error: function (jqXHR, textStatus, errorThrown){
 
@@ -36,7 +37,7 @@ function Login(tempUser) {
         }
     });
 }
-function getRolle(id, verify)
+function UserRights(id, verify)
 {
     $.ajax({
         type: 'GET',
@@ -50,7 +51,7 @@ function getRolle(id, verify)
         {
             if(verify == true)
             {
-                setRolle(response);
+            	RolleVerify(response);
                 ShowHide();
             }
             else
@@ -60,22 +61,19 @@ function getRolle(id, verify)
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
-            alert("Dette er id " + searchKey);
             alert("Could not receive the role: " + textStatus);
         }
     });
 }
 
-function setRolle(input) {
-    RolleVerify(input);
-}
 
-function ShowHide() {
+function ShowHide() 
+{
     $("#Login").hide();
-
 }
 
-function RolleVerify(Rolle) {
+function RolleVerify(Rolle) 
+{
             if (Rolle == "farmaceut") {
                 $(document).ready(function () {
                     $(".container").show();
@@ -231,14 +229,12 @@ function RolleVerify(Rolle) {
                     $("#wrapper").load("User/ProfileSettings.html")
             })
             });
-        }
+}
 
 
-$("#LogUd").on("click", function () {
-    $("#wrapper").empty();
-    $(".container").hide();
-    $(".Administrator").empty();
-    $(".Farmaceut").empty();
+$("#LogUd").on("click", function () 
+{
+	$(".container").hide();
     $("#Login").show()
 });
 

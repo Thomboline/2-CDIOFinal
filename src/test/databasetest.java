@@ -21,12 +21,12 @@ import dto.RaavareBatchDTO;
 import dto.RaavareDTO;
 import dto.ReceptDTO;
 import dto.ReceptKompDTO;
-
+//Test
 public class databasetest 
 {
 	public static void main(String[] args) throws DALException, Exception 
 	{
-		BrugerDAOTest(7);
+		BrugerDAOTest(6);
 //		RaavareDAOTest(1);
 //		RaavareBatchDAOTest(1);
 //		ReceptDAOTest(1);
@@ -41,7 +41,7 @@ public class databasetest
 		
 		if(testtype == 1)
 		{
-			BrugerDTO BDTO = new BrugerDTO(2, "Svend Kurtsen","SVK","password123","280486-1232", "Admin", 1);
+			BrugerDTO BDTO = new BrugerDTO(44, "Svend Kurtsen","SVK","password123","280486-1232", "Admin", 0);
 			BDAO.createBruger(BDTO);
 		}
 		else if(testtype == 2)
@@ -65,7 +65,7 @@ public class databasetest
 		else if(testtype == 6)
 		{
 			BrugerDTO BDTO = new BrugerDTO(1, null, null, "1", null, null, 0);
-			BDAO.login(BDTO);
+			System.out.println(BDAO.login(BDTO));
 		}
 		else if(testtype == 7)
 		{
@@ -186,7 +186,7 @@ public class databasetest
 		
 		if(testtype == 1)
 		{
-			RaavareBatchDTO RBDTO = new RaavareBatchDTO(1, 2, 5.5);
+			RaavareBatchDTO RBDTO = new RaavareBatchDTO(6, 6, 5.5);
 			RBDAO.createRaavareBatch(RBDTO);
 		}
 		else if(testtype == 2)

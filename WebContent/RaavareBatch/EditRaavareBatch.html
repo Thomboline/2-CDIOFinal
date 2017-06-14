@@ -1,0 +1,47 @@
+<form id="EditRaavareBatch">
+    Raavarebatch id:<br>
+    <label>
+        <input type="number" name="RbId" min="1">
+    </label><br>
+    Raavare id:<br>
+    <label>
+        <input type="text" name="RaavareId">
+    </label><br>
+    maengde:<br>
+    <label>
+        <input type="text" name="Maengde">
+    </label><br>
+    <input type="submit" value="Opret">
+</form>
+
+<script>
+    $(document).ready(function(event) {
+        $("#EditRaavareBatch").submit(function(event) {
+            data = $("#EditRaavareBatch").serializeArray();
+            event.preventDefault();
+            var raavarebatch = {
+                rbId : data[0]['value'],
+                raavareId : data[1]['value'],
+                maengde : data[2]['value']
+            };
+            EditRaavareBatch(raavarebatch);
+            return false;
+        });
+    });
+
+    function EditRaavareBatch(raavarebatch) {
+        $.ajax({
+            type: 'PUT',
+            url: 'rest/RaavareService/updateRaavareBatch',
+            dataType: "json",
+            data: JSON.stringify(raavarebatch),
+            contentType: 'application/json',
+            success: function (response) {
+                alert("RaavareBatch edited: " + response);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("Unsuccessful: " + textStatus);
+            }
+        });
+    }
+</script>
