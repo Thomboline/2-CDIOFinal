@@ -106,7 +106,7 @@ public class RaavareBatchDAO implements IRaavareBatchDAO
 				String.format
 				("CALL createRaavareBatch('%d','%d','%s');",
 
-						raavarebatch.getRaavareBatchId(),
+						raavarebatch.getRbId(),
 						raavarebatch.getRaavareId(),
 						raavarebatch.getMaengde()
 				)
@@ -121,7 +121,7 @@ public class RaavareBatchDAO implements IRaavareBatchDAO
 				String.format
 				("CALL updateRaavareBatch(%d,'%d','%s');",
 
-						raavarebatch.getRaavareBatchId(),
+						raavarebatch.getRbId(),
 						raavarebatch.getRaavareId(),
 						raavarebatch.getMaengde()
 				)
