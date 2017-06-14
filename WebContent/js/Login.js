@@ -2,6 +2,7 @@
  * Created by Bij og Stu on 07/06/2017.
  * lidt rettelser
  */
+
 $(document).ready(function(event) 
 {
 	$('#Login').submit(function(event) 
@@ -48,9 +49,10 @@ function getRolle(id, verify)
 		{
 			if(verify == true)
 			{
-				alert("Dette er lige inden RolleVerify og rollen er følgende: " + response);
-				window.location.replace("http://localhost:8080/CDIOFinal/HomePage.html");
-				RolleVerify(response);
+				console.log(response);
+				setRolle(response);
+                window.location.replace("HomePage.html");
+				console.log(response);
 			}
 			else
 			{
@@ -63,4 +65,9 @@ function getRolle(id, verify)
 			alert("Could not receive the role: " + textStatus);
 		}
 	});	
+}
+
+function setRolle(input) {
+    RolleVerify(input);
+    console.log(input);
 }
