@@ -35,7 +35,7 @@ public class BrugerDAO implements IBrugerDAO
 							rs.getString("cpr"),
 							rs.getString("rolle"),
 							rs.getInt("brugerStatus")
-							);
+					);
 		} 
 		catch (SQLException e) {throw new DALException(e); }
 	}
@@ -123,7 +123,7 @@ public class BrugerDAO implements IBrugerDAO
 	}
 	public boolean login(BrugerDTO bruger) throws Exception
 	{
-		boolean request;
+		boolean Request;
 		String Verification;
 		
 		Verification = "select Login(?,?)";
@@ -135,8 +135,25 @@ public class BrugerDAO implements IBrugerDAO
 		ResultSet rs = pst.executeQuery();
 		rs.next();
 		
-		request = rs.getBoolean(1);
+		Request = rs.getBoolean(1);
 
-		return request;
+		return Request;
+	}
+	public String getRolle(int brugerId) throws Exception
+	{
+		String Query;
+		String DBRolle;
+		
+		Query = "select getRolle(?)";
+		java.sql.PreparedStatement pst = c.getPreparedStatement(Query);
+		
+		pst.setInt(1, brugerId);
+	
+		ResultSet rs = pst.executeQuery();
+		rs.next();
+		
+		DBRolle = rs.getString(1);
+
+		return DBRolle;
 	}
 }

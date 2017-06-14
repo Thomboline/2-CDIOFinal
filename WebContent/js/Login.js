@@ -1,9 +1,11 @@
 /**
  * Created by Bij og Stu on 07/06/2017.
+ * lidt rettelser
  */
-$(document).ready(function(event) {
-	
-	$('#Login').submit(function(event) {
+$(document).ready(function(event) 
+{
+	$('#Login').submit(function(event) 
+	{
 		data = $('#Login').serializeArray();
 		event.preventDefault();
 		var tempUser = {
@@ -18,17 +20,47 @@ $(document).ready(function(event) {
 function Login(tempUser) {
 $.ajax({
 	type: 'POST',
-	url: 'rest/LoginService',
+	url: 'rest/LoginService/verify',
 	dataType: "json",
 	data: JSON.stringify(tempUser),
 	contentType: "application/json",
-	success: function (response) {
-		window.location.replace("http://localhost:8080/CDIOFinal/HomePage.html");
-		alert("Login succesful: " + response );
+	success: function (response) 
+	{
+		getRolle(tempUser[Object.keys(tempUser)[0]], response);
 	},
 	error: function (jqXHR, textStatus, errorThrown){
 		
 		alert("Login unsuccesful: " + textStatus);
 	}
 });
+}
+function getRolle(id, verify) 
+{
+		$.ajax({
+		type: 'GET',
+		url: 'rest/LoginService/rolle/' + id,
+		dataType: 'json',
+		async: false,
+		converters: {
+			'text json': true
+		},
+		success: function(response) 
+		{
+			if(verify == true)
+			{
+				alert("Dette er lige inden RolleVerify og rollen er følgende: " + response);
+				window.location.replace("http://localhost:8080/CDIOFinal/HomePage.html");
+				RolleVerify(response);
+			}
+			else
+			{
+				alert("Login unsuccesful, wrong id or password!");
+			}
+		},
+		error: function (jqXHR, textStatus, errorThrown)
+		{
+			alert("Dette er id " + searchKey);
+			alert("Could not receive the role: " + textStatus);
+		}
+	});	
 }

@@ -3,12 +3,12 @@ package dto;
 public class ProduktBatchKompDTO
 {
 	
-	int terminal;
-	int pbId;					/**produkt batch id i omr�det 1-99999999. V�lges af brugerne */
-	int rbId;					/** raavare batch id i omr�det 1-99999999. V�lges af brugerne */
-	double tara;				/** tara i kg */
-	double netto;				/** afvejet nettom�ngde i kg */
-	int brugerId;					/** Laborant-identifikationsnummer */
+	private int terminal;
+	private int pbId;					/**produkt batch id i omr�det 1-99999999. V�lges af brugerne */
+	private int rbId;					/** raavare batch id i omr�det 1-99999999. V�lges af brugerne */
+	private double tara;				/** tara i kg */
+	private double netto;				/** afvejet nettom�ngde i kg */
+	private int brugerId;					/** Laborant-identifikationsnummer */
 	
 	public ProduktBatchKompDTO()
 	{

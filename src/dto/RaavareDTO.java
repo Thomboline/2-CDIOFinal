@@ -2,9 +2,9 @@ package dto;
 
 public class RaavareDTO
 {
-	int raavareId;						/** raavare id i området 1-99999999 vælges af brugerne */
-	String raavareNavn;					/** min. 2 max. 20 karakterer */
-	String leverandoer;					/** min. 2 max. 20 karakterer */
+	private int raavareId;						/** raavare id i området 1-99999999 vælges af brugerne */
+	private String raavareNavn;					/** min. 2 max. 20 karakterer */
+	private String leverandoer;					/** min. 2 max. 20 karakterer */
 	
 	public RaavareDTO()
 	{

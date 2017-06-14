@@ -3,10 +3,10 @@ package dto;
 public class ReceptKompDTO
 {
 	
-	int receptId;				/** recept id i området 1-99999999 */
-	int raavareId;				/** raavare id i området 1-99999999 vælges af brugerne */
-	double nomNetto;			/** nominel nettomængde i området 0,05 - 20,0 kg */
-	double tolerance;			/** tolerance i området 0,1 - 10,0 % */
+	private int receptId;				/** recept id i området 1-99999999 */
+	private int raavareId;				/** raavare id i området 1-99999999 vælges af brugerne */
+	private double nomNetto;			/** nominel nettomængde i området 0,05 - 20,0 kg */
+	private double tolerance;			/** tolerance i området 0,1 - 10,0 % */
 	
 	public ReceptKompDTO()
 	{
