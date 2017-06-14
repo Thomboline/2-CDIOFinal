@@ -15,6 +15,7 @@ import dao.RaavareBatchDAO;
 import dao.RaavareDAO;
 import daointerfaces.IRaavareBatchDAO;
 import daointerfaces.IRaavareDAO;
+import dto.BrugerDTO;
 import dto.RaavareBatchDTO;
 import dto.RaavareDTO;
 
@@ -80,5 +81,29 @@ public class RaavareAdmin_Jersey {
 
         return raavareBatch;
     }
+    @GET
+	@Path("/raavareBatchList/{id}")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public RaavareBatchDTO ListUser(@PathParam("id")int index) throws Exception {
+			
+		return raavareBatch_dao.getRaavareBatch(index);	
+	}
+    
+    @GET
+	@Path("/RaavareBatchList")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public List<RaavareBatchDTO> ListUsers() throws Exception {	
 
+		return raavareBatch_dao.getRaavareBatchList();
+	}
+    @PUT
+    @Path("/updateRaavareBatch")
+    @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public RaavareBatchDTO update(RaavareBatchDTO raavarebatch) throws Exception {
+        System.out.println("Updating raavare: " + (raavarebatch.getRbId()));
+
+        raavareBatch_dao.updateRaavareBatch(raavarebatch);
+        return raavarebatch;
+    }
 }
