@@ -59,6 +59,7 @@ public class RaavareAdmin_Jersey {
     }
 
     @POST
+    @Path("/createRaavare")
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public RaavareDTO create(RaavareDTO raavare) throws Exception {
@@ -67,27 +68,17 @@ public class RaavareAdmin_Jersey {
         raavare_dao.createRaavare(raavare);
 
         return raavare;
-    }
-
-    @POST
-    @Path("/raavare/{id}")
-    @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public RaavareDTO delete(RaavareDTO raavare) throws DALException {
-        System.out.println("Updating raavare: " + raavare.getRaavareNavn());
-//		dao.DeleteUser(user, 1);
-        return raavare;
-    }
-    
+    }    
     
     @POST
-    @Path("/RaavareBatchService")
+    @Path("/createRaavareBatch")
     @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public RaavareBatchDTO create(RaavareBatchDTO raavareBatch) throws Exception {
-    	System.out.println("Creating raavarebatch: " + raavareBatch.getRaavareBatchId());
-        raavareBatch_dao.createRaavareBatch(raavareBatch);
+    	
+    	raavareBatch_dao.createRaavareBatch(raavareBatch);
 
         return raavareBatch;
     }
+
 }
