@@ -18,6 +18,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import weight.IWeightInterfaceController;
 import weight.IWeightInterfaceController.InputType;
 //
 public class FxApp extends Application {
@@ -171,6 +172,10 @@ public class FxApp extends Application {
 			e.printStackTrace();
 		}
 		WeightInterfaceControllerGUI.getInstance().setApp(this);
+
+		printLoad("Waiting..");
+		printText3("Open telnet connection");
+		printBottom("Ip: 127.0.0.1, Port: 8000");
 	}
 	public FxApp() {} 
 
@@ -223,8 +228,8 @@ public class FxApp extends Application {
 				
 				txtload.setText(load.length() > 9 ? load.substring(0, 9) : load);
 				txtload.setVisible(true);
-				txtinfo[2].setVisible(false); //ændret fra false
-				txtinfo[3].setVisible(false); //ændret fra false
+				txtinfo[2].setVisible(true); //ï¿½ndret fra false
+				txtinfo[3].setVisible(true); //ï¿½ndret fra false
 			}
 		});
 	}
@@ -234,9 +239,9 @@ public class FxApp extends Application {
 			public void run() {
 				txtbottom.setText(msg);
 				txtbottom.setVisible(true);
-				txtinfo[2].setVisible(true); //ændret fra false
-				txtinfo[3].setVisible(false); //ændret fra false
-				userInput.setVisible(false);  //ændret fra false
+				txtinfo[2].setVisible(true); //ï¿½ndret fra false
+				txtinfo[3].setVisible(true); //ï¿½ndret fra false
+				userInput.setVisible(false);  //ï¿½ndret fra false
 				
 			}
 		});
@@ -249,11 +254,11 @@ public class FxApp extends Application {
 	public void printText3(final String msg) {
 		Platform.runLater(new Runnable() {
 			@Override
-			//ændret fra 2 til 3
+			//ï¿½ndret fra 2 til 3
 			public void run() {
 				txtinfo[2].setText(msg);
 				txtinfo[2].setVisible(true);
-				txtload.setVisible(false); //ændret fra false
+				txtload.setVisible(true); //ï¿½ndret fra false
 			}
 		});
 	}

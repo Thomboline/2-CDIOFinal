@@ -12,7 +12,7 @@ public class WeightInterfaceControllerGUI implements IWeightInterfaceController 
 	private FxApp fxApp;
 
 	public WeightInterfaceControllerGUI() { instance = this; }
-	@Override public void run() { FxApp.go(); }
+	@Override public void run() { FxApp.go();}
 	public static WeightInterfaceControllerGUI getInstance() { return instance; }
 	public void setApp(FxApp fxApp) { this.fxApp = fxApp; fxApp.setSim(this); }
 	
@@ -61,6 +61,14 @@ public class WeightInterfaceControllerGUI implements IWeightInterfaceController 
 		fxApp.softkeysShow(texts, firstSoftkey, sftkeysChecked);
 	}
 	
+	@Override
+	public void startDisplay() {
+			this.showMessagePrimaryDisplay("Waiting..");
+			this.showMessageTernaryDisplay("Open telnet connection");
+			this.showMessageSecondaryDisplay("Ip: 127.0.0.1, Port: 8000");
+		
+	}
+	
 	
 	// GUI --> System
 	public void onSliderValueChange(Double newValue) {
@@ -106,29 +114,5 @@ public class WeightInterfaceControllerGUI implements IWeightInterfaceController 
 			o.notifyKeyPress(KeyPress.SoftButton(i));
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

@@ -303,7 +303,7 @@ class SocketThread extends Thread
 	   	    		
 	   	    	case 8:
 	   	    		System.out.println("Test nr: " + SocketController.test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Nuværende vægt: "));
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Nuvï¿½rende vï¿½gt: "));
 	   	    		break;
 	   	    		
 	   	    	case 9:
@@ -313,13 +313,13 @@ class SocketThread extends Thread
 	   	    		
 	   	    	case 10:
 	   	    		System.out.println("Test nr: " + SocketController.test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Tarér vægten."));
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Tarï¿½r vï¿½gten."));
 	   	    		break;
 	   	    	
-	   	    	//Afvejningsprocedure trin 11, 12, 13 & 14 hænger sammen i en case.
+	   	    	//Afvejningsprocedure trin 11, 12, 13 & 14 hï¿½nger sammen i en case.
 	   	    	case 11:
 	   	    		System.out.println("Test nr: " + SocketController.test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Placer tara og tarér vægten"));
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Placer tara og tarï¿½r vï¿½gten"));
 	   	    		break;
 	   	    	
 	   	    	case 12:
@@ -339,7 +339,7 @@ class SocketThread extends Thread
 	   	  
 	   	    	case 15:
 	   	    		System.out.println("Test nr: " + SocketController.test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Vægten er registreret."));
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Vï¿½gten er registreret."));
 	   	    		break;
 	   	    	
 	   	    	case 16:
@@ -362,7 +362,7 @@ class SocketThread extends Thread
 		  
 }
 
-				//Hørte til i run();
+				//Hï¿½rte til i run();
 //	   	 		inLine = inStream.readLine();
 //	    
 //	    		System.out.println(inLine);
