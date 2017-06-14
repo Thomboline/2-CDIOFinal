@@ -13,6 +13,7 @@ $(document).ready(function(event)
     });
 });
 
+
 function Login(tempUser) {
     $.ajax({
         type: 'POST',
