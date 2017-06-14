@@ -69,11 +69,11 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 	private String[] cd;
 	
 	//Boolske variable til condition handling og container til softBtn beskrivelser
-	private boolean isWriting, isTara, isRM208;
+	private boolean isWriting, isTara, isRM208, isWeighing;
 	private boolean softBtn0 = false, softBtn1 = false, softBtn2 = false,
 					softBtn3 = false, softBtn4 = false, softBtn5 = false;
 	private boolean softBtns[] = {softBtn0, softBtn1, softBtn2, softBtn3, softBtn4, softBtn5};
-	private String btnLayout[] = {"", "Hey!", "Taravægt", "Nettovægt", "", ""};
+	private String btnLayout[] = {"", "", "Taravægt", "Nettovægt", "", ""};
 
 	//Iterator til afvejningsprocedure og input, simple variable til kritisk
 	//input fra brugeren og container dertil.
@@ -180,6 +180,9 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 		
 		try {
 		if(weightState(message, this.wtIterator)) {
+			if(isWeighing) {
+			weightController.setSoftButtonTexts(btnLayout);
+			}
 			this.wtIterator++;
 		}
 		else {
@@ -212,6 +215,10 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 		switch (keyPress.getType()) {
 		case SOFTBUTTON:
 			
+			if(wtIterator == 2) {
+			
+			}
+			else {
 			
 			if (keyPress.getKeyNumber() == 0) {
 				softBtns[0] = true;
@@ -224,7 +231,7 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 					}
 				}
 			}
-			if (keyPress.getKeyNumber() == 1) {
+			if (keyPress.getKeyNumber() == 1 ) {
 				//virker
 //				if(!softBtn0) {
 //					weightController.showMessagePrimaryDisplay("Hej!");
@@ -238,25 +245,21 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 				//virker ikke
 
 				
-				if(softBtns[1]) {
-					currentDisplay(1, 2);
-//					btnLayout[1] = "Tilbage";
-//					weightController.setSoftButtonTexts(btnLayout);
-					switchBtnLayout(1, "Hey!");
-				}
-				else if(!softBtns[1])
-				{
-				weightController.showMessagePrimaryDisplay("Hey!");	
-				softBtns[1] = true;
-//				btnLayout[1] = cd[1];
-//				weightController.setSoftButtonTexts(btnLayout);
-				switchBtnLayout(1, "Tilbage");
-				
-				
-				}
+//				if(softBtns[1]) {
+//					currentDisplay(1, 2);
+//					switchBtnLayout(1, "Temp");
+//				}
+//				else if(!softBtns[1])
+//				{
+//				weightController.showMessagePrimaryDisplay(cd[2]);	
+//				softBtns[1] = true;
+//				switchBtnLayout(1, "Tilbage");
+//				
+//				
+//				}
 			}
 			
-			if (keyPress.getKeyNumber() == 2) {
+			if (keyPress.getKeyNumber() == 2 && isWeighing) {
 				if(softBtns[2]) {
 					currentDisplay(2, 1);
 					switchBtnLayout(2, "Taravægt");
@@ -268,9 +271,8 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 				switchBtnLayout(2, "Tilbage");
 				}
 	
-//				this.containerWeight = 0.000;
 			}
-			if (keyPress.getKeyNumber() == 3) {
+			if (keyPress.getKeyNumber() == 3 && isWeighing) {
 				if(softBtns[3]) {
 					currentDisplay(3, 0);
 					switchBtnLayout(3, "Nettovægt");
@@ -284,13 +286,14 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 			}
 			if (keyPress.getKeyNumber() == 4) {
 				// Batch-id funktion
-				softBtns[4] = true;
+//				softBtns[4] = true;
+				notifyKeyPress(KeyPress.Cancel());
 			}
 			if (keyPress.getKeyNumber() == 5) {
 				// Batch-id funktion
-				softBtns[5] = true;
+//				softBtns[5] = true;
 			}
-
+			}
 			
 //			//177-183 VIRKER IKKE
 //			if (keyState.equals(KeyState.K2)) {
@@ -361,17 +364,34 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 			}
 			break;
 		case CANCEL:
-			isTara = false;
-			if(this.keyState.equals(KeyState.K2)) {
-				wtIterator--;
-				SocketController.test--;
-			} 
-			else {
-			weightController.setSoftButtonTexts(empty);
-			weightController.showMessageSecondaryDisplay(null);
-			flushMsCMD();
-			resetButtonTexts(tara, zero, empty);
+//			isTara = false;
+			if(keyState.equals(KeyState.K2)) {
+			wtIterator = wtIterator-2;
+			SocketController.test = SocketController.test-2;
+			if(prevKeyState.equals(KeyState.K1)) {
+				inf--;
 			}
+			keyState = prevKeyState;
+			prevKeyState = KeyState.K2;
+
+			try {
+				synchronized (socketHandler) {
+					socketHandler.notify();
+					isRM208 = false;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			}
+		
+			
+//		
+//			else {
+//			weightController.setSoftButtonTexts(empty);
+//			weightController.showMessageSecondaryDisplay(null);
+//			flushMsCMD();
+//			resetButtonTexts(tara, zero, empty);
+//			}
 			break;
 		case EXIT:
 			weightController.unRegisterObserver(this);
@@ -383,13 +403,13 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 //				socketHandler.sendMessage(new SocketOutMessage("K A 3"));
 //			}
 //			if (keyState.equals(KeyState.K1) || keyState.equals(KeyState.K4)) {
-			if (keyState.equals(KeyState.K1) && msCMD[0] != 0) {
+			if (keyState.equals(KeyState.K1) && msCMD[0] != 0 || keyState.equals(KeyState.K3) && isTara) {
 
-				if (isTara) {
-					weightController.setSoftButtonTexts(tara);
-				} else {
-					weightController.setSoftButtonTexts(empty);
-				}
+//				if (isTara) {
+//					weightController.setSoftButtonTexts(tara);
+//				} else {
+//					weightController.setSoftButtonTexts(empty);
+//				}
 				
 				//Stores input in weight info container
 				prepInfo();
@@ -397,8 +417,9 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 				sendMessageCMD();
 				//Flush msCMD char array
 				flushMsCMD();
+				
 				//Resets all soft button descriptions
-				resetButtonTexts(tara, zero, empty);
+//				resetButtonTexts(tara, zero, empty);
 				
 				if (isRM208) {
 					try {
@@ -477,7 +498,7 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws DALEx
 	case 3:
 		System.out.println("Performing case " + wtIterator);
 		isRM208 = true;
-		initDisplay(message.getMessage(), "Test", "Test");
+		initDisplay(message.getMessage(), "", "");
 //		weightController.showMessagePrimaryDisplay("Test");
 //		weightController.showMessageSecondaryDisplay("Test");
 //		weightController.showMessageTernaryDisplay(message.getMessage());
@@ -502,7 +523,8 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws DALEx
 			return false;
 		}
 		System.out.println("Performing case " + wtIterator);
-		weightController.showMessageTernaryDisplay(message.getMessage());
+		initDisplay(message.getMessage(), "", "");
+//		weightController.showMessageTernaryDisplay(message.getMessage());
 		socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
 		try {
 			synchronized (socketHandler) {
@@ -522,7 +544,8 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws DALEx
 		System.out.println("lm = " + lm);
 		try {
 		System.out.println("Displaying initials of user " + bdao.getBruger(lm));
-		weightController.showMessageTernaryDisplay(message.getMessage() + bdao.getBruger(lm).getIni());
+		initDisplay(message.getMessage() + bdao.getBruger(lm).getIni(), "", "");
+//		weightController.showMessageTernaryDisplay(message.getMessage() + bdao.getBruger(lm).getIni());
 		socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
 			try {
 				synchronized (socketHandler) {
@@ -605,8 +628,9 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws DALEx
 			prevKeyState = KeyState.K2;
 			isRM208 = true;
 			System.out.println("Performing case " + wtIterator);
-			weightController.showMessageTernaryDisplay(message.getMessage());
-			weightController.showMessagePrimaryDisplay(df.format(currentWeight) + "kg");
+			initDisplay("Nuværende belastning:", "", df.format(currentWeight) + "kg");
+//			weightController.showMessageTernaryDisplay(message.getMessage());
+//			weightController.showMessagePrimaryDisplay(df.format(currentWeight) + "kg");
 			socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
 			try {
 				synchronized (socketHandler) {
@@ -648,8 +672,11 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws DALEx
 		case 10:
 			prevKeyState = KeyState.K2;
 			isRM208 = true;
+			isTara = true;
+			isWeighing = true;
 			System.out.println("Performing case " + wtIterator);
-			weightController.showMessageTernaryDisplay(message.getMessage());
+			initDisplay(message.getMessage(), "Dette trin skal være automatisk", "");
+//			weightController.showMessageTernaryDisplay(message.getMessage());
 			socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
 			try {
 				synchronized (socketHandler) {
@@ -658,12 +685,14 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws DALEx
 			} catch (InterruptedException ex) {
 				ex.printStackTrace();
 			}
+			notifyKeyPress(KeyPress.Send());
 			return true;
 	
 		// V�gten beder om f�rste tara beholder og om at tarere v�gten
 		case 11:
 			isRM208 = true;
 			System.out.println("Performing case " + wtIterator);
+			initDisplay("Vægten er tareret.", "Placer beholder og tarer vægten", df.format(currentWeight) + "kg");
 			weightController.showMessageTernaryDisplay(message.getMessage());
 			socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
 			try {
@@ -898,8 +927,6 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws DALEx
 			weightController.showMessageTernaryDisplay(cd[0]);
 			weightController.showMessageSecondaryDisplay(cd[1]);
 			weightController.showMessagePrimaryDisplay(cd[2]);
-			weightController.setSoftButtonTexts(btnLayout);
-			
 	}
 	public void currentDisplay(int softBtn, int display) {
 		
