@@ -26,9 +26,9 @@ public class databasetest
 {
 	public static void main(String[] args) throws DALException, Exception 
 	{
-		BrugerDAOTest(7);
+//		BrugerDAOTest(7);
 //		RaavareDAOTest(1);
-//		RaavareBatchDAOTest(1);
+		RaavareBatchDAOTest(1);
 //		ReceptDAOTest(1);
 //		ReceptKompDAOTest(1);
 //		ProduktBatchDAOTest(1);
@@ -186,7 +186,7 @@ public class databasetest
 		
 		if(testtype == 1)
 		{
-			RaavareBatchDTO RBDTO = new RaavareBatchDTO(1, 2, 5.5);
+			RaavareBatchDTO RBDTO = new RaavareBatchDTO(6, 6, 5.5);
 			RBDAO.createRaavareBatch(RBDTO);
 		}
 		else if(testtype == 2)

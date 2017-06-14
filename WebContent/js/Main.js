@@ -9,12 +9,18 @@ $(document).ready(function(event)
             password : data[1]['value']
         };
         Login(tempUser);
+        ClearLogin();
         return false;
     });
 });
 
+function ClearLogin() 
+{
+    document.getElementById("Login").reset();
+}
 
-function Login(tempUser) {
+function Login(tempUser) 
+{
     $.ajax({
         type: 'POST',
         url: 'rest/LoginService/verify',
@@ -45,7 +51,7 @@ function getRolle(id, verify)
         {
             if(verify == true)
             {
-                setRolle(response);
+            	RolleVerify(response);
                 ShowHide();
             }
             else
@@ -55,22 +61,19 @@ function getRolle(id, verify)
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
-            alert("Dette er id " + searchKey);
             alert("Could not receive the role: " + textStatus);
         }
     });
 }
 
-function setRolle(input) {
-    RolleVerify(input);
-}
 
-function ShowHide() {
+function ShowHide() 
+{
     $("#Login").hide();
-
 }
 
-function RolleVerify(Rolle) {
+function RolleVerify(Rolle) 
+{
             if (Rolle == "farmaceut") {
                 $(document).ready(function () {
                     $(".container").show();
@@ -226,8 +229,13 @@ function RolleVerify(Rolle) {
                     $("#wrapper").load("User/ProfileSettings.html")
             })
             });
-        }
+}
 
 
+$("#LogUd").on("click", function () 
+{
+	$(".container").hide();
+    $("#Login").show()
+});
 
 
