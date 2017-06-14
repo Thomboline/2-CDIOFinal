@@ -14,11 +14,10 @@ $(document).ready(function(event)
     });
 });
 
-
-
 function ClearLogin() {
     document.getElementById("Login").reset();
 }
+
 
 function Login(tempUser) {
     $.ajax({
@@ -235,9 +234,12 @@ function RolleVerify(Rolle) {
         }
 
 
-    $("#LogUd").on("click", function () {
-        $(".container").hide();
-        $("#Login").show()
-    });
+$("#LogUd").on("click", function () {
+    $("#wrapper").empty();
+    $(".container").hide();
+    $(".Administrator").empty();
+    $(".Farmaceut").empty();
+    $("#Login").show()
+});
 
 
