@@ -3,46 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    
+<style> 
+button {
+	color: white;
+	background: green;
+    padding: 14px 20px;
+	cursor: pointer;
+	border: none;
+	width: 100%
+}
+   
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; 
+    border: 1px solid #888;
+    width: 60%; 
+}
+
+
+.close {
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: red;
+    cursor: pointer;
+}
+
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
+}
+    
+@keyframes animatezoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+}
+
+@media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+    .cancelbtn {
+       width: 100%;
+    }
+}
+
+.addRaavare {
+	display: none;
+}
+    
+    </style>   
 </head>
 <body> 
 
-<form id="CreateRecept">
-    Recept id:<br>
-    <label>
-        <input type="number" name="ReceptId" min="1">
-    </label><br>
-    Recept navn:<br>
-    <label>
-        <input type="text" name="ReceptNavn">
-    </label><br>
+<div id="Recept">
+	<form id="CreateRecept">
+    	Recept id:<br>
+   		<label>
+        	<input type="number" name="ReceptId" min="1">
+    	</label><br>
+    	Recept navn:<br>
+    	<label>
+    	    <input type="text" name="ReceptNavn">
+    	</label><br>
 
-    <input type="submit" onclick="getElementById=('Option').style.display.block" value="Opret">
-</form>
+    	<input type="submit" value="Opret">
+	</form>
+</div>
     
-    <div id="option">
-    	Vil du oprette recept komponenter?
-    	<a href="#" id="JA">Ja</a><a href="http://localhost:8080/CDIOFinal/HomePage.html">Nej</a>
+    <div id="option" class="modal">
+    	<div class="modal-content animate">
+    		Vil du oprette (flere) recept komponenter?<br>
+				<form>
+					<label><input type="button" value="Ja" onclick="showAddRaavare();"></label>
+					<label><input type="button" value="Nej" onclick="document.getElementById('option').style.display='none'"></label>
+				</form>
+    	</div>
     </div>
+    
+<div class="addRaavare">
+	<form id="FAddRaavare">    
+    	Råvare Navn: <br>
+		<label>
+			<input type="text" name="RaavareNavn">
+		</label><br>
+		Mængde: <br>
+		<label>
+			<input type="number" name="Maengde">
+		</label><br>
+		Tolerance: <br>
+		<label>
+			<input type="number" name="tolerance">
+		</label><br>
+		
+		<input type="submit" value="Opret">
+	</form>
+</div>
 
 <script>
 $(document).ready(function() {
 	$('#CreateRecept').submit(function(event) {
      	data = $('#CreateRecept').serializeArray();
         event.preventDefault();
-               
-        var recept = {
-            receptId : data[0]['value'],
-            receptNavn: data[1]['value']
+        
+        console.log(data);
+        
+        var receptId = {
+            receptId : data[0]['value']
         };
         
+        var recept = {
+        		receptId : data[0]['value'],
+        		receptNavn : data[1]['value']
+        };
+        
+        console.log(recept);
+        
+        Global(receptId);
         CreateRecept(recept);
         return false;
     });
 	
-	$("#JA").on("click", function() {
-        $("#CreateRecept").load("AddReceptKomp.html");
+    $('#FAddRaavare').submit(function(event) {
+    	dataKomp = $('#FAddRaavare').serializeArray();
+    	event.preventDefault();
+    	
+    	console.log(Globalvar)
+    	
+    	var receptKomp = {
+    		receptId : Globalvar,
+    		raavareId : dataKomp[0]['value'],
+    		nomNetto : dataKomp[1]['value'],
+    		tolerance : dataKomp[2]['value']
+    	}
+    	
+    	CreateReceptKomp(dataKomp);
+    	return false;
     });
+    
 });
+
+var Globalvar;
+
+function Global (id) {
+	Globalvar = id;
+}
+
+function showOptionModal() {
+	document.getElementById('option').style.display = 'block';
+}
+
+function showAddRaavare() {
+	document.getElementById('CreateRecept').style.display = 'none';
+	document.getElementById('AddRaavare').style.display = 'block';
+	document.getElementById('option').style.display = 'none';
+}
 
 function CreateRecept(recept) {
 	$.ajax({
@@ -52,7 +195,25 @@ function CreateRecept(recept) {
         data: JSON.stringify(recept),
         contentType: "application/json",
         success: function (response) {
+        	alert("Recept created: " + response);
+        	showOptionModal();
+        },
+        error: function (jqXHR, textStatus, errorThrown){
+            alert("Unsuccesful: " + textStatus);
+        }
+    });
+}
+
+function CreateReceptKomp(receptKomponent) {
+	$.ajax({
+    	type: 'POST',
+        url: 'rest/ReceptService/createReceptKomp',
+        dataType: "json",
+        data: JSON.stringify(receptKomponent),
+        contentType: "application/json",
+        success: function (response) {
         	alert("Recept created: " + response );
+        	showOptionModal();
         },
         error: function (jqXHR, textStatus, errorThrown){
             alert("Unsuccesful: " + textStatus);
