@@ -208,7 +208,93 @@ function RolleVerify(Rolle)
                         });
                     });
                 })
-                }
+            } else if (Rolle == "root") {
+            	 $(document).ready(function () {
+                     $(".container").show();
+                     $(".Root").load("Administration.html #RaavareAdmin, #RaavareBatchAdmin, #ProduktBatchAdmin, #ReceptAdmin, #UserAdmin", function () {
+                         $("#LR").on("click", function () {
+                             $("#wrapper").load("Raavare/ListRaavare.html");
+                         });
+
+                         $("#CR").on("click", function () {
+                             $("#wrapper").load("Raavare/CreateRaavare.html");
+                         });
+
+                         $("#ER").on("click", function () {
+                             $("#wrapper").load("Raavare/EditRaavare.html");
+                         });
+
+                         $("#DR").on("click", function () {
+                             $("#wrapper").load("Raavare/DeleteRaavare.html");
+                         });
+
+                         $("#LRB").on("click", function () {
+                             $("#wrapper").load("RaavareBatch/ListRaavareBatch.html");
+                         });
+
+                         $("#CRB").on("click", function () {
+                             $("#wrapper").load("RaavareBatch/CreateRaavareBatch.html");
+                         });
+
+                         $("#ERB").on("click", function () {
+                             $("#wrapper").load("RaavareBatch/EditRaavareBatch.html");
+                         });
+
+                         $("#DRB").on("click", function () {
+                             $("#wrapper").load("RaavareBatch/DeleteRaavareBatch.html");
+                         });
+
+                         $("#LPB").on("click", function () {
+                             $("#wrapper").load("ProduktBatch/ListProduktBatch.html");
+                         });
+
+                         $("#CPB").on("click", function () {
+                             $("#wrapper").load("ProduktBatch/CreateProduktBatch.html");
+                         });
+
+                         $("#LRE").on("click", function () {
+                             $("#wrapper").load("Recept/ListRecept.html");
+                         });
+
+                         $("#CRE").on("click", function () {
+                             $("#wrapper").load("Recept/CreateRecept.html");
+                         });
+
+                         $("#ERE").on("click", function () {
+                             $("#wrapper").load("Recept/EditRecept.html");
+                         });
+
+                         $("#DRE").on("click", function () {
+                             $("#wrapper").load("Recept/DeleteRecept.html");
+                         });
+                         
+                         $("#LU").on("click", function () {
+                             $("#wrapper").load("User/ListUser.html");
+                         });
+
+                         $("#CU").on("click", function () {
+                             $("#wrapper").load("User/CreateUser.html");
+                         });
+
+                         $("#EU").on("click", function () {
+                             $("#wrapper").load("User/EditUser.html");
+                         });
+
+                         $("#DU").on("click", function () {
+                             $("#wrapper").load("User/DeleteUser.html");
+                         });
+
+                         $("#RP").on("click", function () {
+                             $("#wrapper").load("User/ResetPassword.html");
+                         });
+                         
+                     });
+                 })
+
+            }
+            
+            
+            
             $(document).ready(function () {
                 $("#ProfilIndstillinger").on("click", function () {
                     $("#wrapper").load("User/ProfileSettings.html")
