@@ -275,35 +275,6 @@ function RolleVerify(Rolle)
             });
 
 }
-function loadBrugere(){
-    $.ajax({
-        url : "http://localhost:8080/",
-        method: 'GET',
-        headers: {"Authorization": "Baerer " + localStorage.getItem('token')},
-        success : function(data){
-            brugere = data;
-
-            $(function() {
-                $('#tableBrugere>tbody').html('');
-                $.each(data, function(i, item) {
-                    $('<tr>').append(
-                        $('<td>').text(item.oprId),
-                        $('<td>').text(item.oprNavn),
-                        $('<td>').text(item.ini),
-                        $('<td>').text(item.cpr),
-                        $('<td>').text(item.rolleNavn),
-                        $('<td>').text(item.password),
-                        $('<td>').html('<div class="btn btn-xs btn-info updateBruger" data-bruger-id="' + item.oprId + '"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></div>'),
-                        $('<td>').html('<div class="btn btn-xs btn-danger deleteBruger" data-bruger-id="' + item.oprId + '"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></div>')
-                    ).appendTo('#tableBrugere>tbody');
-                });
-            });
-        },
-        error: function(jqXHR, text, error){
-            alert(jqXHR.status + text + error);
-        }
-    });
-}
 
 
 $("#LogUd").on("click", function () { 
