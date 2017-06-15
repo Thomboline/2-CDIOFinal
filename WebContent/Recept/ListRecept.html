@@ -15,9 +15,51 @@
 </form>
 <div>
     <ul id="ReceptList"></ul>
-</div>
+    <table border="1px" class="table table-striped" id="tableRecept" style="width:100%;">
+        <thead>
+        <tr>
+            <th>ReceptID</th>
+            <th>ReceptNavn</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td colspan="10">
+                <div style="text-align:center;">
+                    <h2>
+                        <i class="fa fa-circle-o-notch fa-spin" style="font-size: 24px"></i>
+                        Udsøg Recept
+                    </h2>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
-<div id="ReceptKomponenter"></div>
+
+<div id="ReceptKomponenter">
+    <table border="1px" class="table table-striped" id="tableKomponenter" style="width:100%;">
+        <thead>
+        <tr>
+            <th>ReceptID</th>
+            <th>RåvareID</th>
+            <th>Mængde</th>
+            <th>Tolerance</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td colspan="10">
+                <div style="text-align:center;">
+                    <h2>
+                        <i class="fa fa-circle-o-notch fa-spin" style="font-size: 24px"></i>
+                    </h2>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 <script>
     $(document).ready(function() {
@@ -41,7 +83,7 @@
                     'text json': true
                 },
                 success: function(response) {
-                    $("#ReceptList").empty().html(renderList(response));
+                    renderList(response);
                 }
             });
             
@@ -53,7 +95,7 @@
             		'text json': true
             	},
             	success: function(response) {
-            		$("#ReceptKomponenter").empty().html(renderList2(response));
+            		renderList2(response);
             	}
             });
             
@@ -67,45 +109,91 @@
                 },
                 success: function(response) {
                 	$("#ReceptKomponenter").hide();
-                    $("#ReceptList").empty().html(renderList(response));
+                    renderList(response);
                 }
             });
         }
     }
 
+
     function renderList(data) {
         var list = JSON.parse(data);
-
-        if(list instanceof Array) {
-            $.each(list, function(index, recept) {
-                $('#ReceptList').append("ID: "+recept.receptId+
-                    ", Receptnavn: "+recept.receptNavn+ "<br>");
+        $('#tableRecept>tbody').html('');
+        if (list instanceof Array) {
+            $.each(list, function (index, recept) {
+                $('<tr>').append(
+                    $('<td>').text(recept.receptId),
+                    $('<td>').text(recept.receptNavn)
+                ).appendTo('#tableRecept>tbody');
             })
-        } else {
-            $('#ReceptList').append("ID: "+list.receptId+
-                ", Brugernavn: "+list.receptNavn+ "<br>");
+        }
+
+        else {
+            $('<tr>').append(
+                $('<td>').text(list.receptId),
+                $('<td>').text(list.receptNavn)
+            ).appendTo('#tableRecept>tbody');
         }
     }
-    
+
     function renderList2(data) {
-    	var list = JSON.parse(data);
-    	
-    	console.log(data);
-    	
-    	if(list instanceof Array) {
-    		$.each(list, function(index, receptKomp) {
-                $('#ReceptKomponenter').append("ReceptID: "+ receptKomp.receptId +
-                    ", RåvareId: " + receptKomp.raavareId +
-                    ", Mængde: " + receptKomp.nomNetto +
-                    ", Tolerance: " + receptKomp.tolerance + "<br>");
+        var list = JSON.parse(data);
+        $('#tableKomponenter>tbody').html('');
+        if (list instanceof Array) {
+            $.each(list, function (index, receptKomp) {
+                $('<tr>').append(
+                    $('<td>').text(receptKomp.receptId),
+                    $('<td>').text(receptKomp.raavareId),
+                    $('<td>').text(receptKomp.nomNetto),
+                    $('<td>').text(receptKomp.tolerance)
+                ).appendTo('#tableKomponenter>tbody');
             })
-    	} else {
-    		$('#ReceptKomponenter').append("ReceptID: " + list.receptId +
-                    ", RåvareId: " + list.receptNavn + 
-                    ", Mængde: " + list.nomNetto +
-                    ", tolerance: " + list.tolerance + "<br>");
-    	}
+        }
+
+        else {
+            $('<tr>').append(
+                $('<td>').text(list.receptId),
+                $('<td>').text(list.raavareId),
+                $('<td>').text(list.nomNetto),
+                $('<td>').text(list.tolerance)
+            ).appendTo('#tableKomponenter>tbody');
+        }
     }
+
+
+    /*   function renderList(data) {
+           var list = JSON.parse(data);
+
+           if(list instanceof Array) {
+               $.each(list, function(index, recept) {
+                   $('#ReceptList').append("ID: "+recept.receptId+
+                       ", Receptnavn: "+recept.receptNavn+ "<br>");
+               })
+           } else {
+               $('#ReceptList').append("ID: "+list.receptId+
+                   ", Brugernavn: "+list.receptNavn+ "<br>");
+           }
+       }
+
+       function renderList2(data) {
+           var list = JSON.parse(data);
+
+           console.log(data);
+
+           if(list instanceof Array) {
+               $.each(list, function(index, receptKomp) {
+                   $('#ReceptKomponenter').append("ReceptID: "+ receptKomp.receptId +
+                       ", RåvareId: " + receptKomp.raavareId +
+                       ", Mængde: " + receptKomp.nomNetto +
+                       ", Tolerance: " + receptKomp.tolerance + "<br>");
+               })
+           } else {
+               $('#ReceptKomponenter').append("ReceptID: " + list.receptId +
+                       ", RåvareId: " + list.receptNavn +
+                       ", Mængde: " + list.nomNetto +
+                       ", tolerance: " + list.tolerance + "<br>");
+           }
+       }*/
 </script>
 
 </body>
