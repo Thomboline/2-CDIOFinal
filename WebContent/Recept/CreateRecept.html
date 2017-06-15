@@ -4,7 +4,22 @@
     <meta charset="UTF-8">
     <title>Title</title>
     
+    
+<!-- Internt style sheet lavet til at styre vores modal --> 
+<!-- Bliver brugt i to dokumenter, ved yderligere brug, opret et css dokument -->       
+    
 <style> 
+
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+    position: relative;
+}
+
+img.avatar {
+    width: 30%;
+    border-radius: 50%;
+}
 
 .modal {
     display: none; 
@@ -18,6 +33,7 @@
     background-color: rgb(0,0,0); 
     background-color: rgba(0,0,0,0.4); 
     padding-top: 60px;
+    text-align: center;
 }
 
 .modal-content {
@@ -47,18 +63,15 @@
        display: block;
        float: none;
     }
-    .cancelbtn {
-       width: 100%;
-    }
 }
 
-input [type=button] {
+#btn {
 	color: white;
 	background: green;
     padding: 14px 20px;
 	cursor: pointer;
 	border: none;
-	width: 50%
+	width: 15%;
 }
    
 #addRaavare {
@@ -84,14 +97,21 @@ input [type=button] {
     	<input type="submit" value="Opret">
 	</form>
 </div>
+
+
+<!-- Modal som skal henvise til den ønskede side -->
     
     <div id="option" class="modal">
     	<div class="modal-content animate">
-    		Vil du oprette (flere) recept komponenter?<br>
+    		<div class="imgcontainer">
+    			<img alt="Avatar" src="pics/img_search.jpg">	
+    		</div>
+	    	<br>Vil du oprette (flere) recept komponenter?<br><br>
 				<form>
-					<input type="button" value="Ja" onclick="showAddRaavare();" style="width:auto;">
-					<input type="button" value="Nej" onclick="document.getElementById('option').style.display='none'" style="width:auto;">
+					<input id="btn" type="button" value="Ja" onclick="showAddRaavare();">
+					<input id="btn" type="button" value="Nej" onclick="document.getElementById('option').style.display='none'">
 				</form>
+			<br>
     	</div>
     </div>
     
@@ -116,12 +136,18 @@ input [type=button] {
 
 <script>
 $(document).ready(function() {
+	
+	
+	// Når hele dokumentet er loaded bliver vores submit function tilgængelig.
+	// Vi henter alt submittet data, serializer og laver en variabel med vores objecter i.	
+	
 	$('#CreateRecept').submit(function(event) {
      	data = $('#CreateRecept').serializeArray();
-        event.preventDefault();
         
-        console.log(data);
+     	//Forhindre at vi refresher siden.
+     	event.preventDefault();
         
+     	//Henter Recept ID til en global variabel. 
         var receptId = data[0]['value'];
         
         var recept = {
@@ -129,8 +155,7 @@ $(document).ready(function() {
         		receptNavn : data[1]['value']
         };
         
-        console.log(receptId);
-        
+        //Gemmer vores variabel globalt.
         Global(receptId);
         CreateRecept(recept);
         return false;
@@ -140,17 +165,13 @@ $(document).ready(function() {
     	dataKomp = $('#FAddRaavare').serializeArray();
     	event.preventDefault();
     	
-    	console.log(Globalvar)
-    	
     	var receptKomp = {
     		receptId : Globalvar,
     		raavareId : dataKomp[0]['value'],
     		nomNetto : dataKomp[1]['value'],
     		tolerance : dataKomp[2]['value']
     	}
-    	
-    	console.log(receptKomp);
-    	
+
     	CreateReceptKomp(receptKomp);
     	return false;
     });
@@ -163,6 +184,8 @@ function Global (id) {
 	Globalvar = id;
 }
 
+
+//Omdirigering af indhold på siden.
 function showOptionModal() {
 	document.getElementById('option').style.display = 'block';
 }
@@ -173,6 +196,8 @@ function showAddRaavare() {
 	document.getElementById('option').style.display = 'none';
 }
 
+
+
 function CreateRecept(recept) {
 	$.ajax({
     	type: 'POST',
@@ -181,11 +206,11 @@ function CreateRecept(recept) {
         data: JSON.stringify(recept),
         contentType: "application/json",
         success: function (response) {
-        	alert("Recept created: " + response);
+        	alert("Recept oprettet");
         	showOptionModal();
         },
         error: function (jqXHR, textStatus, errorThrown){
-            alert("Unsuccesful: " + textStatus);
+            alert("Fejl: " + textStatus);
         }
     });
 }
@@ -198,11 +223,11 @@ function CreateReceptKomp(receptKomponent) {
         data: JSON.stringify(receptKomponent),
         contentType: "application/json",
         success: function (response) {
-        	alert("Recept created: " + response );
+        	alert("Recept komponent oprettet");
         	showOptionModal();
         },
         error: function (jqXHR, textStatus, errorThrown){
-            alert("Unsuccesful: " + textStatus);
+            alert("Fejl: " + textStatus);
         }
     });
 }

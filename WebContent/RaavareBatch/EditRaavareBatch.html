@@ -24,14 +24,22 @@
 
 <script>
     $(document).ready(function(event) {
+    	
+    	// Når hele dokumentet er loaded bliver vores submit function tilgængelig.
+    	// Vi henter alt submittet data, serializer og laver en variabel med vores objecter i.	    	
+    	
         $("#EditRaavareBatch").submit(function(event) {
             data = $("#EditRaavareBatch").serializeArray();
-            event.preventDefault();
+            
+          	//Forhindre at vi refresher siden.
+        	event.preventDefault();
+            
             var raavarebatch = {
                 rbId : data[0]['value'],
                 raavareId : data[1]['value'],
                 maengde : data[2]['value']
             };
+            
             EditRaavareBatch(raavarebatch);
             return false;
         });
@@ -45,10 +53,10 @@
             data: JSON.stringify(raavarebatch),
             contentType: 'application/json',
             success: function (response) {
-                alert("RaavareBatch edited: " + response);
+                alert("RåvareBatch rettet");
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                alert("Unsuccessful: " + textStatus);
+                alert("Fejl: " + textStatus);
             }
         });
     }

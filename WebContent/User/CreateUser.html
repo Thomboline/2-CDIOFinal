@@ -1,3 +1,11 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
 <form id="CreateUser">
     Bruger id:<br>
     <label>
@@ -32,9 +40,16 @@
 
 <script>
 $(document).ready(function() {
+	
+	// Når hele dokumentet er loaded bliver vores submit function tilgængelig.
+	// Vi henter alt submittet data, serializer og laver en variabel med vores objecter i.	
+	
 	$('#CreateUser').submit(function(event) {
 		data = $('#CreateUser').serializeArray();
-		event.preventDefault();
+		
+		//Forhindre at vi refresher siden.
+		event.preventDefault(); 
+		
 		var user = {
 		brugerId : data[0]['value'],
 		brugerNavn : data[1]['value'],
@@ -58,11 +73,14 @@ function CreateUser(user) {
 		data: JSON.stringify(user),
 		contentType: "application/json",
 		success: function (response) {
-			alert("User created: " + response );
+			alert("Bruger oprettet");
 		},
 		error: function (jqXHR, textStatus, errorThrown){
-			alert("Unsuccesful: " + textStatus);
+			alert("Fejl: " + textStatus);
 		}
 	});
 }
 </script>
+
+</body>
+</html>

@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <title>Title</title>
     
+
+<!-- Internt style sheet lavet til at styre vores modal -->    
+<!-- Bliver brugt i to dokumenter, ved yderligere brug, opret et css dokument -->
+    
 <style> 
 
 .imgcontainer {
@@ -29,6 +33,7 @@ img.avatar {
     background-color: rgb(0,0,0); 
     background-color: rgba(0,0,0,0.4); 
     padding-top: 60px;
+    text-align: center;
 }
 
 .modal-content {
@@ -58,18 +63,24 @@ img.avatar {
        display: block;
        float: none;
     }
-    .cancelbtn {
-       width: 100%;
-    }
 }
 
-input [type=button] {
+#btn {
 	color: white;
 	background: green;
     padding: 14px 20px;
 	cursor: pointer;
 	border: none;
-	width: 50%
+	width: 15%;
+}
+
+#cancelbtn {
+	color: white;
+	background: red;
+	padding: 14px 20px;
+	cursor: pointer;
+	border: none;
+	width: 15%;
 }
 
 #Recept, #Komponent {
@@ -81,17 +92,21 @@ input [type=button] {
 </head>
 <body>
 
+
+<!-- Modal som skal henvise til den ønskede side -->
+
     <div id="option" class="modal">
     	<div class="modal-content animate">
     		<div class="imgcontainer">
     			<img alt="Avatar" src="pics/img_search.jpg">	
     		</div>
-    	    	
-    		Vil du ændre på en recept eller dens komponenter?<br>
+    		<br>Vil du ændre på en recept eller dens komponenter?<br><br>
 				<form>
-					<label><input type="button" value="Recept" onclick="ShowRecept();"></label>
-					<label><input type="button" value="Komponent" onclick="ShowKomponenter();"></label>
+					<label><input id="btn" type="button" value="Recept" onclick="ShowRecept();"></label>
+					<label><input id="btn" type="button" value="Komponent" onclick="ShowKomponenter();"></label>
+					<label><input id="cancelbtn" type="button" value="Fortryd" onclick="document.getElementById('option').style.display='none'"></label>
 				</form>
+			<br>
     	</div>
     </div>
 
@@ -138,12 +153,23 @@ input [type=button] {
 <script>
 
 $(document).ready(function() {
+	
+	
+	
+	//Loader vores modal når siden er klar. (Skal være hurtigt for at undgå dårlige bruger oplevelser!)
     $(window).on('load',function(){
         $('.modal').show();
     });
+    
 	
+	// Når hele dokumentet er loaded bliver vores submit functioner tilgængelig.
+	// Vi henter alt submittet data for hver function og -
+	// serializer og laver en variabel med vores objecter i.	
+
 	$("#form-recept").submit(function(event) {
 		data = $("#forn-recept").serializeArray();
+		
+		//Forhindre at vi refresher siden.
 		event.preventDefault();
 		
 		var recept = {
@@ -171,6 +197,8 @@ $(document).ready(function() {
 	});
 });
 
+
+//Omdirigering af siden indhold
 function ShowRecept() {
 	document.getElementById('Recept').style.display='block';
 	document.getElementById('option').style.display='none';
