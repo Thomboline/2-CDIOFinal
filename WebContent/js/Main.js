@@ -162,7 +162,7 @@ function RolleVerify(Rolle)
                             $("#wrapper").load("RaavareBatch/ListRaavareBatch.html");
                         });
                         $("#LPB").on("click", function () {
-                            $("#wrapper").load("ProduktBatch/LisrProduktBatch.html");
+                            $("#wrapper").load("ProduktBatch/ListProduktBatch.html");
                         });
                     });
                 })
@@ -281,7 +281,9 @@ $("#LogUd").on("click", function () { 
     $("#wrapper").empty(); 
     $(".container").hide(); 
     $(".Administrator").empty(); 
-    $(".Farmaceut").empty(); 
+    $(".Farmaceut").empty();
+    $(".Laborant").empty();
+    $(".Vaerkfoerer").empty();
     $("#Login").show() }); 
 
 
