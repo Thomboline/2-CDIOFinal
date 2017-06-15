@@ -3,6 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <style>
+
+        #ReceptKomponenter {
+            display:none;
+        }
+
+    </style>
+
 </head>
 <body>
 
@@ -95,6 +104,7 @@
             		'text json': true
             	},
             	success: function(response) {
+            	    document.getElementById("ReceptKomponenter").style.display="block";
             		renderList2(response);
             	}
             });
