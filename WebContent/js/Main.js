@@ -217,7 +217,6 @@ function RolleVerify(Rolle)
 }
 
 
-
 $("#LogUd").on("click", function () { 
     $("#wrapper").empty(); 
     $(".container").hide(); 
