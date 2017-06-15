@@ -22,11 +22,11 @@ import dto.RaavareDTO;
 import dto.ReceptDTO;
 import dto.ReceptKompDTO;
 //Test
-public class databasetest 
+public class DatabaseTest 
 {
 	public static void main(String[] args) throws DALException, Exception 
 	{
-		BrugerDAOTest(6);
+		BrugerDAOTest(3);
 //		RaavareDAOTest(1);
 //		RaavareBatchDAOTest(1);
 //		ReceptDAOTest(1);
@@ -41,13 +41,14 @@ public class databasetest
 		
 		if(testtype == 1)
 		{
-			BrugerDTO BDTO = new BrugerDTO(44, "Svend Kurtsen","SVK","password123","280486-1232", "Admin", 0);
+			BrugerDTO BDTO = new BrugerDTO(6, "Ole Pedersen","OP","test123","010470-1132", "Vaerkfoerer", 1);
 			BDAO.createBruger(BDTO);
 		}
 		else if(testtype == 2)
 		{
-			BrugerDTO BDTO = new BrugerDTO(2, "Svend Kurtsen","SVK","PAsswordtest","280486-1232", "Admin", 1);
-			BDAO.updateBruger(BDTO);
+			BrugerDTO BDTO = new BrugerDTO(2,null,null,null,null,null,1);
+//			BDAO.updateBruger(BDTO);
+			BDAO.deleteBruger(2);
 		}
 		else if(testtype == 3)
 		{

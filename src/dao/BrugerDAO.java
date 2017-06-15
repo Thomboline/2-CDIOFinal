@@ -74,7 +74,6 @@ public class BrugerDAO implements IBrugerDAO
 						bruger.getStatus()
 						)
 				);
-
 	}
 
 	@Override
@@ -92,9 +91,8 @@ public class BrugerDAO implements IBrugerDAO
 						bruger.getStatus(),
 						bruger.getCpr(),
 						bruger.getRolle()
-
-						)
-				);
+				)
+		);
 	}
 	@Override
 	public void resetPassword(int id) throws Exception 
