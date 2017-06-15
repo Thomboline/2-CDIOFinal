@@ -26,13 +26,13 @@ public class DatabaseTest
 {
 	public static void main(String[] args) throws DALException, Exception 
 	{
-		BrugerDAOTest(3);
+//		BrugerDAOTest(3);
 //		RaavareDAOTest(1);
 //		RaavareBatchDAOTest(1);
 //		ReceptDAOTest(1);
 //		ReceptKompDAOTest(1);
 //		ProduktBatchDAOTest(1);
-//		ProduktBatchKompDAOTest(1);
+		ProduktBatchKompDAOTest(2);
 	}
 	
 	public static void BrugerDAOTest(int testtype) throws DALException, Exception
