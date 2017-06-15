@@ -118,14 +118,6 @@ function RolleVerify(Rolle)
                             $("#wrapper").load("ProduktBatch/CreateProduktBatch.html");
                         });
 
-                        $("#EPB").on("click", function () {
-                            $("#wrapper").load("ProduktBatch/EditProduktBatch.html");
-                        });
-
-                        $("#DPB").on("click", function () {
-                            $("#wrapper").load("ProduktBatch/DeleteProduktBatch.html");
-                        });
-
                         $("#LRE").on("click", function () {
                             $("#wrapper").load("Recept/ListRecept.html");
                         });
@@ -166,20 +158,13 @@ function RolleVerify(Rolle)
                         });
 
                         $("#LPB").on("click", function () {
-                            $("#wrapper").load("ProduktBatch/LisrProduktBatch.html");
+                            $("#wrapper").load("ProduktBatch/ListProduktBatch.html");
                         });
 
                         $("#CPB").on("click", function () {
                             $("#wrapper").load("ProduktBatch/CreateProduktBatch.html");
                         });
 
-                        $("#EPB").on("click", function () {
-                            $("#wrapper").load("ProduktBatch/EditProduktBatch.html");
-                        });
-
-                        $("#DPB").on("click", function () {
-                            $("#wrapper").load("ProduktBatch/DeleteProduktBatch.html");
-                        });
                     });
                 })
                 }
