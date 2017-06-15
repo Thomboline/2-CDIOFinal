@@ -60,7 +60,8 @@ function renderList(data) {
     console.log(list);
     if(list instanceof Array) {
         $.each(list, function(index, user) {
-            $('#UserList').append("ID: "+user.brugerId+
+            $('#UserList').append(
+            		"ID: "+user.brugerId+
                 ", Brugernavn: "+user.brugerNavn+
                 ", Initialer: "+ user.ini+
                 ", Cpr-nummer: "+user.cpr+
