@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>  
+
+</head>
+<body> 
+
+<div id="Produkt">
+	<form id="form-produkt">
+    	Produkt Batch id:<br>
+   		<label>
+        	<input type="number" name="ProduktBatchId" min="1">
+    	</label><br>
+    	Recept id:<br>
+    	<label>
+    	    <input type="text" name="ReceptId">
+    	</label> <br>
+
+    	<input type="submit" value="Opret">
+	</form>
+</div>
+
+
+<script>
+$(document).ready(function() {
+	$('#form-produkt').submit(function(event) {
+     	data = $('#form-produkt').serializeArray();
+        event.preventDefault();
+        
+        var pb = {
+        		produktBatchId : data[0]['value'],
+        		receptId : data[1]['value']
+        };
+        
+        CreateProduktBatch(pb);
+        return false;
+    });
+});
+
+function CreateProduktBatch(Produkt) {
+	$.ajax({
+    	type: 'POST',
+        url: 'rest/ProduktBatchService',
+        dataType: "json",
+        data: JSON.stringify(recept),
+        contentType: "application/json",
+        success: function (response) {
+        	alert("Produkt batch oprettet: " + response);
+        },
+        error: function (jqXHR, textStatus, errorThrown){
+            alert("Afvist: " + textStatus);
+        }
+    });
+}
+</script>
+
+</body>
+</html>

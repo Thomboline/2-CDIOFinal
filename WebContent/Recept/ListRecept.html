@@ -17,6 +17,8 @@
     <ul id="ReceptList"></ul>
 </div>
 
+<div id="ReceptKomponenter"></div>
+
 <script>
     $(document).ready(function() {
         $('#ListRecepts').submit(function(event) {
@@ -33,7 +35,7 @@
         if (searchKey) {
             $.ajax({
                 type: 'GET',
-                url: 'rest/ReceptService/recepts/' + searchKey,
+                url: 'rest/ReceptService/recept/' + searchKey,
                 dataType: 'json',
                 converters: {
                     'text json': true
@@ -42,6 +44,19 @@
                     $("#ReceptList").empty().html(renderList(response));
                 }
             });
+            
+            $.ajax({
+            	type: 'GET',
+            	url: 'rest/ReceptService/komponenter/' + searchKey,
+            	dataType: 'json',
+            	converters: {
+            		'text json': true
+            	},
+            	success: function(response) {
+            		$("#ReceptKomponenter").empty().html(renderList2(response));
+            	}
+            });
+            
         } else {
             $.ajax({
                 type: 'GET',
@@ -59,17 +74,34 @@
 
     function renderList(data) {
         var list = JSON.parse(data);
-        console.log(list);
+
         if(list instanceof Array) {
             $.each(list, function(index, recept) {
                 $('#ReceptList').append("ID: "+recept.receptId+
                     ", Receptnavn: "+recept.receptNavn+ "<br>");
             })
-        }
-        else{
+        } else {
             $('#ReceptList').append("ID: "+list.receptId+
                 ", Brugernavn: "+list.receptNavn+ "<br>");
         }
+    }
+    
+    function renderList2(data) {
+    	var list = JSON.parse(data);
+    	
+    	if(list instanceof Array) {
+    		$.each(list, function(index, receptKomp) {
+                $('#ReceptKomponenter').append("ReceptID: "+ receptKomp.receptId +
+                    ", RåvareId: " + receptKomp.raavareId +
+                    ", Mængde: " + receptKomp.maengde +
+                    ", Tolerance: " + receptKomp.tolerance + "<br>");
+            })
+    	} else {
+    		$('#ReceptKomponenter').append("ReceptID: "+list.receptId+
+                    ", RåvareId: " + list.receptNavn + 
+                    ", Mængde: " + list.maengde +
+                    ", tolerance: " + list.maengde + "<br>");
+    	}
     }
 </script>
 

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    
+<style> 
+
+button {
+	color: white;
+	background: green;
+    padding: 14px 20px;
+	cursor: pointer;
+	border: none;
+	width: 50%
+}
+   
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; 
+    border: 1px solid #888;
+    width: 60%; 
+}
+
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
+}
+    
+@keyframes animatezoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+}
+
+@media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+    .cancelbtn {
+       width: 100%;
+    }
+}
+
+#Recept, #Komponent {
+	display: none;
+}
+
+</style>
+    
+</head>
+<body>
+
+    <div id="option" class="modal">
+    	<div class="modal-content animate">
+    		Vil du ændre på en recept eller dens komponenter?<br>
+				<form>
+					<label><input type="button" value="Recept" onclick="ShowRecept();"></label>
+					<label><input type="button" value="Komponent" onclick="ShowKomponenter();"></label>
+				</form>
+    	</div>
+    </div>
+
+<div id="Recept">
+	<form id="form-recept">
+		Recept Id: <br>
+		<label>
+			<input type="number" name="receptId" min="1">
+		</label> <br>
+		Det nye recept navn: <br>
+		<label>
+			<input type="text" name="receptNavn">
+		</label> <br>
+		
+		<input type="submit" value="Godkend">
+		
+	</form>
+</div>
+
+<div id="Komponent">
+	<form id="form-komponent">
+		Recept Id: <br>
+		<label>
+			<input type="number" name="receptId" min="1">
+		</label> <br>
+		Råvare Id: <br>
+		<label>
+			<input type="number" name="raavareId" min="1">
+		</label> <br>
+		Den nye mængde: <br>
+		<label>
+			<input type="text" name="maengde">
+		</label> <br>
+		Den nye tolerance: <br>
+		<label>
+			<input type="text" name="tolerance">
+		</label> <br>
+		
+		<input type="submit" value="Godkend">
+		
+	</form>
+</div>
+
+<script>
+
+$(document).ready(function() {
+    $(window).on('load',function(){
+        $('.modal').show();
+    });
+	
+	$("#form-recept").submit(function(event) {
+		data = $("#forn-recept").serializeArray();
+		event.preventDefault();
+		
+		var recept = {
+			receptId : data[0]['value'],
+			receptNavn : data[1]['value']
+		};
+		
+		EditRecept(recept);
+		return false;
+	});
+	
+	$("#form-komponent").submit(function(event) {
+		data = $("#form-komponent").serializeArray();
+		event.preventDefault();
+		
+		var komponent = {
+			receptId : data[0]['value'],
+			raavareId : data[1]['value'],
+			nomNetto : data[2]['value'],
+			tolerance : data[3]['value']
+		};
+		
+		EditReceptKomp(komponent);
+		return false;
+	});
+});
+
+function ShowRecept() {
+	document.getElementById('Recept').style.display='block';
+	document.getElementById('option').style.display='none';
+}
+
+function Showkomponenter() {
+	document.getElementById('Komponent').style.display='block';
+	document.getElementById('option').style.display='none';
+}
+
+function EditRecept(recept) {
+	$.ajax({
+		type: 'PUT',
+		url: 'rest/ReceptService/recept',
+		dataType: "json",
+		contentType: 'application/json',
+		success: function (response) {
+			alert("recept rettet: " + response);
+		},
+		error: function (jqXHR, textStatus, errorThrown) {
+			alert("Afvist \n" + textStatus)
+		}
+	});
+}
+
+function EditReceptKomp(komponent) {
+	$.ajax({
+		type: 'PUT',
+		url: 'rest/ReceptService/recept/{id}',
+		dataType: "json",
+		contentType: 'application/json',
+		success: function (response) {
+			alert("recept komponent rettet: " + response);
+		},
+		error: function (jqXHR, textStatus, errorThrown) {
+			alert("Afvist \n" + textStatus)
+		}
+	});
+}
+
+</script>
+
+</body>
+</html>

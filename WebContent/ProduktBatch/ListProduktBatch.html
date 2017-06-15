@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form id="ListProdukter">
+    <div>
+        Søg på et produkt batch ID:<br>
+        <input id="number" type="number" name="ProduktBatchID"><br>
+        <input type="submit" value="Søg">
+    </div>
+</form>
+<div>
+    <ul id="ProduktList"></ul>
+</div>
+
+<div id="ProduktKomponenter"></div>
+
+<script>
+    $(document).ready(function() {
+        $('#ListProdukter').submit(function(event) {
+            event.preventDefault();
+
+            var id = $("#number").val();
+            
+            search(id);
+            return false;
+        });
+    });
+
+    function search(searchKey) {
+        if (searchKey) {
+            $.ajax({
+                type: 'GET',
+                url: 'rest/ProduktBatchService/produktBatch/' + searchKey,
+                dataType: 'json',
+                converters: {
+                    'text json': true
+                },
+                success: function(response) {
+                    $("#ProduktList").empty().html(renderList(response));
+                }
+            });
+            
+            $.ajax({
+            	type: 'GET',
+            	url: 'rest/ProduktBatchService/komponenter/' + searchKey,
+            	dataType: 'json',
+            	converters: {
+            		'text json': true
+            	},
+            	success: function(response) {
+            		$("#ProduktKomponenter").empty().html(renderList2(response));
+            	}
+            });
+            
+        } else {
+        	
+            $.ajax({
+                type: 'GET',
+                url: 'rest/ProduktBatchService/ProduktBatchList',
+                dataType: 'json',
+                converters: {
+                    'text json': true
+                },
+                success: function(response) {
+                    $("#ProduktList").empty().html(renderList(response));
+                }
+            });
+        }
+    }
+
+    function renderList(data) {
+        var list = JSON.parse(data);
+
+        if(list instanceof Array) {
+            $.each(list, function(index, produkt) {
+                $('#ProduktList').append("Produkt batch id: " + produkt.produktBatchId +
+                    ", Recept id: " + produkt.receptId + "<br>");
+            })
+        } else {
+            $('#ProduktList').append("Produkt batch id: " + list.produktBatchId +
+                ", Recept id: " + list.receptId + "<br>");
+        }
+    }
+    
+    function renderList2(data) {
+    	var list = JSON.parse(data);
+    	
+    	if(list instanceof Array) {
+    		$.each(list, function(index, ProduktKomp) {
+                $('#ProduktKomponenter').append("Produkt Batch id: "+ ProduktKomp.produktBatchId +
+                    ", Råvare batch id: " + ProduktKomp.raavareBatchId +
+                    ", Netto vægt: " + ProduktKomp.nomNetto +
+                    ", Tara: " + ProduktKomp.tara + "<br>");
+            })
+    	} else {
+    		$('#ProduktKomponenter').append("Produkt batch id: " + list.produktBatchId +
+                    ", Råvare batch id: " + list.raavareBatchId + 
+                    ", Netto vægt: " + list.nomNetto +
+                    ", tara: " + list.tara + "<br>");
+    	}
+    }
+</script>
+
+</body>
+</html>
