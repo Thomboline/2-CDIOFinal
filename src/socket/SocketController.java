@@ -204,7 +204,7 @@ class SocketThread extends Thread
 	   	    		
 	   	    	case 6:
 	   	    		System.out.println("Test nr: " + SocketController.iterator);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Produktbatch: "));
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Indtast produktbatch: "));
 	   	    		break;
 	   	    		
 	   	    	case 7:
@@ -256,6 +256,10 @@ class SocketThread extends Thread
 	   	    	case 16:
 	   	    		System.out.println("Test nr: " + SocketController.iterator);
 	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Afvejningen er registreret i databasen."));
+	   	    		break;
+	   	    	
+	   	    	case 17:
+	   	    		//buffer
 	   	    		break;
 	   	    	}
 	   	    	SocketController.iterator++;

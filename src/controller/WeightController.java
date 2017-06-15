@@ -48,6 +48,7 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 	private RaavareDAO rdao = new RaavareDAO();
 	private ReceptDAO recdao = new ReceptDAO();
 	private ReceptKompDAO rkdao = new ReceptKompDAO();
+	private ProduktBatchDTO pbdto = new ProduktBatchDTO();
 	private ProduktBatchKompDTO pkdto = new ProduktBatchKompDTO();
 	
 	
@@ -116,58 +117,6 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 			new Thread(socketHandler).start();
 			new Thread(weightController).start();
 			weightController.registerObserver(this);
-
-			/*************************TEST DATA*************************/
-			
-			try {
-				
-				for(int i = 0; i < pkdao.getProduktBatchKompList().size(); i++) {
-					System.out.println(pkdao.getProduktBatchKompList(i));
-				}
-				
-				System.out.println("Users: " + bdao.getBrugerList());
-				System.out.println("Produktbatches: " + pdao.getProduktBatchList());
-				System.out.println("Tilt�nkt pbId = 2: " + pdao.getProduktBatch(2));
-				System.out.println("Pb status: " + pdao.getProduktBatch(2).getStatus());
-				System.out.println("R�varebatches: " + rbdao.getRaavareBatchList());
-				System.out.println("Recepter: " + recdao.getReceptList());
-
-				String rkomp = "{ ";
-				for (int i = 0; i < rkdao.getReceptKompList(1).size(); i++) {
-					if (!rkdao.getReceptKompList(1).isEmpty()) {
-						rkomp += rkdao.getReceptKompList(1).get(i);
-						if (i > 0)
-							rkomp += ", ";
-					}
-					rkomp += "}";
-				}
-				
-//				int rbRaavare = rbdao.getRaavareBatch(2).getRaavareId();
-//				int rkRaavare = rkdao.getReceptKompList(3).get(0).getRaavareId();
-//				double rkNomNetto = rkdao.getReceptKompList(3).get(0).getNomNetto();
-//				double rbNomNetto = rbdao.getRaavareBatchList(2).get(0).getMaengde();
-//
-//				// Hvis den kr�vede r�vare er den samme r�vare som i batchet
-//				// og der er nok af den
-//				if (rkRaavare == rbRaavare && rkNomNetto < rbNomNetto) {
-//					System.out.println("Hul");
-//					System.out.println("rbRaavare: " + rbRaavare);
-//					System.out.println("rkRaavare: " + rkRaavare);
-//					System.out.println("rkNomNetto: " + rkNomNetto);
-//					System.out.println("rbNomNetto: " + rbNomNetto);
-//					System.out.println("Recept id til pb = 2: " + pdao.getProduktBatch(2).getProduktBatchId());
-//
-//					if (pkdao.getProduktBatchKompList(2).get(0).getBrugerId() == 0) {
-//						System.out.println("Ingen bruger verificeret.");
-//					}
-//					if (3 == pdao.getProduktBatch(2).getReceptId()) {
-//						System.out.println("\nSUCCESS");
-//					}
-//				}
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 
 		} else {
 			System.err.println("No controllers injected!");
@@ -313,7 +262,6 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 						weightController.setSoftButtonTexts(empty);
 					}
 					if(isTara) {
-						System.out.println("Notify tara");
 						notifyKeyPress(KeyPress.Tara());
 					} else {
 					prepInfo();	// Stores input in weight info container
@@ -328,7 +276,6 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 				if (keyState.equals(KeyState.K2) && !isFinished || keyState.equals(KeyState.K4)) {
 					flushMsCMD(); //for en sikkerheds skyld
 					if (keyState.equals(KeyState.K4)) {
-						System.out.println("Registered weight: " + currentWeight);
 						registeredWeight = currentWeight;
 					}
 					socketWake();
@@ -339,7 +286,8 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 					notifyKeyPress(KeyPress.Tara());
 				}
 				if(isFinished) {
-					begin();
+				/***	Metoden er lavet og implementeret, men forsager fejl. 	***/	
+				/***	begin();												 ***/
 				}
 				break;
 			case ONCLOSE:
@@ -377,16 +325,14 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws DALEx
 	
 	//Vaelg afvejningsterminal
 	case 3:
-		System.out.println("Performing case " + wtIterator);
 		isRM208 = true;
-		initDisplay(message.getMessage(), "", "");
+		initDisplay(message.getMessage(), "", "Indtast");
 		socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
 		socketWait();
 		return true;
 	
 	//Vælg laborant nummer	
 	case 4:
-		System.out.println("Performing case " + wtIterator);
 		isRM208 = true;
 		prevKeyState = KeyState.K1;
 		
@@ -395,7 +341,7 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws DALEx
 			inf--;
 			return false;
 		}
-		initDisplay(message.getMessage(), "", "");
+		initDisplay(message.getMessage(), "", "Indtast");
 		socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
 		socketWait();
 		keyState = KeyState.K2;
@@ -403,12 +349,9 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws DALEx
 		
 	//Svar med Laborantens initialer
 	case 5:
-		System.out.println("Performing case " + wtIterator);
-		System.out.println("lm = " + lm);
 		prevKeyState = KeyState.K1;
 		isRM208 = true;
 		try {
-		System.out.println("Displaying initials of user " + bdao.getBruger(lm));
 		initDisplay(message.getMessage() + bdao.getBruger(lm).getBrugerNavn() + ", " + bdao.getBruger(lm).getIni(), "Tryk 'OK'", "Velkommen");
 		socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
 		socketWait();
@@ -416,7 +359,6 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws DALEx
 		//Sidste case er ikke gyldig
 		catch (Exception e) {
 				inf--;
-				System.out.println("inf skal v�re 1 nu, men den er: " + inf);
 				keyState = prevKeyState;
 				return false;
 		}
@@ -425,10 +367,9 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws DALEx
 	
 	//Indtast produktbatchnummer
 	case 6:
-		System.out.println("Performing case " + wtIterator);
 		prevKeyState = KeyState.K2;
 		isRM208 = true;
-		initDisplay(message.getMessage(), "", "");
+		initDisplay(message.getMessage(), "", "Indtast");
 		socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
 		socketWait();
 		keyState = KeyState.K2;
@@ -436,65 +377,47 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws DALEx
 	
 	//Svar med recept
 	case 7:
-		System.out.println("Performing case " + wtIterator);
 		prevKeyState = KeyState.K1;
 		isRM208 = true;
-		
-		//TEST
-		try {
-			if(recdao.getRecept(1).getReceptId() == pdao.getProduktBatch(2).getReceptId()) {
-		System.out.println("\nSUCCESS: Produktbatch: " + pdao.getProduktBatch(pb) + "\n");
-			}
-		}
-		catch(Exception e) {
-			System.out.println("Couldn't retrieve produktbatch.");
-		}
-		
-		//REAL
 		try {
 			pbRecept = pdao.getProduktBatch(pb).getReceptId();
-			
+			if(pdao.getProduktBatch(pb).getStatus() != 2) {
+				System.out.println("Dette trin bør blive ignoreret.");
 			// K�rer igennem produktbatchkomponenterne
 			for (int i = 0; i < pkdao.getProduktBatchKompList(pb).size(); i++) {
 
 				// Hvis det givne produktbatchkomponent ikke er behandlet (mangler brugerID)
 				if (pkdao.getProduktBatchKompList(pb).get(i).getBrugerId() == 0) {
-					
-					System.out.println("Ingen bruger p� produktbatchkomp " + i);
 					rkRaavare = rkdao.getReceptKompList(pbRecept).get(i).getRaavareId();
 					rkNomNetto = rkdao.getReceptKompList(pbRecept).get(i).getNomNetto();
-//					rbNomNetto = rbdao.getRaavareBatchList(rb).get(i).getMaengde();
 					tolerance = rkdao.getReceptKompList(pbRecept).get(i).getTolerance();
-					
 					minWeight = rkNomNetto - (rkNomNetto * tolerance / 100);
 					maxWeight = rkNomNetto + (rkNomNetto * tolerance / 100);
 					System.out.println("Råvare id: " + rkRaavare);
 					initDisplay(message.getMessage() + " " + recdao.getRecept(pdao.getProduktBatch(pb).getReceptId()).getReceptNavn(),
-						"Du skal afveje ca. " + rkNomNetto + " kg " + rdao.getRaavare(rkRaavare).getRaavareNavn(), "");
+						"Du skal afveje ca. " + rkNomNetto + " kg " + rdao.getRaavare(rkRaavare).getRaavareNavn(), "Tryk 'OK'");
 					socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
-					
 					socketWait();
 					keyState = KeyState.K2;
 					return true;
 					}
 			}
-			initDisplay(message.getMessage(), "Produktbatch færdigproduceret. Vælg et andet.", "Fejl");
+			}
+			initDisplay("", "Produktbatch færdigproduceret. Vælg et andet.", "Fejl");
 			inf--;
 			socketWait();
 			return false;
 			}
 		//Sidste case er ikke gyldig
 		catch (Exception e) {
-			System.out.println("Her fejler det");
 			inf--;
-			initDisplay(message.getMessage(), "Eksisterer ikke. Prøv et andet.", "Fejl");
+			initDisplay("Ugyldigt input", "Produktbatchet eksisterer ikke. Prøv et andet.", "Fejl");
 			socketWait();
 			return false;
 		}
 		
 		// Kontroller at v�gten er ubelastet
 		case 8:
-			System.out.println("Performing case " + wtIterator);
 			prevKeyState = KeyState.K2;
 			isRM208 = true;
 			initDisplay("Nuværende belastning:", "Tryk 'OK'", df.format(currentWeight) + "kg");
@@ -504,15 +427,13 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws DALEx
 	
 		// S�tter produktbatches status til "Under produktion"
 		case 9:
-			System.out.println("Performing case " + wtIterator);
 			isRM208 = true;
 			try {
 				//Gem reference til den p�g�ldende produktbatch, setStatus og update
-				ProduktBatchDTO pbdto = pdao.getProduktBatch(pb);
+				pbdto = pdao.getProduktBatch(pb);
 				pbdto.setStatus(1);
 				pdao.updateProduktBatch(pbdto);
-				initDisplay(message.getMessage(), "Klar til afvejning", "Klar");
-				System.out.println("Produktbatch status: " + pdao.getProduktBatch(pb).getStatus());
+				initDisplay(message.getMessage(), "Klar til afvejning. Tryk 'OK'", "Klar");
 			} catch (Exception e) {
 				throw new DALException(e.getMessage());
 			}
@@ -523,8 +444,6 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws DALEx
 	
 		// V�gten tareres
 		case 10:
-			System.out.println("Performing case " + wtIterator);
-			System.out.println("Vægten er tareret.");
 			prevKeyState = KeyState.K2;
 			
 			//Afvejning påbegyndt
@@ -540,9 +459,7 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws DALEx
 			prevKeyState = KeyState.K3;
 			isTara = true;
 			isRM208 = true;
-			System.out.println("Performing case " + wtIterator);
-			initDisplay("Vægten er tareret. Taravægt: " + containerWeight, "Placer beholder og tryk 'Tara'", df.format(currentWeight) + "kg");
-			weightController.showMessageTernaryDisplay(message.getMessage());
+			initDisplay("Vægten er tareret. Taravægt: " + containerWeight + "kg", "Placer beholder og tryk 'Tara'", df.format(currentWeight) + "kg");
 			socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
 			socketWait();
 			keyState = KeyState.K1;
@@ -550,10 +467,8 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws DALEx
 
 		// R�varebatch nummer
 		case 12:
-			prevKeyState = KeyState.K3;
 			isRM208 = true;
-			System.out.println("Performing case " + wtIterator);
-			initDisplay(message.getMessage(), "", "Vælg batch");
+			initDisplay(message.getMessage(), "", "Indtast");
 			weightController.showMessageTernaryDisplay(message.getMessage());
 			socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
 			socketWait();
@@ -564,7 +479,6 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws DALEx
 		case 13:
 			prevKeyState = KeyState.K1;
 			isRM208 = true;
-			System.out.println("Performing case " + wtIterator);
 			socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
 			
 			try {
@@ -588,16 +502,11 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws DALEx
 						// Hvis komponentens råvare = råvaren i batchet
 						// og der er nok af den til recepten
 						if (rkRaavare == rbRaavare && rkNomNetto < rbNomNetto) {
-							System.out.println("R�vare og m�ngde tjek done");
-//							pkdto.setProduktBatchId(rb);
-//							pkdto.setBrugerId(lm);
-//							pkdao.getProduktBatchKompList(pb).get(i).setRaavareBatchId(rb);
-//							pkdao.getProduktBatchKompList(pb).get(i).setBrugerId(lm);
 							String interval = "Godkendt vægtinterval: [" + minWeight + ", " + maxWeight + "]";
-							initDisplay(message.getMessage(), interval, "");
-							System.out.println("Containerweight: " + containerWeight);
+							initDisplay(message.getMessage(), interval, currentWeight + "kg");
 							socketWait();
 							keyState = KeyState.K2;
+							isWeighing = false;
 							return true;
 						}
 						else {
@@ -610,7 +519,6 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws DALEx
 			// Sidste case er ikke gyldig
 			} catch (Exception e) {
 				e.printStackTrace();
-				System.out.println("Fik exception i case 13.");
 				inf--;
 				return false;
 			}
@@ -619,8 +527,6 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws DALEx
 	case 14:
 		prevKeyState = KeyState.K4;
 		isRM208 = true;
-		System.out.println("Performing case " + wtIterator);
-//		weightController.showMessageTernaryDisplay(message.getMessage());
 		socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
 		
 		if(currentWeight> minWeight && currentWeight < maxWeight) {
@@ -629,81 +535,37 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws DALEx
 				double brutto = containerWeight + registeredWeight;
 				double bruttoCheck = registeredWeight - brutto;
 				if(bruttoCheck == (-containerWeight)); {
-					System.out.println("Forventet check: " + (-containerWeight));
-					System.out.println("Egentligt check: " + bruttoCheck);
-				initDisplay("Resultat: Tara " + containerWeight + " kg, " + "Nettovægt: "
+					initDisplay("Resultat: Tara " + containerWeight + " kg, " + "Nettovægt: "
 					+ registeredWeight + " kg", "Netto- minus bruttovægt: " + df.format(bruttoCheck) + " kg", message.getMessage());;
 					registeredWeight = registeredWeight * 1000;
 					containerWeight = containerWeight * 1000;
 					updatePbKomp();
+					socketWait();
+					keyState = KeyState.K2;
+					checkPbStatus();
+					btnLayout1[4] = "Annuller";
+					return true;
 				}
 			}
-		socketWait();
-		keyState = KeyState.K2;
-		isWeighing = false;
-		return true;
 		}
 		else {
-			System.out.println("Vægt ikke godkendt");
 			registeredWeight = 0;
 			keyState = prevKeyState;
+			isWeighing = true;
 			return false;
-			
 		}
 	
-	//Check afvejning
+	//Foretag ny afvejning?
 	case 15:
-		System.out.println("Performing case " + wtIterator);
 		isFinished = true;
 		isRM208 = true;
 		initDisplay(message.getMessage(), "Vil du foretage en ny afvejning?", "");
-		btnLayout0[4] = "Annuller";
-		weightController.setSoftButtonTexts(btnLayout0);
 		socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
 		socketWait();
 		return true;
-		
-//		prevKeyState = KeyState.K4;
-//		isRM208 = true;
-//		System.out.println("Performing case " + wtIterator);
-//		socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
-//		
-//			if(currentWeight > minWeight && currentWeight < maxWeight) {
-//				registeredWeight = currentWeight;
-//				double brutto = containerWeight + registeredWeight;
-//				double bruttoCheck = registeredWeight - brutto;
-//				if(bruttoCheck == (-containerWeight)); {
-//					System.out.println("Forventet check: " + -containerWeight);
-//					System.out.println("Egentligt check: " + bruttoCheck);
-//				initDisplay("Resultat: Tara " + containerWeight + " kg, " + "Nettovægt: " + registeredWeight + " kg", "Netto- minus bruttovægt: " + df.format(bruttoCheck) + " kg", message.getMessage());
-////				weightController.showMessageTernaryDisplay(message.getMessage());
-////				weightController.showMessageSecondaryDisplay("Tara: " + containerWeight + " nomNetto: " + registeredWeight);
-//				isFinished = true;
-//				btnLayout0[4] = "Annuller";
-//				weightController.setSoftButtonTexts(btnLayout0);
-//				socketWait();
-//				return true;
-//				}
-//			}
-//			else {
-//				keyState = prevKeyState;
-//				containerWeight = 0;
-//				registeredWeight = 0;
-//				currentWeight = 0;
-//				return false;
-//			}
-			// TODO Registrer alt i databasen, S�FREMT ALLE KRITERIER ER OPFYLDT.
-			// Der skal tjekkes bruttov�gt og laves rollback hvis v�gten ikke er i intervallet. Implementer else return false
-			// Der skal registreres slutdato
-			// Der mangler ogs� at blive registreret startdato
-			// Alle attributer skal gemmes i databasen p� de rigtige tidspunkter
-			// Der skal tjekkes for om det producerede produktbatchkomponent er det sidste i produktbatchet
-			// Status skal �ndres, hvis det er
-			// Laboranten skal sp�rges om den vil afveje endnu et komponent - rollback til trin 6, inf-2
 					
 	//Afvej ny produktbatchkomponent?
 	case 16:
-		System.out.println("Performing case " + wtIterator);
 		isRM208 = true;
 		keyState = KeyState.K2;
 		initDisplay(message.getMessage(), "Vil du foretage en ny afvejning?", "");
@@ -748,7 +610,7 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws DALEx
 			isFinished = false;
 			inf = 2;
 			wtIterator = 6;
-			SocketController.iterator = 6;
+			SocketController.iterator = 5;
 			keyState = KeyState.K1;
 			int[] reset1 = {rbRaavare, rkRaavare, pbRecept, pb, rb};
 			double[] reset2 = {rkNomNetto, rbNomNetto, tolerance, containerWeight, currentWeight, registeredWeight};
@@ -760,6 +622,27 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws DALEx
 		}
 	}
 	
+	public void checkPbStatus() {
+		try {
+			boolean pbdone = true;
+			for (int i = 0; i < pkdao.getProduktBatchKompList(pb).size(); i++) {
+
+			// Hvis det givne produktbatchkomponent ikke er behandlet (mangler brugerID)
+				if (pkdao.getProduktBatchKompList(pb).get(i).getBrugerId() == 0) {
+					pbdone = false;
+					break;	
+				}
+		}
+			if(pbdone) {
+			pbdto.setStatus(2);
+			pdao.updateProduktBatch(pbdto);
+		}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 	public void updatePbKomp() {
 		pkdto.setBrugerId(lm);
 		pkdto.setProduktBatchId(pb);
@@ -778,13 +661,15 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws DALEx
 	}
 	public void processSocketMessage(SocketInMessage message) {
 	try {	
+		/****Virker med KeyPress.Cancel();, der ikke blev implementeret korrekt****/
 			//Hvis der er trykket annuller sidste gang
-			if(cancel) {
-				if(wtIterator != 3) {
-				wtIterator--;
-				cancel = false;
-				}
-			}
+//			if(cancel) {
+//				if(wtIterator != 3) {
+//				wtIterator--;
+//				cancel = false;
+//				}
+//			}
+		
 			//Er besked fra socket af typen T skal der ikke være blokerende kald
 			//Går lige igennem trinnet i weightState
 			switch (message.getType()) {
@@ -827,9 +712,7 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws DALEx
 		}
 		try {
 		if(!temp.isEmpty()) {
-			System.out.println("msCMD string split: " + temp);
 			tempInf[inf] = Integer.parseInt(temp);
-			System.out.println("TempInf: " + tempInf[inf]);
 			if(inf == 0) {
 				tm = tempInf[inf];
 			}
@@ -842,7 +725,6 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws DALEx
 			else if(inf == 3) {
 				rb = tempInf[inf];
 			}
-			System.out.println("tm = " + tm + ", lm = " + lm + ", pb = " + pb + ", rb = " + rb);
 			inf++;
 		}
 		else {
@@ -858,7 +740,6 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws DALEx
 			if(!temp.isEmpty()) {
 				inf++;
 			}
-			System.out.println("tm = " + tm + ", lm = " + lm + ", pb = " + pb + ", rb = " + rb);
 		}
 	}
 	
@@ -957,77 +838,3 @@ public boolean weightState(SocketInMessage message, int wtIterator) throws DALEx
 	}
 	
 }
-
-								//H�rer til nederst i notify()
-//if (isRM208) {
-//
-//} else {
-//	switch (message.getType()) {
-//	case B:
-//		double newWeight = Double.parseDouble(message.getMessage());
-//		socketHandler.sendMessage(new SocketOutMessage("DB"));
-//		notifyWeightChange(newWeight);
-//		break;
-//	case D:
-//		weightController.showMessagePrimaryDisplay(message.getMessage());
-//		socketHandler.sendMessage(new SocketOutMessage("D A"));
-//		break;
-//	case Q:
-//		weightController.unRegisterObserver(this);
-//		socketHandler.unRegisterObserver(this);
-//		System.exit(0);
-//		break;
-//	case RM204:
-//		// Not specified
-//		break;
-//	case RM208:
-//		isRM208 = true;
-//		weightController.showMessageTernaryDisplay(message.getMessage());
-//		socketHandler.sendMessage(new SocketOutMessage("RM B\r\n"));
-//		try {
-//			synchronized (socketHandler) {
-//				socketHandler.wait();
-//			}
-//		} catch (InterruptedException ex) {
-//			ex.printStackTrace();
-//		}
-//		break;
-//	case S:
-//		socketHandler.sendMessage(new SocketOutMessage("S S " + this.currentWeight + "\r\n"));
-//		break;
-//	case T:
-//		this.containerWeight += currentWeight;
-//		notifyWeightChange(0);
-//		weightController.showMessageSecondaryDisplay("Weight of tara: " + containerWeight + "kg");
-//		socketHandler.sendMessage(new SocketOutMessage("T S " + this.containerWeight + "kg \r\n"));
-//		break;
-//	case DW:
-//		resetWeightChange();
-//		weightController.showMessageSecondaryDisplay(null);
-//		weightController.showMessageTernaryDisplay(null);
-//		weightController.showMessagePrimaryDisplay(df.format(this.currentWeight) + "kg");
-//		socketHandler.sendMessage(new SocketOutMessage("DW A\r\n"));
-//		break;
-//	case K:
-//		handleKMessage(message);
-//		socketHandler.sendMessage(new SocketOutMessage("K A\r\n"));
-//		break;
-//	case P111:
-//		String upToNCharacters = message.getMessage().substring(0, Math.min(message.getMessage().length(), 30));
-//		weightController.showMessageSecondaryDisplay(upToNCharacters);
-//		socketHandler.sendMessage(new SocketOutMessage("P111 A \r\n"));
-//		break;
-//	case DE:
-//	default:
-//	socketHandler.sendMessage(new SocketOutMessage("ES \r\n"
-//			+ "Wrong input, please use following commands:\n S\r\n"
-//			+ "T\r\n"
-//			+ "D\r\n"
-//			+ "DW\r\n"
-//			+ "P111\r\n"
-//			+ "RM20 8\r\n"
-//			+ "K\r\n"
-//			+ "B\r\n"
-//			+ "Q\r\n"));
-//}
-//}
