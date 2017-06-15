@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <style>
+
+        #ProduktBatchKomponenter {
+            display:none;
+        }
+
+    </style>
 </head>
 <body>
 
@@ -15,9 +23,54 @@
 </form>
 <div>
     <ul id="ProduktList"></ul>
+    <table border="1px" class="table table-striped" id="tableProduktBatch" style="width:100%;">
+        <thead>
+        <tr>
+            <th>ProduktBatchID</th>
+            <th>ReceptID</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td colspan="10">
+                <div style="text-align:center;">
+                    <h2>
+                        <i class="fa fa-circle-o-notch fa-spin" style="font-size: 24px"></i>
+                        Udsøg ProduktBatch
+                    </h2>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
-<div id="ProduktKomponenter"></div>
+<div id="ProduktBatchKomponenter">
+    <table border="1px" class="table table-striped" id="tableKomponenter" style="width:100%;">
+        <thead>
+        <tr>
+            <th>ProduktBatchID</th>
+            <th>RåvareBatchID</th>
+            <th>BrugerID</th>
+            <th>Terminal</th>
+            <th>Netto Vægt</th>
+            <th>Tara</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td colspan="10">
+                <div style="text-align:center;">
+                    <h2>
+                        <i class="fa fa-circle-o-notch fa-spin" style="font-size: 24px"></i>
+                    </h2>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 <script>
     $(document).ready(function() {
@@ -41,7 +94,7 @@
                     'text json': true
                 },
                 success: function(response) {
-                    $("#ProduktList").empty().html(renderList(response));
+                    renderList(response);
                 }
             });
             
@@ -53,7 +106,8 @@
             		'text json': true
             	},
             	success: function(response) {
-            		$("#ProduktKomponenter").empty().html(renderList2(response));
+                    document.getElementById("ProduktBatchKomponenter").style.display="block";
+            		renderList2(response);
             	}
             });
             
@@ -67,7 +121,7 @@
                     'text json': true
                 },
                 success: function(response) {
-                    $("#ProduktList").empty().html(renderList(response));
+                    renderList(response);
                 }
             });
         }
@@ -75,35 +129,86 @@
 
     function renderList(data) {
         var list = JSON.parse(data);
+        $('#tableProduktBatch>tbody').html('');
+        if (list instanceof Array) {
+            $.each(list, function (index, produkt) {
+                $('<tr>').append(
+                    $('<td>').text(produkt.produktBatchId),
+                    $('<td>').text(produkt.receptId),
+                    $('<td>').text(produkt.status)
+                ).appendTo('#tableProduktBatch>tbody');
+            });
+        }
 
-        if(list instanceof Array) {
-            $.each(list, function(index, produkt) {
-                $('#ProduktList').append("Produkt batch id: " + produkt.produktBatchId +
-                    ", Recept id: " + produkt.receptId + "<br>");
-            })
-        } else {
-            $('#ProduktList').append("Produkt batch id: " + list.produktBatchId +
-                ", Recept id: " + list.receptId + "<br>");
+        else {
+            $('<tr>').append(
+                $('<td>').text(list.produktBatchId),
+                $('<td>').text(list.receptId),
+                $('<td>').text(list.status)
+            ).appendTo('#tableProduktBatch>tbody');
         }
     }
-    
+
     function renderList2(data) {
-    	var list = JSON.parse(data);
-    	
-    	if(list instanceof Array) {
-    		$.each(list, function(index, ProduktKomp) {
-                $('#ProduktKomponenter').append("Produkt Batch id: "+ ProduktKomp.produktBatchId +
-                    ", Råvare batch id: " + ProduktKomp.raavareBatchId +
-                    ", Netto vægt: " + ProduktKomp.netto +
-                    ", Tara: " + ProduktKomp.tara + "<br>");
-            })
-    	} else {
-    		$('#ProduktKomponenter').append("Produkt batch id: " + list.produktBatchId +
-                    ", Råvare batch id: " + list.raavareBatchId + 
-                    ", Netto vægt: " + list.netto +
-                    ", tara: " + list.tara + "<br>");
-    	}
+        var list = JSON.parse(data);
+        $('#tableKomponenter>tbody').html('');
+        if (list instanceof Array) {
+            $.each(list, function (index, ProduktKomp) {
+                $('<tr>').append(
+                    $('<td>').text(ProduktKomp.produktBatchId),
+                    $('<td>').text(ProduktKomp.raavareBatchId),
+                    $('<td>').text(ProduktKomp.brugerId),
+                    $('<td>').text(ProduktKomp.terminal),
+                    $('<td>').text(ProduktKomp.netto),
+                    $('<td>').text(ProduktKomp.tara)
+                ).appendTo('#tableKomponenter>tbody');
+            });
+        }
+
+        else {
+            $('<tr>').append(
+                $('<td>').text(list.produktBatchId),
+                $('<td>').text(list.raavareBatchId),
+                $('<td>').text(list.brugerId),
+                $('<td>').text(list.terminal),
+                $('<td>').text(list.netto),
+                $('<td>').text(list.tara)
+            ).appendTo('#tableKomponenter>tbody');
+        }
     }
+
+
+/*       function renderList(data) {
+           var list = JSON.parse(data);
+
+           if(list instanceof Array) {
+               $.each(list, function(index, produkt) {
+                   $('#ProduktList').append("Produkt batch id: " + produkt.produktBatchId +
+                       ", Recept id: " + produkt.receptId + "<br>");
+               })
+           } else {
+               $('#ProduktList').append("Produkt batch id: " + list.produktBatchId +
+                   ", Recept id: " + list.receptId + "<br>");
+           }
+       }
+
+       function renderList2(data) {
+           var list = JSON.parse(data);
+
+           if(list instanceof Array) {
+               $.each(list, function(index, ProduktKomp) {
+                   $('#ProduktKomponenter').append("Produkt Batch id: "+ ProduktKomp.produktBatchId +
+                       ", Råvare batch id: " + ProduktKomp.raavareBatchId +
+                       ", Netto vægt: " + ProduktKomp.netto +
+                       ", Tara: " + ProduktKomp.tara + "<br>");
+               })
+           } else {
+               $('#ProduktKomponenter').append("Produkt batch id: " + list.produktBatchId +
+                       ", Råvare batch id: " + list.raavareBatchId +
+                       ", Netto vægt: " + list.netto +
+                       ", tara: " + list.tara + "<br>");
+           }
+       }*/
 </script>
 
 </body>
