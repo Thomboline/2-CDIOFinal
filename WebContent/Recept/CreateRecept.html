@@ -52,13 +52,13 @@
     }
 }
 
-button {
+input [type=button] {
 	color: white;
 	background: green;
     padding: 14px 20px;
 	cursor: pointer;
 	border: none;
-	width: 100%
+	width: 50%
 }
    
 #addRaavare {
@@ -89,8 +89,8 @@ button {
     	<div class="modal-content animate">
     		Vil du oprette (flere) recept komponenter?<br>
 				<form>
-					<label><input type="button" value="Ja" onclick="showAddRaavare();"></label>
-					<label><input type="button" value="Nej" onclick="document.getElementById('option').style.display='none'"></label>
+					<input type="button" value="Ja" onclick="showAddRaavare();" style="width:auto;">
+					<input type="button" value="Nej" onclick="document.getElementById('option').style.display='none'" style="width:auto;">
 				</form>
     	</div>
     </div>

@@ -5,6 +5,17 @@
     <title>Title</title>
     
 <style> 
+
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+    position: relative;
+}
+
+img.avatar {
+    width: 30%;
+    border-radius: 50%;
+}
    
 .modal {
     display: block; 
@@ -52,6 +63,15 @@
     }
 }
 
+input [type=button] {
+	color: white;
+	background: green;
+    padding: 14px 20px;
+	cursor: pointer;
+	border: none;
+	width: 50%
+}
+
 #Recept, #Komponent {
 	display: none;
 }
@@ -63,6 +83,10 @@
 
     <div id="option" class="modal">
     	<div class="modal-content animate">
+    		<div class="imgcontainer">
+    			<img alt="Avatar" src="pics/img_search.jpg">	
+    		</div>
+    	    	
     		Vil du ændre på en recept eller dens komponenter?<br>
 				<form>
 					<label><input type="button" value="Recept" onclick="ShowRecept();"></label>

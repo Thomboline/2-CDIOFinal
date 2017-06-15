@@ -90,10 +90,6 @@ function RolleVerify(Rolle)
                             $("#wrapper").load("Raavare/EditRaavare.html");
                         });
 
-                        $("#DR").on("click", function () {
-                            $("#wrapper").load("Raavare/DeleteRaavare.html");
-                        });
-
                         $("#LRB").on("click", function () {
                             $("#wrapper").load("RaavareBatch/ListRaavareBatch.html");
                         });
@@ -104,10 +100,6 @@ function RolleVerify(Rolle)
 
                         $("#ERB").on("click", function () {
                             $("#wrapper").load("RaavareBatch/EditRaavareBatch.html");
-                        });
-
-                        $("#DRB").on("click", function () {
-                            $("#wrapper").load("RaavareBatch/DeleteRaavareBatch.html");
                         });
 
                         $("#LPB").on("click", function () {
@@ -130,9 +122,6 @@ function RolleVerify(Rolle)
                             $("#wrapper").load("Recept/EditRecept.html");
                         });
 
-                        $("#DRE").on("click", function () {
-                            $("#wrapper").load("Recept/DeleteRecept.html");
-                        });
                     });
                 })
                 }
@@ -151,10 +140,6 @@ function RolleVerify(Rolle)
 
                         $("#ERB").on("click", function () {
                             $("#wrapper").load("RaavareBatch/EditRaavareBatch.html");
-                        });
-
-                        $("#DRB").on("click", function () {
-                            $("#wrapper").load("RaavareBatch/DeleteRaavareBatch.html");
                         });
 
                         $("#LPB").on("click", function () {
@@ -224,10 +209,6 @@ function RolleVerify(Rolle)
                              $("#wrapper").load("Raavare/EditRaavare.html");
                          });
 
-                         $("#DR").on("click", function () {
-                             $("#wrapper").load("Raavare/DeleteRaavare.html");
-                         });
-
                          $("#LRB").on("click", function () {
                              $("#wrapper").load("RaavareBatch/ListRaavareBatch.html");
                          });
@@ -238,10 +219,6 @@ function RolleVerify(Rolle)
 
                          $("#ERB").on("click", function () {
                              $("#wrapper").load("RaavareBatch/EditRaavareBatch.html");
-                         });
-
-                         $("#DRB").on("click", function () {
-                             $("#wrapper").load("RaavareBatch/DeleteRaavareBatch.html");
                          });
 
                          $("#LPB").on("click", function () {
@@ -262,10 +239,6 @@ function RolleVerify(Rolle)
 
                          $("#ERE").on("click", function () {
                              $("#wrapper").load("Recept/EditRecept.html");
-                         });
-
-                         $("#DRE").on("click", function () {
-                             $("#wrapper").load("Recept/DeleteRecept.html");
                          });
                          
                          $("#LU").on("click", function () {
