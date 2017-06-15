@@ -5,18 +5,9 @@
     <title>Title</title>
     
 <style> 
-
-button {
-	color: white;
-	background: green;
-    padding: 14px 20px;
-	cursor: pointer;
-	border: none;
-	width: 50%
-}
    
 .modal {
-    display: none; 
+    display: block; 
     position: fixed; 
     z-index: 1; 
     left: 0;
@@ -161,7 +152,7 @@ function ShowRecept() {
 	document.getElementById('option').style.display='none';
 }
 
-function Showkomponenter() {
+function ShowKomponenter() {
 	document.getElementById('Komponent').style.display='block';
 	document.getElementById('option').style.display='none';
 }
