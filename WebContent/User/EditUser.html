@@ -1,3 +1,11 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
 <form id="EditUser">
     Bruger id:<br>
     <label>
@@ -32,11 +40,18 @@
 
 <script>
 $(document).ready(function() {
+	
+	// Når hele dokumentet er loaded bliver vores submit function tilgængelig. 
+	// Vi henter alt submittet data, serializer og laver en variabel med vores objecter i.
+	
 	$("#EditUser").submit(function(event) {
 		data = $("#EditUser").serializeArray();
+		
+		//Forhindre at vi refresher siden. 
 		event.preventDefault();
+		
 		var user = {
-		id : data[0]['value'],
+		brugerId : data[0]['value'],
 		brugerNavn : data[1]['value'],
 		ini : data[2]['value'],
 		password : data[3]['value'],
@@ -44,6 +59,7 @@ $(document).ready(function() {
 		rolle : data[5]['value'],
 		status : data[6]['value']
 		};
+		
 		EditUser(user);
 		return false;
 	});
@@ -57,11 +73,14 @@ function EditUser(user) {
 		data: JSON.stringify(user),
 		contentType: 'application/json',
 		success: function (response) {
-			alert("User edited: " + response);
+			alert("Bruger retter ");
 		},
 		error: function (jqXHR, textStatus, errorThrown) {
-			alert("Unsuccessful: " + textStatus);
+			alert("Fejl: " + textStatus);
 		}
 	});
 }
 </script>
+
+</body>
+</html>

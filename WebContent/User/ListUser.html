@@ -11,8 +11,34 @@
 		<input id="number" type="number" name="UserID"><br>
 		<input type="submit" value="Søg">
 </form>
+
+
 <div>
 	<ul id="UserList"></ul>
+    <table border="1px" class="table table-striped" id="tableBrugere" style="width:100%;">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Navn</th>
+            <th>Initialer</th>
+            <th>CPR-nummer</th>
+            <th>Rolle</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td colspan="10">
+                <div style="text-align:center;">
+                    <h2>
+                        <i class="fa fa-circle-o-notch fa-spin" style="font-size: 24px"></i>
+                        Udsøg bruger
+                    </h2>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
 <script>
@@ -37,7 +63,7 @@ function search(searchKey) {
 				'text json': true
 			},
 			success: function(response) {
-				$("#UserList").empty().html(renderList(response));
+				renderList(response);
 			}
 		});			
 	} else {
@@ -49,35 +75,41 @@ function search(searchKey) {
 				'text json': true
 			},
 			success: function(response) {
-				$("#UserList").empty().html(renderList(response));
+				renderList(response);
 			}
 		});
 	}
 }
 
+
 function renderList(data) {
     var list = JSON.parse(data);
-    console.log(list);
-    if(list instanceof Array) {
-        $.each(list, function(index, user) {
-            $('#UserList').append(
-            		"ID: "+user.brugerId+
-                ", Brugernavn: "+user.brugerNavn+
-                ", Initialer: "+ user.ini+
-                ", Cpr-nummer: "+user.cpr+
-                ", Rolle: "+user.rolle+
-                ", Status: "+user.status+"<br>");
+    $('#tableBrugere>tbody').html('');
+    if (list instanceof Array) {
+        $.each(list, function (index, user) {
+            $('<tr>').append(
+                $('<td>').text(user.brugerId),
+                $('<td>').text(user.brugerNavn),
+                $('<td>').text(user.ini),
+                $('<td>').text(user.cpr),
+                $('<td>').text(user.rolle),
+                $('<td>').text(user.status)
+            ).appendTo('#tableBrugere>tbody');
         })
     }
-    else{
-        $('#UserList').append("ID: "+list.brugerId+
-            ", Brugernavn: "+list.brugerNavn+
-            ", Initialer: "+ list.ini+
-            ", Cpr-nummer: "+list.cpr+
-            ", Rolle: "+list.rolle+
-            ", Status: "+list.status+"<br>");
+
+    else {
+            $('<tr>').append(
+                $('<td>').text(list.brugerId),
+                $('<td>').text(list.brugerNavn),
+                $('<td>').text(list.ini),
+                $('<td>').text(list.cpr),
+                $('<td>').text(list.rolle),
+                $('<td>').text(list.status)
+            ).appendTo('#tableBrugere>tbody');
     }
 }
+
 
 </script>
 

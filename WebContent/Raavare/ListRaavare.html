@@ -8,13 +8,34 @@
 
 <form id="ListRaavare">
     <div>
-        Søg på et RaavareID:<br>
+        Søg på et Råvare ID:<br>
         <input id="number" type="number" name="RaavareID"><br>
         <input type="submit" value="Søg">
     </div>
 </form>
 <div>
     <ul id="RaavareList"></ul>
+    <table border="1px" class="table table-striped" id="tableRaavare" style="width:100%;">
+        <thead>
+        <tr>
+            <th>RåvareID</th>
+            <th>RåvareNavn</th>
+            <th>Leverandør</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td colspan="10">
+                <div style="text-align:center;">
+                    <h2>
+                        <i class="fa fa-circle-o-notch fa-spin" style="font-size: 24px"></i>
+                        Udsøg Råvare
+                    </h2>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
 <script>
@@ -39,7 +60,7 @@
                     'text json': true
                 },
                 success: function(response) {
-                    $("#RaavareList").empty().html(renderList(response));
+                    renderList(response);
                 }
             });
         } else {
@@ -51,7 +72,7 @@
                     'text json': true
                 },
                 success: function(response) {
-                    $("#RaavareList").empty().html(renderList(response));
+                    renderList(response);
                 }
             });
         }
@@ -59,19 +80,42 @@
 
     function renderList(data) {
         var list = JSON.parse(data);
-        if(list instanceof Array) {
-            $.each(list, function(index, raavare) {
-                $('#RaavareList').append("ID: "+raavare.raavareId+
-                    ", Raavarenavn: "+raavare.raavareNavn+
-                    ", Leverandoer: "+ raavare.leverandoer+ "<br>");
-            })
+        $('#tableRaavare>tbody').html('');
+        if (list instanceof Array) {
+            $.each(list, function (index, raavare) {
+                $('<tr>').append(
+                    $('<td>').text(raavare.raavareId),
+                    $('<td>').text(raavare.raavareNavn),
+                    $('<td>').text(raavare.leverandoer)
+                ).appendTo('#tableRaavare>tbody');
+            });
         }
-        else{
-            $('#RaavareList').append("ID: "+list.raavareId+
-                ", Brugernavn: "+list.raavareNavn+
-                ", Initialer: "+ list.leverandoer+ "<br>");
+
+        else {
+            $('<tr>').append(
+                $('<td>').text(list.raavareId),
+                $('<td>').text(list.raavareNavn),
+                $('<td>').text(list.leverandoer)
+            ).appendTo('#tableRaavare>tbody');
         }
     }
+
+
+    /*  function renderList(data) {
+          var list = JSON.parse(data);
+          if(list instanceof Array) {
+              $.each(list, function(index, raavare) {
+                  $('#RaavareList').append("ID: "+raavare.raavareId+
+                      ", Raavarenavn: "+raavare.raavareNavn+
+                      ", Leverandoer: "+ raavare.leverandoer+ "<br>");
+              })
+          }
+          else{
+              $('#RaavareList').append("ID: "+list.raavareId+
+                  ", Brugernavn: "+list.raavareNavn+
+                  ", Initialer: "+ list.leverandoer+ "<br>");
+          }
+      }*/
 </script>
 
 </body>

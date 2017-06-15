@@ -7,12 +7,33 @@
 <body>
 
 <form id="ListRaavareBatch">
-		Søg på et raavarebatch Id:<br>
+		Søg på et råvarebatch Id:<br>
 		<input id="number" type="number" name="RaavareBatchId"><br>
 		<input type="submit" value="Søg">
 </form>
 <div>
 	<ul id="RaavareBatchList"></ul>
+	<table border="1px" class="table table-striped" id="tableRaavareBatch" style="width:100%;">
+		<thead>
+		<tr>
+			<th>RåvareBatchID</th>
+			<th>RåvareID</th>
+			<th>Mængde</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td colspan="10">
+				<div style="text-align:center;">
+					<h2>
+						<i class="fa fa-circle-o-notch fa-spin" style="font-size: 24px"></i>
+						Udsøg RåvareBatch
+					</h2>
+				</div>
+			</td>
+		</tr>
+		</tbody>
+	</table>
 </div>
 
 <script>
@@ -37,7 +58,7 @@ function search(searchKey) {
 				'text json': true
 			},
 			success: function(response) {
-				$("#RaavareBatchList").empty().html(renderList(response));
+				renderList(response);
 			}
 		});			
 	} else {
@@ -49,13 +70,36 @@ function search(searchKey) {
 				'text json': true
 			},
 			success: function(response) {
-				$("#RaavareBatchList").empty().html(renderList(response));
+				renderList(response);
 			}
 		});
 	}
 }
 
+
 function renderList(data) {
+    var list = JSON.parse(data);
+    $('#tableRaavareBatch>tbody').html('');
+    if (list instanceof Array) {
+        $.each(list, function (index, raavareBatch) {
+            $('<tr>').append(
+                $('<td>').text(raavareBatch.rbId),
+                $('<td>').text(raavareBatch.raavareId),
+                $('<td>').text(raavareBatch.maengde)
+            ).appendTo('#tableRaavareBatch>tbody');
+        });
+    }
+
+    else {
+        $('<tr>').append(
+            $('<td>').text(list.rbId),
+            $('<td>').text(list.raavareId),
+            $('<td>').text(list.maengde)
+        ).appendTo('#tableRaavareBatch>tbody');
+    }
+}
+
+/*function renderList(data) {
     var list = JSON.parse(data);
     console.log(list);
     if(list instanceof Array) {
@@ -72,7 +116,7 @@ function renderList(data) {
                 ", raavareId: "+list.raavareId+
                 ", maengde: "+ list.maengde+ "<br>");
     }
-}
+}*/
 
 </script>
 

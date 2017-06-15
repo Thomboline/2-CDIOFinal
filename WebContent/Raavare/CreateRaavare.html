@@ -1,3 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
 <form id="CreateRaavare">
     Råvare id:<br>
     <label>
@@ -16,14 +24,23 @@
 
 <script>
     $(document).ready(function(event) {
+    	
+    	
+    	// Når hele dokumentet er loaded bliver vores submit function tilgængelig.
+    	// Vi henter alt submittet data, serializer og laver en variabel med vores objecter i.	
+    	
         $('#CreateRaavare').submit(function(event) {
             data = $('#CreateRaavare').serializeArray();
+            
+            //Forhindre at vi refresher siden. 
             event.preventDefault();
+            
             var raavare = {
                 raavareId : data[0]['value'],
                 raavareNavn: data[1]['value'],
                 leverandoer : data[2]['value']
             };
+            
             CreateRaavare(raavare);
             return false;
         });
@@ -37,11 +54,14 @@
             data: JSON.stringify(raavare),
             contentType: "application/json",
             success: function (response) {
-                alert("Raavare created: " + response );
+                alert("Råvare oprettet");
             },
             error: function (jqXHR, textStatus, errorThrown){
-                alert("Unsuccesful: " + textStatus);
+                alert("Fejl: " + textStatus);
             }
         });
     }
 </script>
+
+</body>
+</html>

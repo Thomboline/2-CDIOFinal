@@ -24,8 +24,14 @@
 
 <script>
     $(document).ready(function(event) {
+    	
+    	// Når hele dokumentet er loaded bliver vores submit function tilgængelig. 
+    	// Vi henter alt submittet data, serializer og laver en variabel med vores objecter i.	
+    	
         $('#CreateRaavareBatch').submit(function(event) {
             data = $('#CreateRaavareBatch').serializeArray();
+            
+    		//Forhindre at vi refresher siden.
             event.preventDefault();
             
             var raavareBatch = {
@@ -33,7 +39,6 @@
                 raavareId: data[1]['value'],
                 maengde : data[2]['value']
             };
-            console.log(raavareBatch);
             
             CreateRaavareBatch(raavareBatch);
             return false;
@@ -48,10 +53,10 @@
             data: JSON.stringify(raavareBatch),
             contentType: "application/json",
             success: function (response) {
-                alert("RaavareBatch created: " + response );
+                alert("RåvareBatch opretter");
             },
             error: function (jqXHR, textStatus, errorThrown){
-                alert("Unsuccesful: " + textStatus);
+                alert("Fejl: " + textStatus);
             }
         });
     }

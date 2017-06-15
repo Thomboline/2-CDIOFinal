@@ -11,23 +11,24 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+<!-- Login med prædefinerede værdier for "Demo-brugeren"  -->
+
 <div class="Login">
+    <form id="Login" class="form-signin">
+        <header class="headerLogin">SoftwareTech</header>
+            <label for="brugerId" class="sr-only">&nbsp;Bruger ID</label>
+            <input type="text" id="brugerId" name="brugerId" class="form-control" placeholder="brugerId" value="1"><br>
 
+            <label for="password" class="sr-only">&nbsp;Password</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Kodeord" value="root"><br>
 
-<form id="Login" class="form-signin">
-    <h2 class="form-signin-heading">Login</h2>
-
-        <label for="brugerId" class="sr-only">brugerId</label>
-        <input type="text" id="brugerId" name="brugerId" class="form-control" placeholder="brugerId" required autofocus>
-
-        <label for="password" class="sr-only">Password</label>
-        <input type="password" id="password" name="password" class="form-control" placeholder="Kodeord" required>
-
-        <button type="submit">Login</button>
-
-</form>
-
+            <button type="submit">Login</button>
+        <footer class="footerLogin">Group 19 - DTU 2017</footer>
+    </form>
 </div>
+
+
+<!-- Menu baren, med begrænsninger baseret brugerens rolle.  -->
 
 <div class="container">
 
@@ -38,20 +39,29 @@
     <div class="Vaerkfoerer"></div>
 
  	<div class="Administrator"></div> 
+ 	
+ 	<div class="Root"></div>
 
     <div class="dropdown" id="ProfilIndstillinger">
-    	<button class="dropdownbtn">Profil instillinger</button>
+    	<button class="dropdownbtn">Profil</button>
     </div>
 
     <div class="dropdown" id="LogUd">
         <button class="dropdownbtn">Log Ud</button>
     </div>
 
+    <footer class="footerHomePage">Group 19 - DTU 2017</footer>
+
 </div>
 
-<div id="wrapper"></div>
+
+<!-- Div for vores indhold på hjemmesiden -->
+
+<div class="wrapper" id="wrapper"></div>
+
 
 <script src = "js/Main.js"></script>
+
 
 </body>
 </html>
