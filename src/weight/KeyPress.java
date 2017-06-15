@@ -39,6 +39,10 @@ public class KeyPress {
 		return new KeyPress(0,character,KeyPressType.TEXT);
 	}
 	
+	public static KeyPress OnClose() {
+		return new KeyPress(0, '\\', KeyPressType.ONCLOSE);
+	}
+	
 	private KeyPress(int keyNumber, char character, KeyPressType type){
 		this.keyNumber=keyNumber; this.character=character; this.type=type;
 	}
@@ -56,6 +60,6 @@ public class KeyPress {
 	}
 	
 	public enum KeyPressType{
-		SOFTBUTTON, TEXT, EXIT, ZERO, TARA, SEND, CANCEL	
+		SOFTBUTTON, TEXT, EXIT, ZERO, TARA, SEND, CANCEL, ONCLOSE;	
 	}
 }

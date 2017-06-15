@@ -168,6 +168,13 @@ public class FxApp extends Application {
 			
 			primaryStage.setScene(scene);
 			primaryStage.show();
+			
+			primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				  public void handle(WindowEvent we) {
+				      onClose(); 
+					  System.out.println("Stage is closing");
+				    }
+			  });
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -182,9 +189,12 @@ public class FxApp extends Application {
 	public void setSim(WeightInterfaceControllerGUI l){
 		this.l = l;
 	}
-
+	
+  
 
 	//output
+	
+	private void onClose() {l.onClose(); }
 	private void onSliderValueChange(Double newValue){ l.onSliderValueChange(newValue); }
 	private void onExitButtonPressed(){ l.onExitButtonPressed(); }
 	private void onZeroButtonPressed(){ l.onZeroButtonPressed(); }

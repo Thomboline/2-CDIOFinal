@@ -26,11 +26,11 @@ public class SocketController implements ISocketController
 	private Set<ISocketObserver> observers = new HashSet<ISocketObserver>();
 	private Map<String, String> connectedClients = new HashMap<String, String>(); //Answer to = TODO Maybe add some way to keep track of multiple connections?
 	private List<DataOutputStream> dout = new ArrayList<DataOutputStream>(); 
-	
+	Socket activeSocket;
 	private int runOnce = 0;
 	private int Port = 8000;
 	
-	public static int test = 3;
+	public static int iterator = 3;
 	
 	
 	public void OutputCMD(String message)
@@ -52,7 +52,7 @@ public class SocketController implements ISocketController
 	{
 		for(Entry<String, String> entry : connectedClients.entrySet()) 
 		{
-		    String ClientView = ("Client Ip adress: " + entry.getKey() + " Numbers of clients: " + entry.getValue() + "\n");
+		    String ClientView = ("Client ip address: " + entry.getKey()); // + " Numbers of clients: " + entry.getValue() + "\n");
 		    OutputCMD(ClientView);
 		} 
 	}
@@ -131,43 +131,14 @@ public class SocketController implements ISocketController
 
 	private void waitForConnections(ServerSocket listeningSocket) {
 		try {
-			Socket activeSocket = listeningSocket.accept();
+			activeSocket = listeningSocket.accept();
 			DataOutputStream temp = new DataOutputStream(activeSocket.getOutputStream());
 			dout.add(temp);
-
-			if (runOnce < 1) {
-				String ChangePortMessage = "Do you wish to change the port number on the device, y/n?\n";
-				OutputCMD(ChangePortMessage);
-
-				BufferedReader inStream = new BufferedReader(new InputStreamReader(activeSocket.getInputStream()));
-				String inLine = inStream.readLine();
-
-				switch (inLine.split(" ")[0]) {
-				case "y":
-					String ChangePortMessage2 = "Please type in the new port number\n";
-					OutputCMD(ChangePortMessage2);
-					int NewPort = Integer.parseInt(inStream.readLine());
-					setPortNumber(NewPort);
-					break;
-				case "n":
-					break;
-
-				default:
-					String ChangePortMessage3 = "Input error";
-					OutputCMD(ChangePortMessage3);
-					break;
-				}
-
-				runOnce++;
-
-				String Addr = activeSocket.getInetAddress().toString();
-				new SocketThread(activeSocket, this).start();
-
-				int activeCount = SocketThread.activeCount() - 8;
-				String clientCount = Integer.toString(activeCount);
-				connectedClients.put(Addr, clientCount);
-
-			}
+			String Addr = activeSocket.getInetAddress().toString();
+			new SocketThread(activeSocket, this).start();
+			int activeCount = SocketThread.activeCount() - 8;
+			String clientCount = Integer.toString(activeCount);
+			connectedClients.put(Addr, clientCount);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -180,43 +151,23 @@ public class SocketController implements ISocketController
 			socketObserver.notify(message);
 		}
 	}
-
-	public boolean isItANumber(String x)//IT is!//
-	{
-		boolean b = true;
-		String s = x;
-		int dotCount = 0;
-		for(int i = 0; i < s.length(); i++)
-		{
-			if(s.charAt(i) >= 48 && s.charAt(i) <= 57) 
-			{
-			}
-			else if(s.charAt(i) == 46)
-			{
-				dotCount++;
-			}
-			else b = false;
-		}
-		if(dotCount > 1)
-		{
-			b = false;
-		}
-		return b;
-	}
 	
+	public void close() {
+		System.out.println("closing socket");
+		try {
+		activeSocket.close();
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
 
 class SocketThread extends Thread 
 {	
 	
-	private String userName;
-	private int userID;
-	
 	Socket activeSocket;
 	SocketController SC;
-	  
-	private BufferedReader inStream;
-	 
 	  
 	  public SocketThread(Socket activeSocket, SocketController SC ) 
 	  {
@@ -224,213 +175,94 @@ class SocketThread extends Thread
 	    this.SC = SC;
 	  }
 	  
-	  	
-	public boolean login() {
-		
-		this.userName = "Anders And";
-		this.userID = 12;
-		
-		while (true) {
-			try {
-				SC.sendMessage(new SocketOutMessage("Please enter your userID\r\n"));
-
-				int userID = Integer.parseInt(inStream.readLine());
-				if (this.userID == userID) {
-					SC.sendMessage(new SocketOutMessage("Your user ID is " + this.userID + "\r\n" + "Confirm: y/n\r\n"));
-					String answer = inStream.readLine();
-					if (answer.equals("y")) {
-						SC.sendMessage(new SocketOutMessage("Your name is " + this.userName + "\r\n" + "Confirm: y/n\r\n"));
-						answer = inStream.readLine();
-						if (answer.equals("y")) {
-							return true;
-						} else {
-							SC.sendMessage(new SocketOutMessage("Name incorrect. Try again."));
-						}
-					} else {
-						SC.sendMessage(new SocketOutMessage("ID does not exist.\r\n"));
-					}
-				}
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-			return false;
-		}
-		
-	}
-	
+	//Styrer kommunikationen mellem socket og vægt i et lukket miljø
 	  public void run() 
 	  {	
 		//  String inLine;
 		  
 		  try 
 		  {
-	    	inStream = new BufferedReader(new InputStreamReader(activeSocket.getInputStream()));
-	    	
-	    	//while(!login()) {}
-	    	
 	   	    SC.viewClient();
-	   	    
-	   	    //Test variabel
 	   	    while (true)
 	    	{
-	   	    		
-	   	    	switch(SocketController.test) {
+	   	    	switch(SocketController.iterator) {
 	   	    		
 	   	    	case 3:
-	   		   	    System.out.println("Test nr: " + SocketController.test);
-	   		   	SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Terminalnummer: "));
+	   		   	    System.out.println("Test nr: " + SocketController.iterator);
+	   		   	SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Vælg afvejningsterminal (1-4)"));
 	   	    		break;
 	   	    		
 	   	    	case 4:
-	   	    		System.out.println("Test nr: " + SocketController.test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborantnummer: "));
+	   	    		System.out.println("Test nr: " + SocketController.iterator);
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Indtast laborantnummer: "));
 	   	    		break;
 	   	    		
 	   	    	case 5:
-	   	    		System.out.println("Test nr: " + SocketController.test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: "));
+	   	    		System.out.println("Test nr: " + SocketController.iterator);
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Logget ind som: "));
 	   	    		break;
 	   	    		
 	   	    	case 6:
-	   	    		System.out.println("Test nr: " + SocketController.test);
+	   	    		System.out.println("Test nr: " + SocketController.iterator);
 	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Produktbatch: "));
 	   	    		break;
 	   	    		
 	   	    	case 7:
-	   	    		System.out.println("Test nr: " + SocketController.test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Recept: "));
+	   	    		System.out.println("Test nr: " + SocketController.iterator);
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Der skal produceres "));
 	   	    		break;
 	   	    		
 	   	    	case 8:
-	   	    		System.out.println("Test nr: " + SocketController.test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Nuv�rende v�gt: "));
+	   	    		System.out.println("Test nr: " + SocketController.iterator);
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Nuvaerende belastning: "));
 	   	    		break;
 	   	    		
 	   	    	case 9:
-	   	    		System.out.println("Test nr: " + SocketController.test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Produktion igangsat"));
+	   	    		System.out.println("Test nr: " + SocketController.iterator);
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Produktion igangsat. Vaegten tareres."));
 	   	    		break;
 	   	    		
 	   	    	case 10:
-	   	    		System.out.println("Test nr: " + SocketController.test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Tar�r v�gten."));
+	   	    		System.out.println("Test nr: " + SocketController.iterator);
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.T, "Tarer vaegten."));
 	   	    		break;
 	   	    	
 	   	    	//Afvejningsprocedure trin 11, 12, 13 & 14 h�nger sammen i en case.
 	   	    	case 11:
-	   	    		System.out.println("Test nr: " + SocketController.test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Placer tara og tar�r v�gten"));
+	   	    		System.out.println("Test nr: " + SocketController.iterator);
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Læg beholder på vægten og tryk 'Tara'"));
 	   	    		break;
 	   	    	
 	   	    	case 12:
-	   	    		System.out.println("Test nr: " + SocketController.test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Raavarebatch: "));
+	   	    		System.out.println("Test nr: " + SocketController.iterator);
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Indtast ønsket raavarebatchnummer: "));
 	   	    		break;
 	   	    	
 	   	    	case 13:
-	   	    		System.out.println("Test nr: " + SocketController.test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Tryk OK for at starte afvejning"));
+	   	    		System.out.println("Test nr: " + SocketController.iterator);
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Afvej råvare og tryk OK"));
 	   	    		break;
 	   	    	
 	   	    	case 14:
-	   	    		System.out.println("Test nr: " + SocketController.test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Afvej raavare"));
+	   	    		System.out.println("Test nr: " + SocketController.iterator);
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Godkendt"));
 	   	    		break;
 	   	  
 	   	    	case 15:
-	   	    		System.out.println("Test nr: " + SocketController.test);
+	   	    		System.out.println("Test nr: " + SocketController.iterator);
 	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "V�gten er registreret."));
 	   	    		break;
 	   	    	
 	   	    	case 16:
-	   	    		System.out.println("Test nr: " + SocketController.test);
-	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Laborant: " + SocketController.test));
+	   	    		System.out.println("Test nr: " + SocketController.iterator);
+	   	    		SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "Afvejningen er registreret i databasen."));
 	   	    		break;
 	   	    	}
-
-	   	    	SocketController.test++;
+	   	    	SocketController.iterator++;
 	   	    	}
-		    
-		  	
 		  }
-		  catch (IOException e) {
+		  catch (Exception e) {
 		      System.out.println(e);
 		   }
-
-		 
 	  }
-		  
 }
-
-				//H�rte til i run();
-//	   	 		inLine = inStream.readLine();
-//	    
-//	    		System.out.println(inLine);
-//	    		if (inLine==null) break;
-//	    		switch (inLine.split(" ")[0])
-//	    		{
-//				case "RM20": // Display a message in the secondary display and wait for response
-//					if(inLine.split(" ")[1].equals("8"))
-//					{
-//						try 
-//						{
-//							SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, inLine.split("8")[1]));
-//						}
-//						catch (ArrayIndexOutOfBoundsException e) 
-//						{
-//							SC.notifyObservers(new SocketInMessage(SocketMessageType.RM208, "INDTAST NR"));
-//						}
-//					}
-//					else if(inLine.split(" ")[1].equals("4"))
-//					{
-//						SC.notifyObservers(new SocketInMessage(SocketMessageType.RM204, inLine.split("8")[1]));
-//						System.out.println("Du har skrevet RM204");
-//					}
-//					else 
-//						System.out.println("Du har tastet forkert.");
-//					break;
-//				case "D": // Write in secondary display
-//						SC.notifyObservers(new SocketInMessage(SocketMessageType.D, inLine.split(" ")[1])); 
-//					break;
-//				case "DW": //Clear primary display
-//					SC.notifyObservers(new SocketInMessage(SocketMessageType.DW, "DW"));
-//					break;
-//				case "P111": //Show something in secondary display
-//					SC.notifyObservers(new SocketInMessage(SocketMessageType.P111, inLine.split(" ")[1]));
-//					break;
-//				case "T": // Tare the weight
-//					SC.notifyObservers(new SocketInMessage(SocketMessageType.T, "T"));
-//					break;
-//				case "S": // Request the current load
-//					SC.notifyObservers(new SocketInMessage(SocketMessageType.S, "S"));
-//					break;
-//				case "K": // Choose keystate
-//					if (inLine.split(" ").length>1){
-//						SC.notifyObservers(new SocketInMessage(SocketMessageType.K, inLine.split(" ")[1]));
-//					}
-//					break;
-//				case "B": // Set the load
-//					try {
-//					if(SC.isItANumber(inLine.split(" ")[1])){
-//						SC.notifyObservers(new SocketInMessage(SocketMessageType.B, inLine.split(" ")[1])); 
-//					}
-//					}
-//					catch(ArrayIndexOutOfBoundsException ex) {
-//						System.out.println("You can't do that.");
-//					}
-//					
-//					break;
-//				case "Q": // Quit
-//					SC.notifyObservers(new SocketInMessage(SocketMessageType.Q, "Q"));
-//					this.interrupt();
-//					break;
-//				default: //Something went wrong?
-//					try {
-//						SC.notifyObservers(new SocketInMessage(SocketMessageType.DE, inLine.split(" ")[1]));
-//						} catch (ArrayIndexOutOfBoundsException e) 
-//						{
-//							SC.notifyObservers(new SocketInMessage(SocketMessageType.DE, " "));
-//						}
-//					break;
-//				}
-

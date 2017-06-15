@@ -114,5 +114,12 @@ public class WeightInterfaceControllerGUI implements IWeightInterfaceController 
 			o.notifyKeyPress(KeyPress.SoftButton(i));
 		}
 	}
+	@Override
+	public void onClose() {
+		for (IWeightInterfaceObserver o : observers) {
+		o.notifyKeyPress(KeyPress.OnClose());
+		}
+		
+	}
 
 }
