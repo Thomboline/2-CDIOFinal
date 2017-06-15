@@ -1,11 +1,9 @@
 package socket;
 
 import java.util.List;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -27,7 +25,6 @@ public class SocketController implements ISocketController
 	private Map<String, String> connectedClients = new HashMap<String, String>(); //Answer to = TODO Maybe add some way to keep track of multiple connections?
 	private List<DataOutputStream> dout = new ArrayList<DataOutputStream>(); 
 	Socket activeSocket;
-	private int runOnce = 0;
 	private int Port = 8000;
 	
 	public static int iterator = 3;

@@ -1,10 +1,6 @@
 package controller;
 
-import java.awt.List;
 import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.ArrayList;
-
 import connector.DALException;
 import dao.BrugerDAO;
 import dao.ProduktBatchDAO;
@@ -15,7 +11,6 @@ import dao.ReceptDAO;
 import dao.ReceptKompDAO;
 import dto.ProduktBatchDTO;
 import dto.ProduktBatchKompDTO;
-import dto.ReceptDTO;
 import socket.ISocketController;
 import socket.ISocketObserver;
 import socket.SocketController;
@@ -72,7 +67,7 @@ public class WeightController implements IWeightController, ISocketObserver, IWe
 	private String[] cd;
 	
 	//Boolske variable til condition handling og container til softBtn beskrivelser
-	private boolean isWriting, isTara, isRM208, isWeighing, isFinished, cancel;
+	private boolean isWriting, isTara, isRM208, isWeighing, isFinished;
 	private boolean softBtn0 = false, softBtn1 = false, softBtn2 = false,
 					softBtn3 = false, softBtn4 = false, softBtn5 = false;
 	private boolean softBtns[] = {softBtn0, softBtn1, softBtn2, softBtn3, softBtn4, softBtn5};
