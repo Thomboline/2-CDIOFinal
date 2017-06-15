@@ -66,6 +66,7 @@
                     'text json': true
                 },
                 success: function(response) {
+                	$("#ReceptKomponenter").hide();
                     $("#ReceptList").empty().html(renderList(response));
                 }
             });
@@ -89,18 +90,20 @@
     function renderList2(data) {
     	var list = JSON.parse(data);
     	
+    	console.log(data);
+    	
     	if(list instanceof Array) {
     		$.each(list, function(index, receptKomp) {
                 $('#ReceptKomponenter').append("ReceptID: "+ receptKomp.receptId +
                     ", RåvareId: " + receptKomp.raavareId +
-                    ", Mængde: " + receptKomp.maengde +
+                    ", Mængde: " + receptKomp.nomNetto +
                     ", Tolerance: " + receptKomp.tolerance + "<br>");
             })
     	} else {
-    		$('#ReceptKomponenter').append("ReceptID: "+list.receptId+
+    		$('#ReceptKomponenter').append("ReceptID: " + list.receptId +
                     ", RåvareId: " + list.receptNavn + 
-                    ", Mængde: " + list.maengde +
-                    ", tolerance: " + list.maengde + "<br>");
+                    ", Mængde: " + list.nomNetto +
+                    ", tolerance: " + list.tolerance + "<br>");
     	}
     }
 </script>
