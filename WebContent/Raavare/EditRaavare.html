@@ -24,14 +24,23 @@
 
 <script>
     $(document).ready(function(event) {
+    	
+    	
+    	// Når hele dokumentet er loaded bliver vores submit function tilgængelig.
+    	// Vi henter alt submittet data, serializer og laver en variabel med vores objecter i.	
+    	
         $("#EditRaavare").submit(function(event) {
             data = $("#EditRaavare").serializeArray();
+
+            //Forhindre at vi refresher siden.
             event.preventDefault();
+            
             var raavare = {
                 raavareId : data[0]['value'],
                 raavareNavn : data[1]['value'],
                 leverandoer : data[2]['value']
             };
+            
             EditRaavare(raavare);
             return false;
         });
@@ -45,10 +54,10 @@
             data: JSON.stringify(raavare),
             contentType: 'application/json',
             success: function (response) {
-                alert("Raavare edited: " + response);
+                alert("Råvare rettet");
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                alert("Unsuccessful: " + textStatus);
+                alert("Fejl: " + textStatus);
             }
         });
     }
