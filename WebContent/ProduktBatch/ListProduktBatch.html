@@ -61,7 +61,7 @@
         	
             $.ajax({
                 type: 'GET',
-                url: 'rest/ProduktBatchService/ProduktBatchList',
+                url: 'rest/ProduktBatchService/produktBatchList',
                 dataType: 'json',
                 converters: {
                     'text json': true
@@ -94,13 +94,13 @@
     		$.each(list, function(index, ProduktKomp) {
                 $('#ProduktKomponenter').append("Produkt Batch id: "+ ProduktKomp.produktBatchId +
                     ", Råvare batch id: " + ProduktKomp.raavareBatchId +
-                    ", Netto vægt: " + ProduktKomp.nomNetto +
+                    ", Netto vægt: " + ProduktKomp.netto +
                     ", Tara: " + ProduktKomp.tara + "<br>");
             })
     	} else {
     		$('#ProduktKomponenter').append("Produkt batch id: " + list.produktBatchId +
                     ", Råvare batch id: " + list.raavareBatchId + 
-                    ", Netto vægt: " + list.nomNetto +
+                    ", Netto vægt: " + list.netto +
                     ", tara: " + list.tara + "<br>");
     	}
     }
